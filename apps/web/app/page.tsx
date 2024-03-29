@@ -1,7 +1,7 @@
-export default function Page(): JSX.Element {
-  return (
-    <main >
-<h1>hello</h1>
-    </main>
-  );
-}
+type Props = {};
+
+const Page = (props: Props) => {
+  return <div>Hello page</div>;
+};
+
+export default Page;
