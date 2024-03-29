@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        @apply text-[10px];
+    }
+    body {
+        @apply text-base font-light font-primary;
+    }
+    h1 {
+        @apply text-4xl font-light;
+    }
+    h2 {
+        @apply text-3xl font-light;
+    }
+    h3 {
+        @apply text-2xl font-medium;
+    }
+    h4 {
+        @apply text-xl font-medium;
+    }
+}
