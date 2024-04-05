@@ -3,9 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-    html {
-        @apply text-[10px];
-    }
     body {
         @apply text-base font-light font-primary;
     }

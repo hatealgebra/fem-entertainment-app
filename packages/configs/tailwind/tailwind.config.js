@@ -22,13 +22,22 @@ module.exports = {
         primary: ['Outfit Variable', 'sans-serif']
       },
       fontSize: {
-        "sm": "1.3rem",
-        "base": "1.5rem",
-        'xl': "1.8rem",
-        '2xl': '2.4rem',
-        '3xl': '2.4rem',
-        '4xl': '3.2rem',
+        "sm": "0.8125rem",
+        "base": "0.9375rem",
+        'xl': "1.125rem",
+        '2xl': '1.5rem',
+        '3xl': '1.5rem',
+        '4xl': '2.5rem',
       },
-      extend: {},
+      extend: {
+        keyframes: {
+          "caret": {
+                "50%": {borderColor: "transparent"},
+          }
+        },
+        animation: {
+          "caretBlink": "caret 1s infinite",
+        }
+      },
     },
   };

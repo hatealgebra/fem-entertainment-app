@@ -1,5 +1,4 @@
-import "@repo/ui/globalStyle"
-
+import "@repo/ui/globalStyle";
 
 export default function RootLayout({
   children,
@@ -8,7 +7,9 @@ export default function RootLayout({
 }): JSX.Element {
   return (
     <html lang="en">
-      <body >{children}</body>
+      <body className="bg-black h-[100vh] overflow-x-hidden">
+        <main>{children}</main>
+      </body>
     </html>
   );
 }
