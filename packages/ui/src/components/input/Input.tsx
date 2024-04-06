@@ -1,33 +1,28 @@
-import { InputHTMLAttributes, Ref, forwardRef, useEffect, useRef } from "react";
+import { InputHTMLAttributes, Ref, forwardRef } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   textContent: string;
+  isSearch?: boolean;
+  error?: string;
 }
 
+// TODO: Add custom cursor
 const Input = forwardRef(
-  ({ textContent, ...props }: InputProps, ref: Ref<HTMLInputElement>) => {
-    const spanRef = useRef(null);
-
-    useEffect(() => {
-      if (!spanRef) {
-        return;
-      }
-
-      const span = spanRef.current as HTMLSpanElement;
-      span.textContent = textContent || "";
-    }, [textContent]);
-
+  (
+    { textContent, isSearch, errors, ...props }: InputProps,
+    ref: Ref<HTMLInputElement>
+  ) => {
     return (
-      <div className="relative flex w-full">
+      <div className="relative flex w-full mr-[5%]">
         <input
-          className="bg-[transparent] text-3xl font-light outline-none text-[white] w-full max-w-full z-10 text-opacity-50 caret-[transparent] focus:text-opacity-100"
+          className={`peer bg-[transparent] w-[70%] caret-red text-3xl font-light outline-none text-[white] max-w-full z-10 text-opacity-50 ${textContent && "text-opacity-100"} ${!isSearch && "text-base"}`}
           type="text"
           ref={ref}
+          autoComplete="off"
           {...props}
         />
-        <span
-          ref={spanRef}
-          className={`absolute block text-[transparent] max-w-full  top-0 bottom-0 text-3xl border-[transparent] border-r-solid border-r-red z-0 border-2 animate-caretBlink`}
+        <div
+          className={`absolute w-full bottom-[-14px] border-b-2 border-b-[transparent] peer-focus:border-b-blue`}
         />
       </div>
     );
