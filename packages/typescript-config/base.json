@@ -15,7 +15,11 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "ES2022"
+    "target": "ES2022",
+    "baseUrl": ".",
+    "paths": {
+      "@icons/*": ["../../packages/ui/src/*"]
+    }
   },
   "files": ["global.d.ts"]
 }
