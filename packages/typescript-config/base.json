@@ -18,7 +18,8 @@
     "target": "ES2022",
     "baseUrl": ".",
     "paths": {
-      "@icons/*": ["../../packages/ui/src/*"]
+      "@icons/*": ["../../packages/ui/src/*"],
+      "@thumbnails/*": ["../../apps/web/src/assets/thumbnails/*"]
     }
   },
   "files": ["global.d.ts"]
