@@ -18,4 +18,9 @@
     h4 {
         @apply text-xl font-medium;
     }
+
+    input {
+        @apply bg-[transparent] w-[70%] caret-red text-3xl font-light outline-none text-[white] max-w-full z-10 text-opacity-50;
+    }
+
 }
