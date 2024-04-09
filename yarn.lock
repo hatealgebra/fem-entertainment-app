@@ -620,6 +620,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@repo/misc@npm:*, @repo/misc@workspace:packages/misc":
+  version: 0.0.0-use.local
+  resolution: "@repo/misc@workspace:packages/misc"
+  dependencies:
+    typescript: "npm:^5.3.3"
+  languageName: unknown
+  linkType: soft
+
 "@repo/typescript-config@npm:*, @repo/typescript-config@workspace:packages/typescript-config":
   version: 0.0.0-use.local
   resolution: "@repo/typescript-config@workspace:packages/typescript-config"
@@ -631,6 +639,7 @@ __metadata:
   resolution: "@repo/ui@workspace:packages/ui"
   dependencies:
     "@repo/eslint-config": "npm:*"
+    "@repo/misc": "npm:*"
     "@repo/typescript-config": "npm:*"
     "@turbo/gen": "npm:^1.12.4"
     "@types/eslint": "npm:^8.56.5"
@@ -6792,6 +6801,7 @@ __metadata:
     "@next/eslint-plugin-next": "npm:^14.1.1"
     "@repo/configs": "npm:*"
     "@repo/eslint-config": "npm:*"
+    "@repo/misc": "npm:*"
     "@repo/typescript-config": "npm:*"
     "@repo/ui": "npm:*"
     "@types/eslint": "npm:^8.56.5"
