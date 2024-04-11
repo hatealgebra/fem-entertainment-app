@@ -4,7 +4,7 @@
 
 @layer base {
     body {
-        @apply text-base font-light font-primary;
+        @apply text-base font-light font-primary text-white;
     }
     h1 {
         @apply text-4xl font-light;
