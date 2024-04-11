@@ -4,7 +4,9 @@
   "exports": {
     "./utils/*": "./src/utils/*",
     "./helpers/*": "./src/helpers/*",
-    "./constants": "./src/constants/index.ts"
+    "./constants": "./src/constants/index.ts",
+    "./mocks": "./src/mocks/data.json",
+    "./mockThumbnails/*": "./src/mocks/assets/thumbnails/*"
   },
   "dependencies": {
     "typescript": "^5.3.3"
