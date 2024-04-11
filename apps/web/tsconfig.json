@@ -12,7 +12,9 @@
     "next.config.js",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "../../packages/misc/src/mocks/browser.ts",
+    "../../packages/misc/src/mocks/handlers.ts"
   ],
   "exclude": ["node_modules"]
 }
