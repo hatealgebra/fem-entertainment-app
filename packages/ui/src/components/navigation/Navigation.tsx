@@ -8,7 +8,7 @@ import iconNavMovies from "@icons/assets/icons/icon-nav-movies.svg";
 import iconNavTv from "@icons/assets/icons/icon-nav-tv-series.svg";
 import iconNavBookmark from "@icons/assets/icons/icon-nav-bookmark.svg";
 
-import avatarPng from "../../assets/image-avatar.png";
+import avatarPng from "@icons/assets/image-avatar.png";
 
 const navigationIcons = {
   home: iconNavHome,
@@ -19,8 +19,10 @@ const navigationIcons = {
 
 const Navigation = () => {
   return (
-    <nav className="bg-darkBlue px-4 py-[18px] flex justify-between items-center md:m-auto md:mx-[2.5%] md:mt-6 lg:flex-col lg:h-full">
-      <Image className="w-[25px]" src={logo} alt="Entertainment app logo" />
+    <nav className="bg-darkBlue px-4 py-[18px] w-full max-h-fit flex justify-between items-center md:mx-auto md:rounded-[10px] md:mt-6 lg:flex-col lg:h-full">
+      <Link href={NAV_PATHS.home}>
+        <Image className="w-[25px]" src={logo} alt="Entertainment app logo" />
+      </Link>
       <ul className="inline-flex gap-x-6 items-center lg:flex-col">
         {Object.entries(NAV_PATHS).map(([key, value]) => (
           <li key={`${key}-nav-link`}>

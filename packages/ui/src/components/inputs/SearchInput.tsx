@@ -1,13 +1,13 @@
 import Image from "next/image";
 import { Ref, forwardRef } from "react";
-import searchIcon from "@ui/assets/icons/icon-search.svg";
+import searchIcon from "@icons/assets/icons/icon-search.svg";
 import { InputProps } from "./input";
 
 // TODO: Add custom cursor
 const SearchInput = forwardRef(
   ({ textContent, ...props }: InputProps, ref: Ref<HTMLInputElement>) => {
     return (
-      <div className="flex gap-x-6">
+      <div className="flex gap-x-6 mx-4">
         <button>
           <Image src={searchIcon} alt="Search movies icon" />
         </button>
@@ -19,7 +19,7 @@ const SearchInput = forwardRef(
             autoComplete="off"
             {...props}
           />
-          <div className="peer-focus:border-b-blue border-b-2 w-full" />
+          <div className="peer-focus:border-b-blue border-b-2 w-full border-[transparent]" />
         </div>
       </div>
     );
