@@ -1,18 +1,22 @@
 {
-  "name": "@repo/mongodb",
+  "name": "@repo/db",
   "version": "0.0.1",
   "scripts": {
     "server:start": "brew services start mongodb/brew/mongodb-community",
     "server:stop": "brew services stop mongodb/brew/mongodb-community",
     "dev": "nodemon src/server.ts"
   },
+  "exports": {
+    "./models/*": "./src/lib/models/*",
+    "./dbConnection.ts": "./src/lib/dbConnection.ts"
+  },
   "dependencies": {
     "mongodb": "^6.5.0",
     "typescript": "latest"
   },
   "devDependencies": {
-    "@types/node": "^20.12.7",
     "@repo/misc": "*",
+    "@types/node": "^20.12.7",
     "mongoose": "^8.3.1",
     "nodemon": "^3.1.0",
     "ts-node": "^10.9.2"

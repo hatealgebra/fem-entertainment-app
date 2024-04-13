@@ -1,10 +1,9 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import { ERating, IMovie, ECategory } from "@repo/misc/types/movies.d.ts";
 
-const movieSchema = new Schema<IMovie>({
+const MovieSchema = new Schema<IMovie>({
   title: {
     type: String,
-    required: true,
   },
   thumbnail: {
     trending: {
@@ -16,12 +15,9 @@ const movieSchema = new Schema<IMovie>({
       medium: String,
       large: String,
     },
-    required: true,
-    default: {},
   },
   year: {
     type: Number,
-    required: true,
   },
   category: {
     type: String,
@@ -35,4 +31,8 @@ const movieSchema = new Schema<IMovie>({
   isTrending: { type: Boolean, default: false },
 });
 
-export const Movie = model<IMovie>("Movie", movieSchema);
+const Movie =
+  (mongoose.models?.Movie as mongoose.Model<IMovie>) ||
+  model("Movie", MovieSchema);
+
+export default Movie;

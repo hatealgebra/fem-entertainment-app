@@ -716,6 +716,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@repo/db@npm:*, @repo/db@workspace:packages/database":
+  version: 0.0.0-use.local
+  resolution: "@repo/db@workspace:packages/database"
+  dependencies:
+    "@repo/misc": "npm:*"
+    "@types/node": "npm:^20.12.7"
+    mongodb: "npm:^6.5.0"
+    mongoose: "npm:^8.3.1"
+    nodemon: "npm:^3.1.0"
+    ts-node: "npm:^10.9.2"
+    typescript: "npm:latest"
+  languageName: unknown
+  linkType: soft
+
 "@repo/eslint-config@npm:*, @repo/eslint-config@workspace:packages/eslint-config":
   version: 0.0.0-use.local
   resolution: "@repo/eslint-config@workspace:packages/eslint-config"
@@ -735,19 +749,6 @@ __metadata:
   resolution: "@repo/misc@workspace:packages/misc"
   dependencies:
     typescript: "npm:^5.3.3"
-  languageName: unknown
-  linkType: soft
-
-"@repo/mongodb@workspace:packages/database":
-  version: 0.0.0-use.local
-  resolution: "@repo/mongodb@workspace:packages/database"
-  dependencies:
-    "@types/node": "npm:^20.12.7"
-    mongodb: "npm:^6.5.0"
-    mongoose: "npm:^8.3.1"
-    nodemon: "npm:^3.1.0"
-    ts-node: "npm:^10.9.2"
-    typescript: "npm:latest"
   languageName: unknown
   linkType: soft
 
@@ -2533,6 +2534,7 @@ __metadata:
   resolution: "entertainment-web-app@workspace:."
   dependencies:
     "@repo/eslint-config": "npm:*"
+    "@repo/misc": "npm:*"
     "@repo/typescript-config": "npm:*"
     autoprefixer: "npm:^10.4.19"
     prettier: "npm:^3.2.5"
@@ -7332,6 +7334,7 @@ __metadata:
   dependencies:
     "@next/eslint-plugin-next": "npm:^14.1.1"
     "@repo/configs": "npm:*"
+    "@repo/db": "npm:*"
     "@repo/eslint-config": "npm:*"
     "@repo/misc": "npm:*"
     "@repo/typescript-config": "npm:*"
