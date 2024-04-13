@@ -22,13 +22,13 @@ export interface IRegular {
 }
 
 export enum ERating {
-  MOVIE = "Movie",
-  TV_SERIES = "TV Series",
-  N_A = "N/A",
-}
-export enum ECategory {
   PG = "PG",
   E = "E",
   EIGHTEEN_PLUS = "18+",
+  N_A = "N/A",
+}
+export enum ECategory {
+  MOVIE = "Movie",
+  TV_SERIES = "TV Series",
   N_A = "N/A",
 }
