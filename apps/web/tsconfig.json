@@ -9,12 +9,12 @@
   },
   "include": [
     "next-env.d.ts",
-    "next.config.ts",
+    "next.config.js",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "../../packages/misc/src/mocks/browser.ts",
-    "../../packages/misc/src/mocks/handlers.ts"
+    "tailwind.config.js",
+    "postcss.config.js"
   ],
   "exclude": ["node_modules"]
 }
