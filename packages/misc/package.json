@@ -6,7 +6,8 @@
     "./helpers/*": "./src/helpers/*",
     "./constants": "./src/constants/index.ts",
     "./mocks": "./src/mocks/data.json",
-    "./mockThumbnails/*": "./src/mocks/assets/thumbnails/*"
+    "./mockThumbnails/*": "./src/mocks/assets/thumbnails/*",
+    "./types/*": "./src/types/*"
   },
   "dependencies": {
     "typescript": "^5.3.3"

@@ -2,6 +2,9 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Default",
   "compilerOptions": {
+    "allowJs": false,
+    "allowImportingTsExtensions": true,
+    "checkJs": false,
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,
