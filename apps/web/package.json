@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@repo/configs": "*",
+    "@repo/db": "*",
     "@repo/ui": "*",
     "@uidotdev/usehooks": "^2.4.1",
     "next": "^14.1.1",
