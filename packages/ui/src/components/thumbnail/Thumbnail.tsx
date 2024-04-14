@@ -17,59 +17,62 @@ interface ThumbnailProps extends IMovie {
 
 const Thumbnail = ({
   thumbnail,
-  isTrending,
+  isTrending = false,
   title,
   year,
   category,
   isTouch,
   rating,
-  isBookmarked,
+  isBookmarked = false,
 }: ThumbnailProps) => {
   const [bookmarkHover, setBookMarkHover] = useState(false);
-  const [hover, setHover] = useState(true);
+  const [hover, setHover] = useState(false);
   const imageParentFolder = isTrending ? "trending" : "regular";
 
-  console.log("hover", hover);
   return (
     <div
       onMouseEnter={() => !isTouch && setHover(true)}
-      onMouseLeave={() => !isTouch && setHover(true)}
-      className={`relative rounded-lg  overflow-hidden flex flex-col ${isTrending ? "w-[240px] h-[140px] md:w-[470px] md:h-[230px]" : "w-[164px] h-[110px] md:w-[280px] md:h-[226px]"}`}
+      onMouseLeave={() => !isTouch && setHover(false)}
+      className="relative w-full sm:max-w-auto h-fit sm:w-fit"
     >
-      <Image
-        className={`peer object-cover transition duration-300 ease-in-out hover:brightness-[0.8] hover:cursor-pointer`}
-        src={
-          thumbnail?.[imageParentFolder]?.large ||
-          thumbnail?.[imageParentFolder]?.small
-        }
-        fill={true}
-      />
-      {!isTouch && hover && (
-        <button className="opacity-100 absolute inset-0 m-auto inline-flex gap-x-[19px] rounded-full bg-[rgba(255,255,255,.5)] pl-[9px] pr-8 py-[9px] w-fit h-fit peer-hover:opacity-100">
-          <Image
-            className="w-[30px] aspect-square"
-            src={playIcon}
-            alt="Play thumbnail icon"
-          />
-          <span className="text-xl text-white">Play</span>
-        </button>
-      )}
-      <button
-        className="absolute right-2 top-2 group w-8 aspect-square bg-[#979797] rounded-full flex justify-center items-center hover:bg-[white]"
-        onMouseEnter={() => !isBookmarked && setBookMarkHover(true)}
-        onMouseLeave={() => setBookMarkHover(false)}
-      >
-        {isBookmarked ? (
-          <Image src={bookmarkFull} alt="Bookmark icon full" />
-        ) : (
-          <Image
-            src={bookmarkHover ? bookmarkHoverIcon : bookmarkEmpty}
-            alt="Bookmark icon"
-          />
-        )}
-      </button>
       <div
-        className={`flex flex-col ${isTrending && "absolute bottom-4 left-4"}`}
+        className={`peer relative overflow-hidden transition duration-300 ease-in-out rounded-lg ${isTrending ? " w-[240px] h-[140px] md:w-[470px] md:h-[230px]" : "w-[100%] h-[110px] sm:w-[164px] md:w-[220px] md:h-[140px] lg:w-[280px] lg:h-[226px]"}`}
+      >
+        <Image
+          className="object-cover w-full h-full hover:brightness-[0.8] hover:cursor-pointer "
+          src={
+            thumbnail?.[imageParentFolder]?.large ||
+            thumbnail?.[imageParentFolder]?.small
+          }
+          fill={true}
+        />
+        {!isTouch && hover && (
+          <button className="opacity-100 absolute inset-0 m-auto inline-flex gap-x-[19px] rounded-full bg-[rgba(255,255,255,.5)] pl-[9px] pr-8 py-[9px] w-fit h-fit peer-hover:opacity-100">
+            <Image
+              className="w-[30px] aspect-square"
+              src={playIcon}
+              alt="Play thumbnail icon"
+            />
+            <span className="text-xl text-white">Play</span>
+          </button>
+        )}
+        <button
+          className="absolute right-2 top-2 group w-8 aspect-square bg-[#979797] rounded-full flex justify-center items-center hover:bg-[white]"
+          onMouseEnter={() => !isBookmarked && setBookMarkHover(true)}
+          onMouseLeave={() => setBookMarkHover(false)}
+        >
+          {isBookmarked ? (
+            <Image src={bookmarkFull} alt="Bookmark icon full" />
+          ) : (
+            <Image
+              src={bookmarkHover ? bookmarkHoverIcon : bookmarkEmpty}
+              alt="Bookmark icon"
+            />
+          )}
+        </button>
+      </div>
+      <div
+        className={`flex flex-col ${isTrending ? "absolute bottom-4 left-4" : "mt-2"}`}
       >
         <div className="flex items-center gap-x-1.5 text-white text-opacity-75">
           <span className="text-sm">{year}</span>

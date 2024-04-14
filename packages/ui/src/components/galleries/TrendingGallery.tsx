@@ -2,22 +2,24 @@ import { IMovie } from "@repo/misc/types/movies.js";
 import Thumbnail from "../thumbnail/Thumbnail";
 import Section from "../sections/Section";
 
-interface TrendingGalleryProps {
-  moviesData: IMovie[];
-}
+const getMovieData = async () => {
+  try {
+    const res = await fetch("http://localhost:3000/api/movies?isTrending=true");
+    return await res.json();
+  } catch (e) {
+    console.log(e);
+    return { error: "Internal Server Error" };
+  }
+};
 
-const TrendingGallery = ({ moviesData }: TrendingGalleryProps) => {
+const TrendingGallery = async () => {
+  const moviesData = await getMovieData();
   return (
     <Section headingText="Trending">
       <div className="overflow-scroll no-scrollbar">
         <div className="w-max flex gap-x-4 flex-none">
-          {moviesData.map((movie) => (
-            <Thumbnail
-              key={movie.title}
-              isTrending
-              isTouch={false}
-              {...movie}
-            />
+          {moviesData.data.map((movie) => (
+            <Thumbnail key={movie.title} {...movie} />
           ))}
         </div>
       </div>
