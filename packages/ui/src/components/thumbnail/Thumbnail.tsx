@@ -6,7 +6,7 @@ import { IMovie } from "@repo/misc/types/movies.d.ts";
 
 import bookmarkEmpty from "@icons/assets/icons/icon-bookmark-empty.svg";
 import bookmarkFull from "@icons/assets/icons/icon-bookmark-full.svg";
-import bookmarkHover from "@icons/assets/icons/icon-bookmark-hover.svg";
+import bookmarkHoverIcon from "@icons/assets/icons/icon-bookmark-hover.svg";
 import playIcon from "@icons/assets/icons/icon-play.svg";
 import movieIcon from "@icons/assets/icons/icon-category-movie.svg";
 import tvIcon from "@icons/assets/icons/icon-category-tv.svg";
@@ -25,17 +25,27 @@ const Thumbnail = ({
   rating,
   isBookmarked,
 }: ThumbnailProps) => {
-  const [hover, setHover] = useState(false);
+  const [bookmarkHover, setBookMarkHover] = useState(false);
+  const [hover, setHover] = useState(true);
+  const imageParentFolder = isTrending ? "trending" : "regular";
+
+  console.log("hover", hover);
   return (
-    <div className="relative w-fit flex flex-col">
+    <div
+      onMouseEnter={() => !isTouch && setHover(true)}
+      onMouseLeave={() => !isTouch && setHover(true)}
+      className={`relative rounded-lg  overflow-hidden flex flex-col ${isTrending ? "w-[240px] h-[140px] md:w-[470px] md:h-[230px]" : "w-[164px] h-[110px] md:w-[280px] md:h-[226px]"}`}
+    >
       <Image
-        className={`peer ${isTrending ? "w-[240px] h-[140px]" : "w-[164px] h-[110px]"} rounded-lg object-contain transition duration-300 ease-in-out hover:brightness-[0.8] hover:cursor-pointer`}
-        src={thumbnail?.trending?.large || thumbnail?.trending?.small}
-        width={isTrending ? 240 : 164}
-        height={isTrending ? 140 : 110}
+        className={`peer object-cover transition duration-300 ease-in-out hover:brightness-[0.8] hover:cursor-pointer`}
+        src={
+          thumbnail?.[imageParentFolder]?.large ||
+          thumbnail?.[imageParentFolder]?.small
+        }
+        fill={true}
       />
-      {!isTouch && (
-        <button className="opacity-100 absolute inset-0 inline-flex gap-x-[19px] items-center place-self-center rounded-full bg-[rgba(255,255,255,.5)] pl-[9px] pr-8 py-[9px] w-fit h-fit peer-hover:opacity-100">
+      {!isTouch && hover && (
+        <button className="opacity-100 absolute inset-0 m-auto inline-flex gap-x-[19px] rounded-full bg-[rgba(255,255,255,.5)] pl-[9px] pr-8 py-[9px] w-fit h-fit peer-hover:opacity-100">
           <Image
             className="w-[30px] aspect-square"
             src={playIcon}
@@ -46,14 +56,14 @@ const Thumbnail = ({
       )}
       <button
         className="absolute right-2 top-2 group w-8 aspect-square bg-[#979797] rounded-full flex justify-center items-center hover:bg-[white]"
-        onMouseEnter={() => !isBookmarked && setHover(true)}
-        onMouseLeave={() => setHover(false)}
+        onMouseEnter={() => !isBookmarked && setBookMarkHover(true)}
+        onMouseLeave={() => setBookMarkHover(false)}
       >
         {isBookmarked ? (
           <Image src={bookmarkFull} alt="Bookmark icon full" />
         ) : (
           <Image
-            src={hover ? bookmarkHover : bookmarkEmpty}
+            src={bookmarkHover ? bookmarkHoverIcon : bookmarkEmpty}
             alt="Bookmark icon"
           />
         )}

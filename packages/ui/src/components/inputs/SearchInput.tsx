@@ -7,7 +7,7 @@ import { InputProps } from "./input";
 const SearchInput = forwardRef(
   ({ textContent, ...props }: InputProps, ref: Ref<HTMLInputElement>) => {
     return (
-      <div className="flex gap-x-6 mx-4">
+      <div className="flex gap-x-6">
         <button>
           <Image src={searchIcon} alt="Search movies icon" />
         </button>

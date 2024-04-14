@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 @layer base {
     body {
         @apply text-base font-light font-primary text-white;
@@ -23,4 +25,16 @@
         @apply bg-[transparent] w-[70%] caret-red text-3xl font-light outline-none text-[white] max-w-full z-10 text-opacity-50;
     }
 
+}
+
+@layer utilities {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+   /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+  }
 }
