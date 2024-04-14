@@ -28,7 +28,7 @@ module.exports = {
         'xl': "1.125rem",
         '2xl': '1.5rem',
         '3xl': '1.5rem',
-        '4xl': '2.5rem',
+        '4xl': '2rem',
       },
       extend: {
         keyframes: {
