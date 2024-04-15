@@ -39,12 +39,18 @@ const Thumbnail = ({
         className={`peer relative overflow-hidden transition duration-300 ease-in-out rounded-lg ${isTrending ? " w-[240px] h-[140px] md:w-[470px] md:h-[230px]" : "w-[100%] h-[110px] sm:w-[164px] md:w-[220px] md:h-[140px] lg:w-[280px] lg:h-[226px]"}`}
       >
         <Image
-          className="object-cover w-full h-full hover:brightness-[0.8] hover:cursor-pointer "
+          className="object-cover w-full h-full hover:brightness-[0.8] hover:cursor-pointer"
           src={
             thumbnail?.[imageParentFolder]?.large ||
             thumbnail?.[imageParentFolder]?.small
           }
-          fill={true}
+          alt={`${title} thumbnail`}
+          fill
+          sizes={
+            isTrending
+              ? "(min-width: 768px) 470px, 240px"
+              : "(min-width: 480px),(min-width: 768px) 220px, (min-width:1440px), 100%"
+          }
         />
         {!isTouch && hover && (
           <button className="opacity-100 absolute inset-0 m-auto inline-flex gap-x-[19px] rounded-full bg-[rgba(255,255,255,.5)] pl-[9px] pr-8 py-[9px] w-fit h-fit peer-hover:opacity-100">
