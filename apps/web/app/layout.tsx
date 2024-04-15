@@ -10,7 +10,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-black h-[100vh] overflow-x-hidden xl:flex xl:pt-8">
         <Navigation />
-        <main className="mx-4 flex flex-col gap-6 mt-6 pb-14 md:mx-6">
+        <main className="mx-4 flex flex-col gap-6 mt-6 pb-14 md:mx-6 xl:max-w-[100%]">
           {children}
         </main>
       </body>
