@@ -33,10 +33,10 @@ const Thumbnail = ({
     <div
       onMouseEnter={() => !isTouch && setHover(true)}
       onMouseLeave={() => !isTouch && setHover(false)}
-      className="relative w-full sm:max-w-auto grow h-fit sm:w-fit"
+      className="relative w-full sm:max-w-auto grow h-fit sm:w-fit sm:max-w-fit"
     >
       <div
-        className={`peer relative overflow-hidden transition duration-300 ease-in-out rounded-lg grow ${isTrending ? "min-w-[240px] h-[140px] md:min-w-[470px] md:h-[230px]" : "min-w-[100%] h-[110px] sm:min-w-[164px] md:min-w-[220px] md:h-[140px] lg:min-w-[280px] lg:h-[226px]"}`}
+        className={`peer relative overflow-hidden transition duration-300 ease-in-out rounded-lg ${isTrending ? "w-[240px] h-[140px] md:w-[470px] md:h-[230px]" : "w-[100%] h-[110px] sm:w-[164px] md:w-[220px] md:h-[140px] lg:w-[280px] lg:h-[226px]"}`}
       >
         <Image
           className="object-cover w-full h-full hover:brightness-[0.8] hover:cursor-pointer"

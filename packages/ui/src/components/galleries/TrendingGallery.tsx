@@ -16,7 +16,7 @@ const TrendingGallery = async () => {
   const moviesData = await getMovieData();
   return (
     <Section headingText="Trending">
-      <div className="overflow-scroll no-scrollbar">
+      <div className="w-full overflow-scroll no-scrollbar">
         <div className="w-max flex gap-x-4 flex-none">
           {moviesData.data.map((movie) => (
             <Thumbnail key={movie.title} {...movie} />

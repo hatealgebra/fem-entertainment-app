@@ -10,7 +10,7 @@ interface GalleryProps {
 const Gallery = ({ headingText, moviesData }: GalleryProps) => {
   return (
     <Section headingText={headingText}>
-      <div className="flex flex-wrap gap-x-[29px] gap-y-6">
+      <div className="flex max-w-[100%] flex-wrap gap-x-[29px] gap-y-6">
         {moviesData.map((movie) => (
           <Thumbnail key={movie.title} {...movie} isTrending={false} />
         ))}
