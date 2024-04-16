@@ -8,7 +8,7 @@ import IconLinks from "./IconLinks";
 
 const Navigation = () => {
   return (
-    <nav className="bg-darkBlue px-4 py-[18px] max-h-fit flex justify-between items-center md:rounded-[10px] md:mt-6 md:mx-6 xl:flex-col xl:h-[95vh] xl:pt-[35px] xl:pb-8 xl:justify-start xl:gap-[75px] xl:mt-0">
+    <nav className="bg-darkBlue px-4 py-[18px] max-h-fit flex justify-between items-center md:rounded-[10px] md:mt-6 md:mx-6 xl:flex-col xl:h-[95vh] xl:pt-[35px] xl:pb-8 xl:justify-start xl:gap-[75px] xl:mt-0 xl:sticky xl:top-0">
       <Link href={NAV_PATHS.home}>
         <Image
           className="w-[25px] xl:w-8"

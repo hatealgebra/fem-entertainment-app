@@ -18,7 +18,6 @@ const Page = async () => {
 
   return (
     <>
-      <SearchForm />
       <TrendingGallery />
       <Gallery headingText="Recommended for you" moviesData={moviesData.data} />
     </>
