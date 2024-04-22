@@ -1,6 +1,4 @@
-import React from "react";
-
-interface SectionProps {
+export interface SectionProps {
   headingText: string;
   children: React.ReactNode;
 }
