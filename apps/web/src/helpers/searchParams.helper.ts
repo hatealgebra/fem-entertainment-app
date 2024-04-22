@@ -1,8 +1,8 @@
 import { NAV_PATHS } from "@repo/misc/constants";
 
 const pathnameTranslate = {
-  [NAV_PATHS.MOVIES]: "category=movies",
-  [NAV_PATHS.TV_SERIES]: "category=tv-series",
+  [NAV_PATHS.MOVIES]: "category=Movie",
+  [NAV_PATHS.TV_SERIES]: "category=TV Series",
   [NAV_PATHS.BOOKMARKED]: "isBookmarked=true",
 };
 
