@@ -9,16 +9,15 @@ import iconNavTv from "@icons/assets/icons/icon-nav-tv-series.svg";
 import iconNavBookmark from "@icons/assets/icons/icon-nav-bookmark.svg";
 import { NAV_PATHS } from "@repo/misc/constants";
 
-const navigationIcons = {
-  home: iconNavHome,
-  movies: iconNavMovies,
-  tv_series: iconNavTv,
-  bookmarked: iconNavBookmark,
+const navigationIcons: Record<keyof typeof NAV_PATHS, string> = {
+  HOME: iconNavHome,
+  MOVIES: iconNavMovies,
+  TV_SERIES: iconNavTv,
+  BOOKMARKED: iconNavBookmark,
 };
 
 const IconLinks = () => {
   const pathName = usePathname();
-
   return (
     <ul className="inline-flex gap-x-6 items-center xl:flex-col xl:w-10 xl:flex-grow xl:gap-10">
       {Object.entries(NAV_PATHS).map(([key, value]) => (
