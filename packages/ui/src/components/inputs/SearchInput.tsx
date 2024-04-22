@@ -19,7 +19,7 @@ const SearchInput = forwardRef(
             autoComplete="off"
             {...props}
           />
-          <div className="peer-focus:border-b-blue border-b-2 w-full border-[transparent]" />
+          <div className="peer-focus:border-b-blue border-b-[1px] w-full border-[transparent]" />
         </div>
       </div>
     );
