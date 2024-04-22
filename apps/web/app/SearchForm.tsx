@@ -12,7 +12,9 @@ const SearchForm = () => {
   const dispatch = useContext(AppDispatchContext);
 
   const searchMovie = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: EActions.SET_SEARCH_STRING, payload: e.target.value });
+    setTimeout(() => {
+      dispatch({ type: EActions.SET_SEARCH_STRING, payload: e.target.value });
+    }, 400);
   };
 
   return (
