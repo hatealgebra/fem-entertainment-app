@@ -24,7 +24,10 @@ export async function GET(req: NextRequest) {
         },
       });
 
-    return NextResponse.json({ data: media }, { status: 200 });
+    return NextResponse.json(
+      { data: media, totalLength: media.length },
+      { status: 200 }
+    );
   } catch (e) {
     console.error(e);
     return NextResponse.json(

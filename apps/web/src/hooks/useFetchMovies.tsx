@@ -23,7 +23,9 @@ const useFetchMovies = () => {
   const [queryParams, setQueryParams] = useState<string | null>(null);
   const { searchString } = useContext(AppContext);
   const pathName = usePathname();
-  const SWRResponse = useSWR(["/api/media", queryParams], getRequest);
+  const SWRResponse = useSWR(["/api/media", queryParams], getRequest, {
+    keepPreviousData: true,
+  });
 
   useEffect(() => {
     const newQueryParams = createQueryParams(pathName, searchString);
