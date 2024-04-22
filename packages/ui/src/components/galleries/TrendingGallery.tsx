@@ -1,10 +1,9 @@
-import { IMovie } from "@repo/misc/types/movies.js";
 import Thumbnail from "../thumbnail/Thumbnail";
 import Section from "../sections/Section";
 
 const getMovieData = async () => {
   try {
-    const res = await fetch("http://localhost:3000/api/movies?isTrending=true");
+    const res = await fetch("http://localhost:3000/api/media?isTrending=true");
     return await res.json();
   } catch (e) {
     console.log(e);
@@ -14,6 +13,7 @@ const getMovieData = async () => {
 
 const TrendingGallery = async () => {
   const moviesData = await getMovieData();
+
   return (
     <Section headingText="Trending">
       <div className="w-full overflow-scroll no-scrollbar">
