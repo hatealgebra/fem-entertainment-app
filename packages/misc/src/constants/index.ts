@@ -1,4 +1,4 @@
-enum APP_PATHS {
+export enum APP_PATHS {
   HOME = "/",
   LOGIN = "/login",
   REGISTER = "/register",
