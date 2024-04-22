@@ -11,7 +11,7 @@ const getRequest = async (keyArray: []) => {
     const data = await response.json();
     return data;
   } catch (e) {
-    console.log(e);
+    return e;
   }
 };
 

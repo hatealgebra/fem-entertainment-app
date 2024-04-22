@@ -8,7 +8,6 @@ export async function GET(req: NextRequest) {
   const isBookmarked = getSearchParam(req, "isBookmarked");
   const category = getSearchParam(req, "category");
   const searchParam = getSearchParam(req, "search")?.trim();
-
   const regex = new RegExp(searchParam || "");
 
   try {

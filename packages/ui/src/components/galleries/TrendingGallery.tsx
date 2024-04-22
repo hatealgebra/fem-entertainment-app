@@ -6,7 +6,6 @@ const getMovieData = async () => {
     const res = await fetch("http://localhost:3000/api/media?isTrending=true");
     return await res.json();
   } catch (e) {
-    console.log(e);
     return { error: "Internal Server Error" };
   }
 };
