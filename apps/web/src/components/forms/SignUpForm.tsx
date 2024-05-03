@@ -4,10 +4,13 @@ import TextInput from "@repo/ui/components/inputs/TextInput.tsx";
 import Link from "next/link";
 import { APP_PATHS } from "@repo/misc/constants";
 import { useForm } from "react-hook-form";
+import useSWRMutation from "swr/mutation";
+import { createUser } from "../../services/user.services";
 
-interface SignUpFormValues {
+export interface SignUpFormValues {
   email: string;
   pwd: string;
+  pwdAgain: string;
 }
 
 const SignUpForm = () => {
@@ -15,11 +18,22 @@ const SignUpForm = () => {
     register,
     watch,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<SignUpFormValues>();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const { trigger, isMutating } = useSWRMutation(
+    "/api/user/signup",
+    createUser
+  );
+
+  const onSubmit = async (data: SignUpFormValues) => {
+    try {
+      const response = await trigger(data);
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -47,6 +61,27 @@ const SignUpForm = () => {
             error={errors.pwd?.message}
             {...register("pwd", {
               required: "Can’t be empty",
+              minLength: {
+                value: 8,
+                message: "Minimum length should be 8",
+              },
+              pattern: {
+                value:
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,12}$/,
+                message:
+                  "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character",
+              },
+            })}
+          />
+          <TextInput
+            placeholder="Password"
+            textContent={watch("pwdAgain")}
+            type="password"
+            error={errors.pwdAgain?.message}
+            {...register("pwdAgain", {
+              required: "Can’t be empty",
+              validate: (value) =>
+                value === watch("pwd") || "Passwords do not match",
             })}
           />
         </div>

@@ -1,4 +1,4 @@
-import { createQueryParams } from "../helpers/searchParams.helper";
+import { createQueryParams } from "../helpers/client/searchParams.helper";
 import { usePathname } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import useSWR from "swr";
