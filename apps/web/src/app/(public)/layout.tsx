@@ -1,5 +1,5 @@
 import "@repo/ui/globalStyle";
-import ContextProvider from "../../src/state/ContextProvider";
+import ContextProvider from "../../state/ContextProvider";
 import LogoIcon from "@icons/assets/icons/logo.svg";
 import Image from "next/image";
 

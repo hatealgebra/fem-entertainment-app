@@ -1,7 +1,7 @@
 import Navigation from "@repo/ui/components/navigation/Navigation.tsx";
 import "@repo/ui/globalStyle";
-import ContextProvider from "../../src/state/ContextProvider";
-import SearchForm from "../../src/components/SearchForm";
+import ContextProvider from "../../state/ContextProvider";
+import SearchForm from "../../components/SearchForm";
 
 export default function RootLayout({
   children,
