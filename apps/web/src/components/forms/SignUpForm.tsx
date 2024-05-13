@@ -116,9 +116,9 @@ const SignUpForm = () => {
         </Button>
       </form>
       <span className="mx-auto">
-        <span>Don't have an account?</span>
-        <Link className="ml-[9px] text-red" href={APP_PATHS.REGISTER}>
-          Sign Up
+        <span>Already have an account?</span>
+        <Link className="ml-[9px] text-red" href={APP_PATHS.LOGIN}>
+          Log In
         </Link>
       </span>
       <ToastComponent />
