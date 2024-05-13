@@ -1,5 +1,6 @@
 import { SignUpFormValues } from "../components/forms/SignUpForm";
-import { ServerError } from "../helpers/client/asyncError.helper";
+
+import { handleResponse } from "../helpers/client/services.helper";
 
 export const createUser = async (
   url: string,
@@ -12,9 +13,5 @@ export const createUser = async (
     },
     body: JSON.stringify({ email, password: pwd }),
   });
-  if (!response.ok) {
-    throw new ServerError(response.statusText, response);
-  }
-
-  return response.json();
+  return handleResponse(response);
 };
