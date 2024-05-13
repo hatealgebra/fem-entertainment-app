@@ -1,9 +1,10 @@
 import Movie from "@repo/db/models/movie.ts";
 import dbConnection from "@repo/db/dbConnection.ts";
 import { NextRequest, NextResponse } from "next/server";
-import { getSearchParam } from "../../../src/utils";
+import { getSearchParam } from "../../../utils";
+import withErrorHandler from "../../../helpers/server/errorHandler";
 
-export async function GET(req: NextRequest) {
+export const GET = withErrorHandler(async (req: NextRequest) => {
   const isTrending = getSearchParam(req, "isTrending");
   const isBookmarked = getSearchParam(req, "isBookmarked");
   const category = getSearchParam(req, "category");
@@ -34,4 +35,4 @@ export async function GET(req: NextRequest) {
       { status: 500 }
     );
   }
-}
+});
