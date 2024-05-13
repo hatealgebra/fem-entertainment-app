@@ -742,7 +742,6 @@ __metadata:
     "@repo/misc": "npm:*"
     "@types/node": "npm:^20.12.7"
     mongodb: "npm:^6.5.0"
-    mongoose: "npm:^8.3.1"
     nodemon: "npm:^3.1.0"
     ts-node: "npm:^10.9.2"
     typescript: "npm:latest"
@@ -963,6 +962,15 @@ __metadata:
   version: 5.1.2
   resolution: "@types/minimatch@npm:5.1.2"
   checksum: 10c0/83cf1c11748891b714e129de0585af4c55dd4c2cafb1f1d5233d79246e5e1e19d1b5ad9e8db449667b3ffa2b6c80125c429dbee1054e9efb45758dbc4e118562
+  languageName: node
+  linkType: hard
+
+"@types/mongodb@npm:^4.0.7":
+  version: 4.0.7
+  resolution: "@types/mongodb@npm:4.0.7"
+  dependencies:
+    mongodb: "npm:*"
+  checksum: 10c0/19d7085bd14c01bed06220ba52f1b367048fd340581cb645e7b8da867eff388d20f8a9edb0c6c7c33df8489ce303505f31bb85340e5e36a6a356a60e32c1f04d
   languageName: node
   linkType: hard
 
@@ -1936,6 +1944,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bson@npm:^6.7.0":
+  version: 6.7.0
+  resolution: "bson@npm:6.7.0"
+  checksum: 10c0/6cc5c66bafaa2b7127409abda094af7e6f76771123ffc9526b167de23860d62560ba5db9b59a1f51bad3e51d320adf372e8ae0b2e0d156b0781683b094f3a325
+  languageName: node
+  linkType: hard
+
 "buffer@npm:^5.5.0":
   version: 5.7.1
   resolution: "buffer@npm:5.7.1"
@@ -2200,6 +2215,13 @@ __metadata:
   version: 1.0.4
   resolution: "clone@npm:1.0.4"
   checksum: 10c0/2176952b3649293473999a95d7bebfc9dc96410f6cbd3d2595cf12fd401f63a4bf41a7adbfd3ab2ff09ed60cb9870c58c6acdd18b87767366fabfc163700f13b
+  languageName: node
+  linkType: hard
+
+"clsx@npm:^2.1.0":
+  version: 2.1.1
+  resolution: "clsx@npm:2.1.1"
+  checksum: 10c0/c4c8eb865f8c82baab07e71bfa8897c73454881c4f99d6bc81585aecd7c441746c1399d08363dc096c550cceaf97bd4ce1e8854e1771e9998d9f94c4fe075839
   languageName: node
   linkType: hard
 
@@ -2629,8 +2651,11 @@ __metadata:
   dependencies:
     "@repo/eslint-config": "npm:*"
     "@repo/typescript-config": "npm:*"
+    "@types/mongodb": "npm:^4.0.7"
     autoprefixer: "npm:^10.4.19"
+    mongoose: "npm:^8.3.1"
     prettier: "npm:^3.2.5"
+    react-toastify: "npm:^10.0.5"
     tailwindcss: "npm:^3.4.3"
     turbo: "npm:latest"
   languageName: unknown
@@ -4991,6 +5016,40 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mongodb@npm:*":
+  version: 6.6.0
+  resolution: "mongodb@npm:6.6.0"
+  dependencies:
+    "@mongodb-js/saslprep": "npm:^1.1.5"
+    bson: "npm:^6.7.0"
+    mongodb-connection-string-url: "npm:^3.0.0"
+  peerDependencies:
+    "@aws-sdk/credential-providers": ^3.188.0
+    "@mongodb-js/zstd": ^1.1.0
+    gcp-metadata: ^5.2.0
+    kerberos: ^2.0.1
+    mongodb-client-encryption: ">=6.0.0 <7"
+    snappy: ^7.2.2
+    socks: ^2.7.1
+  peerDependenciesMeta:
+    "@aws-sdk/credential-providers":
+      optional: true
+    "@mongodb-js/zstd":
+      optional: true
+    gcp-metadata:
+      optional: true
+    kerberos:
+      optional: true
+    mongodb-client-encryption:
+      optional: true
+    snappy:
+      optional: true
+    socks:
+      optional: true
+  checksum: 10c0/05f77be97f1d6d2e4b5949d23c6da1d0749adbce58f7608bc9432692335f00c849ee4eb81d0137c3329f205ff490181dae7b82b2b40537e943b7527fa6a09bde
+  languageName: node
+  linkType: hard
+
 "mongodb@npm:6.5.0, mongodb@npm:^6.5.0":
   version: 6.5.0
   resolution: "mongodb@npm:6.5.0"
@@ -6036,6 +6095,18 @@ __metadata:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 10c0/33977da7a5f1a287936a0c85639fec6ca74f4f15ef1e59a6bc20338fc73dc69555381e211f7a3529b8150a1f71e4225525b41b60b52965bda53ce7d47377ada1
+  languageName: node
+  linkType: hard
+
+"react-toastify@npm:^10.0.5":
+  version: 10.0.5
+  resolution: "react-toastify@npm:10.0.5"
+  dependencies:
+    clsx: "npm:^2.1.0"
+  peerDependencies:
+    react: ">=18"
+    react-dom: ">=18"
+  checksum: 10c0/66c68ec3d6c017d9f32652d73bb925224921c6a80b629b9d481430d5b4fd504abb7a99995a64b9aef0fc31326c74f3cbe088b3287b978dd0c355079c4bbf4158
   languageName: node
   linkType: hard
 
