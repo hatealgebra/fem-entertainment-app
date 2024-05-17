@@ -4,6 +4,8 @@ import TextInput from "@repo/ui/components/inputs/TextInput.tsx";
 import Link from "next/link";
 import { APP_PATHS } from "@repo/misc/constants";
 import { useForm } from "react-hook-form";
+import useSWRMutation from "swr/mutation";
+import { signInUser } from "../../services/user.services";
 
 interface LoginFormValues {
   email: string;
@@ -18,8 +20,14 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm<LoginFormValues>();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const { trigger, isMutating } = useSWRMutation("/api/user/login", signInUser);
+
+  const onSubmit = async (data: LoginFormValues) => {
+    try {
+      await trigger(data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
