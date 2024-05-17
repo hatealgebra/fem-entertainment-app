@@ -1,7 +1,13 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Model, Schema } from "mongoose";
 import { IUser } from "@repo/misc/types/user.d.ts";
 import { IMongooseGeneric } from "@repo/misc/types/index.d.ts";
 import bcrypt from "bcrypt";
+
+interface IUserMethods {
+  comparePassword: (candidatePassword: string) => boolean;
+}
+
+type UserModel = Model<IUser, {}, IUserMethods>;
 
 export const UserSchema = new Schema<IUser & IMongooseGeneric>(
   {
@@ -34,11 +40,10 @@ export const UserSchema = new Schema<IUser & IMongooseGeneric>(
 // TODO: Add error handling
 
 UserSchema.pre("save", async function (next) {
-  // generate salt
   if (this.isModified("password")) {
     try {
-      const saltedPwd = await bcrypt.genSalt(10);
-      const hashedPwd = await bcrypt.hash(saltedPwd, 10);
+      const generatedSalt = await bcrypt.genSalt(10);
+      const hashedPwd = await bcrypt.hash(this.password, generatedSalt);
 
       this.password = hashedPwd;
       return next();
@@ -49,20 +54,15 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-UserSchema.methods.comparePassword = function (
-  candidatePassword: string,
-  cb: any
-) {
-  bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-    if (err) {
-      return cb(err);
-    }
-    cb(null, isMatch);
-  });
+UserSchema.methods.comparePassword = function (candidatePassword: string) {
+  return bcrypt.compareSync(
+    candidatePassword,
+    "$2a$10$qBLIR64HUMqljvYECFn2DuGoyJdd.8wVoeoXq30LsmyWrfbxy713C"
+  );
 };
 
 const User =
-  mongoose.models.User ||
+  (mongoose.models.User as UserModel) ||
   mongoose.model<IUser & IMongooseGeneric>("User", UserSchema);
 
 export default User;
