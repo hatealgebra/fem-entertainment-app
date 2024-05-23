@@ -3,4 +3,5 @@ export interface IUser {
   email: string;
   password: string;
   avatar: string;
+  refreshTokens: Array<string>;
 }

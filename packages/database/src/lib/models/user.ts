@@ -4,7 +4,7 @@ import { IMongooseGeneric } from "@repo/misc/types/index.d.ts";
 import bcrypt from "bcrypt";
 
 interface IUserMethods {
-  comparePassword: (candidatePassword: string) => boolean;
+  comparePassword: () => boolean;
 }
 
 type UserModel = Model<IUser, {}, IUserMethods>;
@@ -22,6 +22,10 @@ export const UserSchema = new Schema<IUser & IMongooseGeneric>(
       minlength: 8,
       required: true,
       trim: true,
+    },
+    refreshTokens: {
+      type: [String],
+      default: [],
     },
     createdAt: {
       type: Date,
