@@ -3,6 +3,40 @@ import User from "@repo/db/models/user.ts";
 import { NextRequest, NextResponse } from "next/server";
 import withErrorHandler from "../../../../helpers/server/errorHandler";
 
+export const GET = withErrorHandler(async (req: NextRequest) => {
+  const body = req.json();
+  const { email, refreshToken } = await body;
+
+  await dbConnection();
+
+  const userInstance = await User.findOne({ email });
+  const selectedToken = userInstance?.refreshTokens.find(
+    (token) => token === refreshToken
+  );
+
+  if (!selectedToken) {
+    return NextResponse.json(
+      {
+        error: "error",
+        success: false,
+      },
+      {
+        status: 403,
+        statusText: "Authentication failed",
+      }
+    );
+  }
+
+  return NextResponse.json(
+    {
+      message: "User signed in successfully",
+      body: {
+        refreshToken: selectedToken,
+      },
+    },
+    { status: 200 }
+  );
+});
 export const POST = withErrorHandler(async (req: NextRequest) => {
   const body = req.json();
   const { email, refreshToken } = await body;
