@@ -1,6 +1,6 @@
-import { SignUpFormValues } from "../components/forms/SignUpForm";
+import { SignUpFormValues } from "../../components/forms/SignUpForm";
 
-import { handleResponse } from "../helpers/client/services.helper";
+import { handleResponse } from "../../helpers/client/services.helper";
 
 // TODO: Add Checking of the passwords on the backend
 

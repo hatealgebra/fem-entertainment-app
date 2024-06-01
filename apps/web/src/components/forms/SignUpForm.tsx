@@ -5,7 +5,7 @@ import Link from "next/link";
 import { APP_PATHS } from "@repo/misc/constants";
 import { useForm } from "react-hook-form";
 import useSWRMutation from "swr/mutation";
-import { createUser } from "../../services/user.services";
+import { createUser } from "../../services/client/user.services";
 import { ServerError } from "../../helpers/client/asyncError.helper";
 import { useRouter } from "next/navigation";
 import ToastComponent from "../ToastComponent";

@@ -4,14 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 import withErrorHandler from "../../../../helpers/server/errorHandler";
 import { createToken } from "../../../../helpers/server/handlingTokens";
-import { NEXT_PUBLIC_BASE_URL } from "../../../../helpers/server/envVars";
 
 export const POST = withErrorHandler(async (req: NextRequest) => {
   await dbConnection();
   const userCredentials = await req.json();
   const { email, password } = userCredentials;
-  const userDoc = await User.findOne({ email });
-
+  const userDoc = await User.findOne({ email: email.toLowerCase() });
   if (!userDoc) {
     return NextResponse.json(
       {
@@ -25,7 +23,6 @@ export const POST = withErrorHandler(async (req: NextRequest) => {
     );
   }
   const pwdsAreMatching = userDoc.comparePassword(password);
-
   if (!pwdsAreMatching) {
     return NextResponse.json(
       {
@@ -38,11 +35,10 @@ export const POST = withErrorHandler(async (req: NextRequest) => {
       }
     );
   }
-  // create access token
-  await createToken(userDoc.email, "access");
   //create refresh token
   const refreshToken = await createToken(userDoc.email, "refresh");
-  await fetch(`${NEXT_PUBLIC_BASE_URL}/api/user/token`, {
+  const baseURL = process.env.NEXT_PUBLIC_BASE_URL!;
+  await fetch(`${baseURL}/api/user/refresh`, {
     method: "POST",
     headers: {
       Accept: "application/json, text/plain, */*",
@@ -50,11 +46,15 @@ export const POST = withErrorHandler(async (req: NextRequest) => {
     },
     body: JSON.stringify({ email: userDoc.email, refreshToken }),
   });
-
+  // return NextResponse.redirect(baseURL);
   return NextResponse.json(
     {
-      message: "User signed in successfully",
+      success: true,
+      refreshToken,
     },
-    { status: 200 }
+    {
+      status: 200,
+      statusText: "Authentication successful",
+    }
   );
 });

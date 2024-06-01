@@ -23,10 +23,6 @@ export const UserSchema = new Schema<IUser & IMongooseGeneric>(
       required: true,
       trim: true,
     },
-    refreshTokens: {
-      type: [String],
-      default: [],
-    },
     createdAt: {
       type: Date,
       default: Date.now,
@@ -59,10 +55,7 @@ UserSchema.pre("save", async function (next) {
 });
 
 UserSchema.methods.comparePassword = function (candidatePassword: string) {
-  return bcrypt.compareSync(
-    candidatePassword,
-    "$2a$10$qBLIR64HUMqljvYECFn2DuGoyJdd.8wVoeoXq30LsmyWrfbxy713C"
-  );
+  return bcrypt.compareSync(candidatePassword, this.password);
 };
 
 const User =

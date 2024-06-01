@@ -2,10 +2,12 @@
 import Button from "@repo/ui/components/button/Button.tsx";
 import TextInput from "@repo/ui/components/inputs/TextInput.tsx";
 import Link from "next/link";
-import { APP_PATHS } from "@repo/misc/constants";
 import { useForm } from "react-hook-form";
 import useSWRMutation from "swr/mutation";
-import { signInUser } from "../../services/user.services";
+import { signInUser } from "../../services/client/user.services";
+import { APP_PATHS } from "@repo/misc/constants";
+import { useRouter } from "next/navigation";
+import { ServerError } from "../../helpers/client/asyncError.helper";
 
 interface LoginFormValues {
   email: string;
@@ -17,16 +19,30 @@ const LoginForm = () => {
     register,
     watch,
     handleSubmit,
-    formState: { errors },
+    setError,
+    formState: { errors: formErrors },
   } = useForm<LoginFormValues>();
 
+  const router = useRouter();
   const { trigger, isMutating } = useSWRMutation("/api/user/login", signInUser);
 
   const onSubmit = async (data: LoginFormValues) => {
     try {
       await trigger(data);
+      setTimeout(() => router.push(APP_PATHS.HOME), 2000);
     } catch (e) {
-      console.log(e);
+      if (e instanceof ServerError && e.response.status === 403) {
+        setError("root", {
+          type: "server",
+          message: "Authentication failed. Please check your credentials.",
+        });
+        return;
+      }
+
+      setError("root", {
+        type: "server",
+        message: "Something went wrong. Please try again later or contact us.",
+      });
     }
   };
 
@@ -39,7 +55,7 @@ const LoginForm = () => {
             placeholder="Email address"
             textContent={watch("email")}
             type="email"
-            error={errors.email?.message}
+            error={formErrors.email?.message}
             {...register("email", {
               required: "Can’t be empty",
               pattern: {
@@ -52,11 +68,14 @@ const LoginForm = () => {
             placeholder="Password"
             textContent={watch("pwd")}
             type="password"
-            error={errors.pwd?.message}
+            error={formErrors.pwd?.message}
             {...register("pwd", {
               required: "Can’t be empty",
             })}
           />
+          <span className="inline-block text-red  mx-auto">
+            {formErrors.root?.message}
+          </span>
         </div>
         <Button type="submit">Login to your account</Button>
       </form>

@@ -14,6 +14,7 @@
     "@repo/ui": "*",
     "@uidotdev/usehooks": "^2.4.1",
     "bcrypt": "^5.1.1",
+    "jose": "^5.3.0",
     "next": "^14.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
