@@ -8,7 +8,6 @@ import useSWRMutation from "swr/mutation";
 import { createUser } from "../../services/client/user.services";
 import { ServerError } from "../../helpers/client/asyncError.helper";
 import { useRouter } from "next/navigation";
-import ToastComponent from "../ToastComponent";
 import { toast } from "react-toastify";
 
 export interface SignUpFormValues {
@@ -121,7 +120,6 @@ const SignUpForm = () => {
           Log In
         </Link>
       </span>
-      <ToastComponent />
     </>
   );
 };

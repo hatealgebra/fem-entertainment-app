@@ -2,6 +2,7 @@ import "@repo/ui/globalStyle";
 import ContextProvider from "../../state/ContextProvider";
 import LogoIcon from "@icons/assets/icons/logo.svg";
 import Image from "next/image";
+import ToastComponent from "../../components/ToastComponent";
 
 export default function RootLayout({
   children,
@@ -26,6 +27,7 @@ export default function RootLayout({
               {children}
             </div>
           </main>
+          <ToastComponent />
         </body>
       </ContextProvider>
     </html>

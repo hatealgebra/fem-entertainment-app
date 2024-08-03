@@ -5,6 +5,7 @@ const withErrorHandler = (fn) => {
     try {
       return await fn(request, ...args);
     } catch (error) {
+      console.log({ error });
       return NextResponse.json(
         { error: "Internal Server Error", success: false },
         { status: 500, statusText: "Internal Server Error" }

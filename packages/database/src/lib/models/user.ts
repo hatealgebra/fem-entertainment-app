@@ -43,7 +43,10 @@ UserSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
     try {
       const generatedSalt = await bcrypt.genSalt(10);
-      const hashedPwd = await bcrypt.hash(this.password, generatedSalt);
+      const hashedPwd = await bcrypt.hash(
+        this.password,
+        parseInt(generatedSalt)
+      );
 
       this.password = hashedPwd;
       return next();
@@ -54,8 +57,10 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-UserSchema.methods.comparePassword = function (candidatePassword: string) {
-  return bcrypt.compareSync(candidatePassword, this.password);
+UserSchema.methods.comparePassword = async function (
+  candidatePassword: string
+) {
+  return await bcrypt.compare(candidatePassword, this.password);
 };
 
 const User =

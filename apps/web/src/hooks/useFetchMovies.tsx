@@ -17,9 +17,10 @@ const getRequest = async (keyArray: []) => {
 
 export type TSearchParams = {
   category?: string;
+  queryParams?: string;
 };
 
-const useFetchMovies = () => {
+const useFetchMovies = (additionalParams?: string) => {
   const [queryParams, setQueryParams] = useState<string | null>(null);
   const { searchString } = useContext(AppContext);
   const pathName = usePathname();

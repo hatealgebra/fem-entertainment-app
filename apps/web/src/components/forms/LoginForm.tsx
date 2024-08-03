@@ -8,6 +8,7 @@ import { signInUser } from "../../services/client/user.services";
 import { APP_PATHS } from "@repo/misc/constants";
 import { useRouter } from "next/navigation";
 import { ServerError } from "../../helpers/client/asyncError.helper";
+import { loginAction } from "../../services/server/formActions.services";
 
 interface LoginFormValues {
   email: string;
@@ -24,13 +25,15 @@ const LoginForm = () => {
   } = useForm<LoginFormValues>();
 
   const router = useRouter();
-  const { trigger, isMutating } = useSWRMutation("/api/user/login", signInUser);
+  // const { trigger, isMutating } = useSWRMutation("/api/user/login", signInUser);
 
   const onSubmit = async (data: LoginFormValues) => {
     try {
-      await trigger(data);
+      // await trigger(data);
+      loginAction(data.email, data.pwd);
       setTimeout(() => router.push(APP_PATHS.HOME), 2000);
     } catch (e) {
+      console.log({ e });
       if (e instanceof ServerError && e.response.status === 403) {
         setError("root", {
           type: "server",

@@ -3,7 +3,8 @@ import User from "@repo/db/models/user.ts";
 import { NextRequest, NextResponse } from "next/server";
 
 import withErrorHandler from "../../../../helpers/server/errorHandler";
-import { createToken } from "../../../../helpers/server/handlingTokens";
+import { generateToken } from "../../../../helpers/server/handlingTokens";
+import { cookies } from "next/headers";
 
 export const POST = withErrorHandler(async (req: NextRequest) => {
   await dbConnection();
@@ -35,8 +36,8 @@ export const POST = withErrorHandler(async (req: NextRequest) => {
       }
     );
   }
-  //create refresh token
-  const refreshToken = await createToken(userDoc.email, "refresh");
+  const refreshToken = await generateToken(userDoc.email, "refresh");
+
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL!;
   await fetch(`${baseURL}/api/user/refresh`, {
     method: "POST",
@@ -45,8 +46,9 @@ export const POST = withErrorHandler(async (req: NextRequest) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email: userDoc.email, refreshToken }),
+    credentials: "include",
   });
-  // return NextResponse.redirect(baseURL);
+
   return NextResponse.json(
     {
       success: true,
