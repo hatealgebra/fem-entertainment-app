@@ -1,4 +1,5 @@
 "use client";
+
 import Section, { SectionProps } from "../sections/Section";
 import { IMovie } from "@repo/misc/types/movies.js";
 import Thumbnail from "../thumbnail/Thumbnail";

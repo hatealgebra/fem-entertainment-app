@@ -10,8 +10,6 @@ export const GET = withErrorHandler(async (req: NextRequest) => {
   const category = getSearchParam(req, "category");
   const searchParam = getSearchParam(req, "search")?.trim();
   const regex = new RegExp(searchParam || "");
-  console.log("----");
-  console.log({ nextURL: req.nextUrl });
 
   try {
     await dbConnection();

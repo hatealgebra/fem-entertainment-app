@@ -11,9 +11,7 @@ export const loginAction = async (email: string, password: string) => {
     if (!userDoc) {
       throw new Error("Authentication failed. Please check your credentials.");
     }
-    console.log({ password });
     const pwdsAreMatching = userDoc.comparePassword(password);
-    console.log("hey");
 
     if (!pwdsAreMatching) {
       throw new Error("Authentication failed. Please check your credentials.");
