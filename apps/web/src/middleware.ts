@@ -23,9 +23,11 @@ export const middleware = async (request: NextRequest) => {
     return NextResponse.next();
   }
 
-  if (pathname.includes("/api")) {
-    return;
-    // handle the logic if the access token is not available
+  if (notAuth && pathname.includes("/api") && !pathname.includes("/api/user")) {
+    return NextResponse.json(
+      { message: "Unauthorized call to the api." },
+      { status: 401 }
+    );
   }
 
   if (notAuth) {

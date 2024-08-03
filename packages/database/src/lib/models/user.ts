@@ -28,6 +28,10 @@ export const UserSchema = new Schema<IUser & IMongooseGeneric>(
       default: Date.now,
       immutable: true,
     },
+    bookmarkedMovies: {
+      type: [String],
+      default: [],
+    },
     updatedAt: {
       type: Date,
       default: Date.now,

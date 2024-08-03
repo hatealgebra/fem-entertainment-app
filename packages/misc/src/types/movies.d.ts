@@ -2,7 +2,7 @@ export interface IMovie {
   title: string;
   thumbnail: IThumbnail;
   year: number;
-  category: TCategory;
+  category: ECategory;
   rating: ERating;
   isBookmarked: boolean;
   isTrending: boolean;
