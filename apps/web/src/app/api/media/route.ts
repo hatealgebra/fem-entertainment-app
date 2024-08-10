@@ -6,7 +6,6 @@ import withErrorHandler from "../../../helpers/server/errorHandler";
 
 export const GET = withErrorHandler(async (req: NextRequest) => {
   const isTrending = getSearchParam(req, "isTrending");
-  const isBookmarked = getSearchParam(req, "isBookmarked");
   const category = getSearchParam(req, "category");
   const searchParam = getSearchParam(req, "search")?.trim();
   const regex = new RegExp(searchParam || "");
@@ -16,7 +15,6 @@ export const GET = withErrorHandler(async (req: NextRequest) => {
 
     const media = await Movie.find(isTrending ? { isTrending } : {})
       .find(category ? { category } : {})
-      .find(isBookmarked ? { isBookmarked } : {})
       .find({
         title: {
           $regex: regex,

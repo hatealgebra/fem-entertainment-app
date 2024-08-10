@@ -5,11 +5,14 @@ import Gallery, {
 import useFetchMovies from "../hooks/useFetchMovies";
 import { useContext } from "react";
 import { AppContext } from "../state/AppContext";
+import { bookmarkMovie } from "../services/client/user.services";
+import useFetchUser from "../hooks/useFetchUser";
 
 interface GalleryWrapperProps extends Pick<GalleryProps, "headingText"> {}
 
 const GalleryWrapper = ({ headingText }: GalleryWrapperProps) => {
   const { data: movies, isLoading, error } = useFetchMovies();
+  const { userData } = useFetchUser();
   const { searchString } = useContext(AppContext);
 
   return (
@@ -20,6 +23,8 @@ const GalleryWrapper = ({ headingText }: GalleryWrapperProps) => {
       totalLength={movies?.totalLength}
       isLoading={isLoading}
       error={error}
+      bookmarkedMovies={userData?.bookmarkedMovies}
+      handleBookmark={bookmarkMovie}
     />
   );
 };

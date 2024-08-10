@@ -1,3 +1,4 @@
+import { mutate } from "swr";
 import { SignUpFormValues } from "../../components/forms/SignUpForm";
 
 import { handleResponse } from "../../helpers/client/services.helper";
@@ -29,5 +30,34 @@ export const signInUser = async (
     },
     body: JSON.stringify({ email, password: pwd }),
   });
+  return handleResponse(response);
+};
+
+export const bookmarkMovie = async (movieId: string) => {
+  const url = "/api/media/bookmark/";
+
+  const response = await fetch(url, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      movieId,
+    }),
+  });
+  mutate("/api/user");
+  return response;
+};
+
+export const getUserInfo = async () => {
+  const url = `/api/user`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
   return handleResponse(response);
 };

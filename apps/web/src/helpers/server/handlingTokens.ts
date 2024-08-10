@@ -18,6 +18,7 @@ export const generateToken = async (
     .setIssuedAt()
     .setExpirationTime(tokenType === "refresh" ? "15m" : "30s")
     .sign(tokenSecret as Uint8Array);
+
   if (!token) {
     throw new Error("Could not create token");
   }
@@ -35,7 +36,7 @@ export const generateToken = async (
 
 export const verifyToken = async (
   tokenType: "access" | "refresh",
-  token?: string
+  token?: Uint8Array
 ) => {
   try {
     const tokenSecret = await getTokenSecret(tokenType);
@@ -48,6 +49,16 @@ export const verifyToken = async (
   } catch (e) {
     return false;
   }
+};
+
+export const decryptToken = async (token: string) => {
+  const secret = await getTokenSecret("access");
+
+  if (!secret) {
+    throw new Error("Missing token secret");
+  }
+  const decodedJWT = jose.decodeJwt(token);
+  return decodedJWT;
 };
 
 export const deleteToken = (tokenType: "access" | "refresh") => {

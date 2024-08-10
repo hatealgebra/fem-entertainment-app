@@ -3,7 +3,7 @@ import LoginForm from "../../../components/forms/LoginForm";
 
 type Props = {};
 
-const LoginPage = (props: Props) => {
+const LoginPage = () => {
   return <LoginForm />;
 };
 

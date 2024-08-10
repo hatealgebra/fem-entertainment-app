@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 import withErrorHandler from "../../../../helpers/server/errorHandler";
 import { generateToken } from "../../../../helpers/server/handlingTokens";
-import { cookies } from "next/headers";
 
 export const POST = withErrorHandler(async (req: NextRequest) => {
   await dbConnection();

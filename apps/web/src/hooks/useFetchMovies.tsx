@@ -20,7 +20,7 @@ export type TSearchParams = {
   queryParams?: string;
 };
 
-const useFetchMovies = (additionalParams?: string) => {
+const useFetchMovies = () => {
   const [queryParams, setQueryParams] = useState<string | null>(null);
   const { searchString } = useContext(AppContext);
   const pathName = usePathname();

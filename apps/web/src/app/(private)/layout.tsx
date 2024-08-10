@@ -3,7 +3,6 @@ import "@repo/ui/globalStyle";
 import ContextProvider from "../../state/ContextProvider";
 import SearchForm from "../../components/SearchForm";
 import ToastComponent from "../../components/ToastComponent";
-import { toast } from "react-toastify";
 
 export default function RootLayout({
   children,
