@@ -1,24 +1,35 @@
 import Thumbnail from "../thumbnail/Thumbnail";
 import Section from "../sections/Section";
+import { IMovie } from "@repo/misc/types/movies.js";
+import GalleryLoading from "./GalleryLoading";
 
-const getMoviesData = async () => {
-  try {
-    const res = await fetch("http://localhost:3000/api/media?isTrending");
-    return await res.json();
-  } catch (e) {
-    return { error: "Internal Server Error" };
-  }
-};
+interface TrendingGalleryProps {
+  moviesData: { data: IMovie[] };
+  isLoading: boolean;
+  error: Error;
+  handleBookmark: (movieId: string) => Promise<void>;
+}
 
-const TrendingGallery = async () => {
-  const moviesData = await getMoviesData();
+const TrendingGallery = ({
+  moviesData,
+  isLoading,
+  error,
+  handleBookmark,
+}: TrendingGalleryProps) => {
   return (
     <Section headingText="Trending">
       <div className="w-full overflow-scroll no-scrollbar">
         <div className="w-max flex gap-x-4 flex-none">
-          {moviesData.data.map((movie) => (
-            <Thumbnail key={movie.title} {...movie} />
-          ))}
+          {isLoading && <GalleryLoading isTrending />}
+          {!isLoading &&
+            !error &&
+            moviesData?.data?.map((movie) => (
+              <Thumbnail
+                key={movie.title}
+                {...movie}
+                handleBookmark={handleBookmark}
+              />
+            ))}
         </div>
       </div>
     </Section>

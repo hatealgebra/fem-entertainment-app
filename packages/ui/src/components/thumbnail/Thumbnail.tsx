@@ -12,10 +12,14 @@ import movieIcon from "@icons/assets/icons/icon-category-movie.svg";
 import tvIcon from "@icons/assets/icons/icon-category-tv.svg";
 
 interface ThumbnailProps extends IMovie {
+  _id: string;
   isTouch?: boolean;
+  isBookmarked?: boolean;
+  handleBookmark: (movieId: string, isBookmarked: boolean) => Promise<void>;
 }
 
 const Thumbnail = ({
+  _id: movieId,
   thumbnail,
   isTrending = false,
   title,
@@ -24,6 +28,7 @@ const Thumbnail = ({
   isTouch,
   rating,
   isBookmarked = false,
+  handleBookmark,
 }: ThumbnailProps) => {
   const [bookmarkHover, setBookMarkHover] = useState(false);
   const [hover, setHover] = useState(false);
@@ -66,6 +71,7 @@ const Thumbnail = ({
           className="absolute right-2 top-2 group w-8 aspect-square bg-[#979797] rounded-full flex justify-center items-center hover:bg-[white]"
           onMouseEnter={() => !isBookmarked && setBookMarkHover(true)}
           onMouseLeave={() => setBookMarkHover(false)}
+          onClick={() => handleBookmark(movieId, isBookmarked)}
         >
           {isBookmarked ? (
             <Image src={bookmarkFull} alt="Bookmark icon full" />
