@@ -1,10 +1,10 @@
 export interface IMovie {
+  _id: string;
   title: string;
   thumbnail: IThumbnail;
   year: number;
   category: ECategory;
   rating: ERating;
-  isBookmarked: boolean;
   isTrending: boolean;
 }
 export interface IThumbnail {

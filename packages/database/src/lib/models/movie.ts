@@ -27,7 +27,6 @@ const MovieSchema = new Schema<IMovie>({
     type: String,
     enum: ERating,
   },
-  isBookmarked: { type: Boolean, default: false },
   isTrending: { type: Boolean, default: false },
 });
 

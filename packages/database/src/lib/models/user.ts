@@ -7,9 +7,11 @@ interface IUserMethods {
   comparePassword: () => boolean;
 }
 
-type UserModel = Model<IUser, {}, IUserMethods>;
+type TUser = IUser<mongoose.Schema.Types.ObjectId>;
 
-export const UserSchema = new Schema<IUser & IMongooseGeneric>(
+type UserModel = Model<TUser, {}, IUserMethods>;
+
+export const UserSchema = new Schema<TUser & IMongooseGeneric>(
   {
     email: {
       type: String,
@@ -29,8 +31,8 @@ export const UserSchema = new Schema<IUser & IMongooseGeneric>(
       immutable: true,
     },
     bookmarkedMovies: {
-      type: [String],
-      default: [],
+      type: Array<mongoose.Schema.Types.ObjectId>,
+      ref: "Movie",
     },
     updatedAt: {
       type: Date,
@@ -69,6 +71,6 @@ UserSchema.methods.comparePassword = async function (
 
 const User =
   (mongoose.models.User as UserModel) ||
-  mongoose.model<IUser & IMongooseGeneric>("User", UserSchema);
+  mongoose.model<TUser & IMongooseGeneric>("User", UserSchema);
 
 export default User;
