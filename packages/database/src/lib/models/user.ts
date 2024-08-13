@@ -3,7 +3,7 @@ import { IUser } from "@repo/misc/types/user.d.ts";
 import { IMongooseGeneric } from "@repo/misc/types/index.d.ts";
 import bcrypt from "bcrypt";
 
-interface IUserMethods {
+export interface IUserMethods {
   comparePassword: () => boolean;
 }
 
