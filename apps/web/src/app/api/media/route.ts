@@ -3,6 +3,8 @@ import dbConnection from "@repo/db/dbConnection.ts";
 import { NextRequest, NextResponse } from "next/server";
 import { getSearchParam } from "../../../utils";
 import withErrorHandler from "../../../helpers/server/errorHandler";
+import { decryptToken } from "../../../helpers/server/handlingTokens";
+import User from "@repo/db/models/user";
 
 export const GET = withErrorHandler(async (req: NextRequest) => {
   const isTrending = getSearchParam(req, "isTrending");
@@ -13,7 +15,27 @@ export const GET = withErrorHandler(async (req: NextRequest) => {
   try {
     await dbConnection();
 
-    const media = await Movie.find(isTrending ? { isTrending } : {})
+    if (category === "Bookmarked") {
+      const accessToken = req.cookies.get("accessToken").value;
+      const tokenPayload = await decryptToken(accessToken);
+      const { id: email } = tokenPayload;
+
+      const user = await User.findOne({ email })
+        .populate("bookmarkedMovies")
+        .exec();
+
+      const { bookmarkedMovies } = user;
+
+      return NextResponse.json(
+        {
+          data: bookmarkedMovies,
+          totalLength: bookmarkedMovies.length,
+        },
+        { status: 200 }
+      );
+    }
+
+    const media = await Movie.findOne(isTrending ? { isTrending } : {})
       .find(category ? { category } : {})
       .find({
         title: {
