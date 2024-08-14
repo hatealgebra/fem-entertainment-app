@@ -25,7 +25,6 @@ const Gallery = ({
   isLoading,
   error,
 }: GalleryProps) => {
-  console.log({ bookmarkedMovies });
   return (
     <Section
       headingText={
@@ -35,7 +34,7 @@ const Gallery = ({
       }
     >
       <div className="flex max-w-[100%] flex-wrap gap-x-[29px] gap-y-6">
-        {isLoading && <GalleryLoading />}
+        {isLoading && <GalleryLoading isSearch={!!searchString?.length} />}
         {!isLoading && !totalLength && (
           <h3 className="my-[10vh] w-full text-center">
             There are no movies with the provided search

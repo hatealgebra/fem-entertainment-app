@@ -14,7 +14,7 @@ export default function RootLayout({
       <ContextProvider>
         <body className="relative bg-black overflow-x-hidden xl:flex xl:pt-8">
           <Navigation />
-          <main className="mx-4 min-w-0 max-w-full flex flex-col gap-6 mt-6 pb-14 md:mx-6">
+          <main className="mx-4 min-w-0 max-w-full flex flex-col gap-6 mt-6 pb-14 md:mx-6 w-full">
             <SearchForm />
             {children}
           </main>
