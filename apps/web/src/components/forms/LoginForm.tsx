@@ -3,8 +3,6 @@ import Button from "@repo/ui/components/button/Button.tsx";
 import TextInput from "@repo/ui/components/inputs/TextInput.tsx";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import useSWRMutation from "swr/mutation";
-import { signInUser } from "../../services/client/user.services";
 import { APP_PATHS } from "@repo/misc/constants";
 import { useRouter } from "next/navigation";
 import { ServerError } from "../../helpers/client/asyncError.helper";
@@ -21,17 +19,15 @@ const LoginForm = () => {
     watch,
     handleSubmit,
     setError,
-    formState: { errors: formErrors },
+    formState: { errors: formErrors, isSubmitting },
   } = useForm<LoginFormValues>();
 
   const router = useRouter();
-  // const { trigger, isMutating } = useSWRMutation("/api/user/login", signInUser);
 
   const onSubmit = async (data: LoginFormValues) => {
     try {
-      // await trigger(data);
-      loginAction(data.email, data.pwd);
-      setTimeout(() => router.push(APP_PATHS.HOME), 2000);
+      await loginAction(data.email, data.pwd);
+      router.push(APP_PATHS.HOME);
     } catch (e) {
       console.log({ e });
       if (e instanceof ServerError && e.response.status === 403) {
@@ -80,7 +76,9 @@ const LoginForm = () => {
             {formErrors.root?.message}
           </span>
         </div>
-        <Button type="submit">Login to your account</Button>
+        <Button type="submit" isLoading={isSubmitting} loadingText="Logging in">
+          Login to your account
+        </Button>
       </form>
       <span className="mx-auto">
         <span>Don't have an account?</span>
