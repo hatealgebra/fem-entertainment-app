@@ -5,6 +5,9 @@
 
 
 @layer base {
+    * {
+        @apply p-0 m-0 box-border;
+    }
     body {
         @apply text-base font-light font-primary text-white;
     }
