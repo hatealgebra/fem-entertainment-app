@@ -12,12 +12,13 @@ const TrendingGalleryWrapper = () => {
     data: moviesData,
     isLoading,
     error,
-  } = useSWR("/api/media?isTrending", fetcher);
-
+  } = useSWR("/api/media?isTrending=true", fetcher);
   const { searchString } = useContext(AppContext);
+
   if (searchString) {
     return null;
   }
+
   return (
     <TrendingGallery
       moviesData={moviesData}
