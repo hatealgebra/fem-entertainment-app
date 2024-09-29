@@ -1,22 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import {
+  DialogHTMLAttributes,
+  MouseEvent,
+  MouseEventHandler,
+  Ref,
+  useRef,
+  useState,
+} from "react";
 import Image from "next/image";
-import { IMovie } from "@repo/misc/types/movies.d.ts";
+import { IMediaDetailUI } from "@repo/misc/types/components.d.ts";
 
 import playIcon from "@icons/assets/icons/icon-play.svg";
 import movieIcon from "@icons/assets/icons/icon-category-movie.svg";
 import tvIcon from "@icons/assets/icons/icon-category-tv.svg";
 import BookmarkIcon from "../icons/BookmarkIcon";
+import MediaDetail from "../mediaDetail/MediaDetail";
 
-interface ThumbnailProps extends IMovie {
-  _id: string;
-  isTouch?: boolean;
-  isBookmarked?: boolean;
-  handleBookmark: (movieId: string, isBookmarked: boolean) => Promise<void>;
+interface ThumbnailProps extends IMediaDetailUI {
+  onClick?: () => void;
+  hidden?: boolean;
 }
 
-const Thumbnail = ({
+const ThumbnailCard = ({
   _id: movieId,
   thumbnail,
   isTrending = false,
@@ -27,15 +33,22 @@ const Thumbnail = ({
   rating,
   isBookmarked = false,
   handleBookmark,
+  onClick,
 }: ThumbnailProps) => {
   const [hover, setHover] = useState(false);
+
   const imageParentFolder = isTrending ? "trending" : "regular";
+
+  const handleClick = (event: MouseEvent<HTMLDivElement, MouseEvent>) => {
+    onClick();
+  };
 
   return (
     <div
+      className={`h-full w-full`}
+      onClick={handleClick}
       onMouseEnter={() => !isTouch && setHover(true)}
       onMouseLeave={() => !isTouch && setHover(false)}
-      className="group relative w-full sm:max-w-auto grow h-fit sm:w-fit sm:max-w-fit"
     >
       <div
         className={`peer relative w-full overflow-hidden transition duration-300 ease-in-out rounded-lg aspect-[1.7073170731707317]  ${isTrending ? "w-[240px] h-[140px] md:w-[470px] md:h-[230px]" : "w-full h-auto sm:w-[164px] md:w-[220px] md:h-[140px] lg:w-[280px] lg:h-[226px]"}`}
@@ -88,6 +101,41 @@ const Thumbnail = ({
         </div>
         <span className="text-capitalize text-base font-medium">{title}</span>
       </div>
+    </div>
+  );
+};
+
+const Thumbnail = ({ ...props }: ThumbnailProps) => {
+  const cardRef = useRef(null);
+  const [inDetail, setInDetail] = useState(false);
+
+  const openDetail = () => {
+    setInDetail(true);
+  };
+
+  const closeDetail = (ref: Ref<HTMLDialogElement>) => {
+    if (!ref) {
+      return;
+    }
+
+    ref.current?.close();
+    setInDetail(false);
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      className={`relative group w-full rounded-lg sm:max-w-auto grow h-fit sm:w-fit sm:max-w-fit`}
+    >
+      <ThumbnailCard onClick={openDetail} hidden={inDetail} {...props} />
+      {inDetail && (
+        <MediaDetail
+          ref={cardRef}
+          isOpen={inDetail}
+          closeDialog={closeDetail}
+          {...props}
+        />
+      )}
     </div>
   );
 };

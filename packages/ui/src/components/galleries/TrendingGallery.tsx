@@ -18,7 +18,7 @@ const TrendingGallery = ({
 }: TrendingGalleryProps) => {
   return (
     <Section headingText="Trending">
-      <div className="w-full overflow-scroll no-scrollbar">
+      <div className="w-full overflow-x-scroll no-scrollbar">
         <div className="w-max flex gap-x-4 flex-none">
           {isLoading && <GalleryLoading isTrending />}
           {!isLoading &&
