@@ -7,6 +7,7 @@ interface TrendingGalleryProps {
   moviesData: { data: IMovie[] };
   isLoading: boolean;
   error: Error;
+  bookmarkedMovies: string[];
   handleBookmark: (movieId: string) => Promise<void>;
 }
 
@@ -14,6 +15,7 @@ const TrendingGallery = ({
   moviesData,
   isLoading,
   error,
+  bookmarkedMovies,
   handleBookmark,
 }: TrendingGalleryProps) => {
   return (
@@ -28,6 +30,8 @@ const TrendingGallery = ({
                 key={movie.title}
                 {...movie}
                 handleBookmark={handleBookmark}
+                isTrending={true}
+                isBookmarked={bookmarkedMovies?.includes(movie._id)}
               />
             ))}
         </div>

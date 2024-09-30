@@ -5,7 +5,6 @@ import { createPortal } from "react-dom";
 import movieIcon from "@icons/assets/icons/icon-category-movie.svg";
 import tvIcon from "@icons/assets/icons/icon-category-tv.svg";
 import { MdClose } from "react-icons/md";
-import { transform } from "next/dist/build/swc";
 
 interface MediaDetailProps extends Omit<IMediaDetailUI, "isTrending"> {
   isOpen: boolean;
@@ -70,14 +69,14 @@ const MediaDetail = forwardRef(
           height: `${clientRect.height}px`,
         };
 
-    return createPortal(
+    return (
       <dialog
         className={`z-50 ${fullscreen && "backdrop:backdrop-blur-md"}`}
         ref={dialogRef}
         onClick={(e) => e.target.nodeName === "DIALOG" && closeDialogHandler()}
       >
         <div
-          className={`fixed rounded-lg translate-x-[-50%] translate-y-[-50%] overflow-y-scroll transition-all duration-700 bg-opacity-0 overflow-hidden  bg-darkBlue text-white max-w-[560px] max-h-[800px] mx-auto ${fullscreen && "bg-opacity-100 m-auto shadow-sm shadow-[black]"}`}
+          className={`fixed rounded-lg translate-x-[-50%] translate-y-[-50%] overflow-y-hidden transition-all duration-700 bg-opacity-0 overflow-hidden  bg-darkBlue text-white max-w-[560px] max-h-[800px] mx-auto ${fullscreen && "bg-opacity-100 m-auto shadow-sm shadow-[black] overflow-y-scroll"}`}
           style={stylesConfig}
         >
           <div
@@ -91,7 +90,7 @@ const MediaDetail = forwardRef(
             />
           </div>
           <div
-            className={`px-[5%] pt-2 pb-10 delay-700 duration-300 ${!fullscreen && "opacity-0"} ${fullscreen && "opacity-100"}`}
+            className={`px-[5%] pt-2 pb-10 delay-300 duration-300 ${!fullscreen && "opacity-0"} ${fullscreen && "opacity-100"}`}
           >
             <button
               className="bg-white text-black p-2 rounded-full absolute top-5 right-5 z-20"
@@ -127,8 +126,7 @@ const MediaDetail = forwardRef(
             </p>
           </div>
         </div>
-      </dialog>,
-      document.body
+      </dialog>
     );
   }
 );

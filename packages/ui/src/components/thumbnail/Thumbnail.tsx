@@ -46,7 +46,6 @@ const ThumbnailCard = ({
   return (
     <div
       className={`h-full w-full`}
-      onClick={handleClick}
       onMouseEnter={() => !isTouch && setHover(true)}
       onMouseLeave={() => !isTouch && setHover(false)}
     >
@@ -54,6 +53,7 @@ const ThumbnailCard = ({
         className={`peer relative w-full overflow-hidden transition duration-300 ease-in-out rounded-lg aspect-[1.7073170731707317]  ${isTrending ? "w-[240px] h-[140px] md:w-[470px] md:h-[230px]" : "w-full h-auto sm:w-[164px] md:w-[220px] md:h-[140px] lg:w-[280px] lg:h-[226px]"}`}
       >
         <Image
+          onClick={handleClick}
           className="object-cover w-full h-full group-hover:brightness-[0.8] hover:cursor-pointer aspect-[1.7073170731707317] "
           src={
             thumbnail?.[imageParentFolder]?.large ||
@@ -78,7 +78,7 @@ const ThumbnailCard = ({
           </button>
         )}
         <button
-          className={`absolute right-2 top-2 group w-8 aspect-square bg-[#979797] rounded-full flex justify-center items-center hover:bg-[white]}`}
+          className={`absolute right-2 top-2 group w-8 aspect-square bg-[#979797] rounded-full flex justify-center items-center hover:scale-125}`}
           onClick={() => handleBookmark(movieId, isBookmarked)}
         >
           <BookmarkIcon
@@ -87,6 +87,7 @@ const ThumbnailCard = ({
         </button>
       </div>
       <div
+        onClick={handleClick}
         className={`flex flex-col ${isTrending ? "absolute bottom-4 left-4" : "mt-2"}`}
       >
         <div className="flex items-center gap-x-1.5 text-white text-opacity-75">
