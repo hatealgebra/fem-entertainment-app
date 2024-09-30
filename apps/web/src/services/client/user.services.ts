@@ -3,8 +3,6 @@ import { SignUpFormValues } from "../../components/forms/SignUpForm";
 
 import { handleResponse } from "../../helpers/client/services.helper";
 
-// TODO: Add Checking of the passwords on the backend
-
 export const createUser = async (
   url: string,
   { arg: { email, pwd } }: { arg: SignUpFormValues }
