@@ -13,7 +13,7 @@ const SearchInput = forwardRef(
         </button>
         <div className="relative flex w-full flex-col mr-[5%]">
           <input
-            className={`peer focus:text-opacity-100 ${textContent && "text-opacity-100"}`}
+            className={`peer focus:text-opacity-100 w-full ${textContent && "text-opacity-100"}`}
             type="text"
             ref={ref}
             autoComplete="off"

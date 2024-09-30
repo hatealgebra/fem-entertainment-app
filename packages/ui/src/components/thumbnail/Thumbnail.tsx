@@ -50,7 +50,7 @@ const ThumbnailCard = ({
       onMouseLeave={() => !isTouch && setHover(false)}
     >
       <div
-        className={`peer relative w-full overflow-hidden transition duration-300 ease-in-out rounded-lg aspect-[1.7073170731707317]  ${isTrending ? "w-[240px] h-[140px] md:w-[470px] md:h-[230px]" : "w-full h-auto sm:w-[164px] md:w-[220px] md:h-[140px] lg:w-[280px] lg:h-[226px]"}`}
+        className={`peer relative w-full overflow-hidden duration-300 ease-in-out rounded-lg aspect-[1.7073170731707317]  ${isTrending ? "w-[240px] h-[140px] md:w-[470px] md:h-[230px]" : "w-full h-auto sm:w-[164px] md:w-[220px] md:h-[140px] lg:w-[280px] lg:h-[226px]"}`}
       >
         <Image
           onClick={handleClick}
