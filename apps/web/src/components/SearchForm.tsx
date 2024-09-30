@@ -25,7 +25,7 @@ const SearchForm = () => {
   }, [pathname]);
 
   return (
-    <form onSubmit={(e) => e.preventDefault()} className="h-fit">
+    <form onSubmit={(e) => e.preventDefault()} className="h-fit z-0">
       <SearchInput
         placeholder="Search for movies or TV series"
         textContent={watch("search")}
