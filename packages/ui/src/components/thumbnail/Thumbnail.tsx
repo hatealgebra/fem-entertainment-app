@@ -5,6 +5,7 @@ import {
   MouseEvent,
   MouseEventHandler,
   Ref,
+  RefObject,
   useRef,
   useState,
 } from "react";
@@ -18,7 +19,7 @@ import BookmarkIcon from "../icons/BookmarkIcon";
 import MediaDetail from "../mediaDetail/MediaDetail";
 
 interface ThumbnailProps extends IMediaDetailUI {
-  onClick?: () => void;
+  onClick: () => void;
   hidden?: boolean;
 }
 
@@ -39,7 +40,7 @@ const ThumbnailCard = ({
 
   const imageParentFolder = isTrending ? "trending" : "regular";
 
-  const handleClick = (event: MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleClick = () => {
     onClick();
   };
 
@@ -57,7 +58,8 @@ const ThumbnailCard = ({
           className="object-cover w-full h-full group-hover:brightness-[0.8] hover:cursor-pointer aspect-[1.7073170731707317] "
           src={
             thumbnail?.[imageParentFolder]?.large ||
-            thumbnail?.[imageParentFolder]?.small
+            thumbnail?.[imageParentFolder]?.small ||
+            ""
           }
           alt={`${title} thumbnail`}
           fill
@@ -106,20 +108,20 @@ const ThumbnailCard = ({
   );
 };
 
-const Thumbnail = ({ ...props }: ThumbnailProps) => {
-  const cardRef = useRef(null);
+const Thumbnail = ({ ...props }: Omit<ThumbnailProps, "onClick">) => {
+  const cardRef = useRef<HTMLDivElement>(null);
   const [inDetail, setInDetail] = useState(false);
 
   const openDetail = () => {
     setInDetail(true);
   };
 
-  const closeDetail = (ref: Ref<HTMLDialogElement>) => {
-    if (!ref) {
+  const closeDetail = (ref: RefObject<HTMLDialogElement>) => {
+    if (!ref.current) {
       return;
     }
 
-    ref.current?.close();
+    ref.current.close();
     setInDetail(false);
   };
 
@@ -128,7 +130,7 @@ const Thumbnail = ({ ...props }: ThumbnailProps) => {
       ref={cardRef}
       className={`relative group w-full rounded-lg sm:max-w-auto grow h-fit sm:w-fit sm:max-w-fit`}
     >
-      <ThumbnailCard onClick={openDetail} hidden={inDetail} {...props} />
+      <ThumbnailCard {...props} onClick={openDetail} hidden={inDetail} />
       {inDetail && (
         <MediaDetail
           ref={cardRef}

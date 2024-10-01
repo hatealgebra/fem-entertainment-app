@@ -25,6 +25,8 @@ export const GET = withErrorHandler(async (req: NextRequest) => {
     );
   }
 
-  const { bookmarkedMovies } = await User.findOne({ email: email });
+  const user = await User.findOne({ email: email });
+  const bookmarkedMovies = user?.bookmarkedMovies;
+
   return NextResponse.json({ email, bookmarkedMovies }, { status: 200 });
 });

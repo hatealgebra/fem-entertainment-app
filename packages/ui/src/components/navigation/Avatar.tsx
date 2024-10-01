@@ -28,8 +28,9 @@ const Avatar = () => {
 
   useEffect(() => {
     if (isOpen) {
-      document.body.addEventListener("click", (e) => {
-        if (e.target.closest("#avatar-button")) {
+      document.body.addEventListener("click", (e: MouseEvent) => {
+        const targetElement = e.target as HTMLElement;
+        if (targetElement.closest("#avatar-button")) {
           return;
         }
         setIsOpen(false);

@@ -4,5 +4,5 @@ export interface IUser<T> {
   password: string;
   avatar: string;
   refreshTokens: Array<string>;
-  bookmarkedMovies: T;
+  bookmarkedMovies: DocumentArray;
 }

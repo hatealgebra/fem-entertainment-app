@@ -10,7 +10,7 @@ export interface IAppContext {
   };
   searchString: null | string;
   actions: {
-    bookmarkMovie: (movieId: string) => Promise<void>;
+    bookmarkMovie: (movieId: string) => Promise<Response>;
   };
 }
 

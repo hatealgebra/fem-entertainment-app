@@ -11,7 +11,7 @@ export const middleware = async (request: NextRequest) => {
 
   const accessToken = request.cookies.get("accessToken");
   const refreshToken = request.cookies.get("refreshToken");
-  const authResponse = await authentication(accessToken, refreshToken);
+  const authResponse = (await authentication(accessToken, refreshToken)) as any;
 
   const notAuth = authResponse instanceof Error;
 

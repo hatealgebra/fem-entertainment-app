@@ -1,14 +1,21 @@
 import { IMediaDetailUI } from "@repo/misc/types/components.js";
 import Image from "next/image";
-import { Ref, forwardRef, useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import {
+  Ref,
+  forwardRef,
+  useEffect,
+  useRef,
+  useState,
+  ForwardedRef,
+  RefObject,
+} from "react";
 import movieIcon from "@icons/assets/icons/icon-category-movie.svg";
 import tvIcon from "@icons/assets/icons/icon-category-tv.svg";
 import { MdClose } from "react-icons/md";
 
 interface MediaDetailProps extends Omit<IMediaDetailUI, "isTrending"> {
   isOpen: boolean;
-  closeDialog: (ref: Ref<HTMLDialogElement>) => void;
+  closeDialog: (ref: RefObject<HTMLDialogElement>) => void;
 }
 
 const MediaDetail = forwardRef(
@@ -22,11 +29,11 @@ const MediaDetail = forwardRef(
       isTouch,
       rating,
       isBookmarked = false,
-      handleBookmark,
+
       isOpen,
       closeDialog,
     }: MediaDetailProps,
-    parentRef
+    parentRef: ForwardedRef<HTMLDivElement>
   ) => {
     const dialogRef = useRef<HTMLDialogElement>(null);
     const [fullscreen, setFullscreen] = useState(false);
@@ -53,7 +60,10 @@ const MediaDetail = forwardRef(
       return null;
     }
 
-    const clientRect = parentRef.current?.getBoundingClientRect();
+    const clientRect = (
+      parentRef as React.MutableRefObject<HTMLDivElement>
+    ).current?.getBoundingClientRect();
+
     const stylesConfig = fullscreen
       ? {
           width: "90vw",
@@ -63,17 +73,20 @@ const MediaDetail = forwardRef(
           top: "50%",
         }
       : {
-          top: `${clientRect.top}px`,
-          left: `${clientRect.left}px`,
-          width: `${clientRect.width}px`,
-          height: `${clientRect.height}px`,
+          top: `${clientRect?.top || 0}px`,
+          left: `${clientRect?.left || 0}px`,
+          width: `${clientRect?.width || 0}px`,
+          height: `${clientRect?.height || 0}px`,
         };
 
     return (
       <dialog
         className={`z-50 ${fullscreen && "backdrop:backdrop-blur-md"}`}
         ref={dialogRef}
-        onClick={(e) => e.target.nodeName === "DIALOG" && closeDialogHandler()}
+        onClick={(e) =>
+          (e.target as HTMLElement).nodeName === "DIALOG" &&
+          closeDialogHandler()
+        }
       >
         <div
           className={`fixed rounded-lg translate-x-[-50%] translate-y-[-50%] overflow-y-hidden transition-all duration-700 bg-opacity-0 overflow-hidden  bg-darkBlue text-white max-w-[560px] max-h-[800px] mx-auto ${fullscreen && "bg-opacity-100 m-auto shadow-sm shadow-[black] overflow-y-scroll"}`}

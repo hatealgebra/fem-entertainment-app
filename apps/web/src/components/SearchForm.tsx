@@ -11,7 +11,10 @@ import { usePathname } from "next/navigation";
 const SearchForm = () => {
   const { register, watch, reset } = useForm();
   const pathname = usePathname();
-  const dispatch = useContext(AppDispatchContext);
+  const dispatch = useContext(AppDispatchContext) as React.Dispatch<{
+    type: EActions;
+    payload: string;
+  }>;
 
   const searchMovie = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTimeout(() => {

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const withErrorHandler = (fn) => {
-  return async (request: NextRequest, ...args) => {
+const withErrorHandler = (fn: any) => {
+  return async (request: NextRequest, ...args: any[]) => {
     try {
       return await fn(request, ...args);
     } catch (error) {

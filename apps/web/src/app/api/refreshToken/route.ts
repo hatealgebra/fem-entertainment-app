@@ -32,6 +32,7 @@ export const POST = withErrorHandler(async (req: NextRequest) => {
   }
 
   const { id } = decodeJwt(refreshToken);
+
   if (!id) {
     deleteToken("refresh");
     deleteToken("access");
@@ -45,7 +46,7 @@ export const POST = withErrorHandler(async (req: NextRequest) => {
     );
   }
 
-  const accessToken = await generateToken(id, "access");
+  const accessToken = await generateToken(id as string, "access");
 
   const response = NextResponse.json("Access token generated successfully");
 

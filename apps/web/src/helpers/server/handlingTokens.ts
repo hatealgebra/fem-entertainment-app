@@ -36,12 +36,12 @@ export const generateToken = async (
 
 export const verifyToken = async (
   tokenType: "access" | "refresh",
-  token?: Uint8Array
+  token?: string
 ) => {
   try {
     const tokenSecret = await getTokenSecret(tokenType);
 
-    if (!token || !tokenSecret) {
+    if (!token || !tokenSecret || tokenSecret instanceof Error) {
       throw new Error("Missing access token or secret");
     }
     await jose.jwtVerify(token, tokenSecret);

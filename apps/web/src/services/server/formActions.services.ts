@@ -18,6 +18,6 @@ export const loginAction = async (email: string, password: string) => {
     }
     await generateToken(userDoc.email, "refresh");
   } catch (e) {
-    throw new Error(e);
+    throw new Error(e as string);
   }
 };

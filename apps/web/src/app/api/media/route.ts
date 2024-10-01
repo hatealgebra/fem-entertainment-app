@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSearchParam } from "../../../utils";
 import withErrorHandler from "../../../helpers/server/errorHandler";
 import { decryptToken } from "../../../helpers/server/handlingTokens";
-import User from "@repo/db/models/user";
+import User from "@repo/db/models/user.ts";
 
 export const GET = withErrorHandler(async (req: NextRequest) => {
   const isTrending = getSearchParam(req, "isTrending");
@@ -15,21 +15,21 @@ export const GET = withErrorHandler(async (req: NextRequest) => {
   try {
     await dbConnection();
 
-    if (category === "Bookmarked") {
-      const accessToken = req.cookies.get("accessToken").value;
-      const tokenPayload = await decryptToken(accessToken);
+    const accessToken = req.cookies.get("accessToken")?.value;
+
+    if (category === "Bookmarked" && accessToken) {
+      const accessToken = req.cookies.get("accessToken")?.value;
+      const tokenPayload = await decryptToken(accessToken!);
       const { id: email } = tokenPayload;
 
-      const user = await User.findOne({ email })
+      const user = await User.findOne({ email: email as string })
         .populate("bookmarkedMovies")
         .exec();
 
-      const { bookmarkedMovies } = user;
-
       return NextResponse.json(
         {
-          data: bookmarkedMovies,
-          totalLength: bookmarkedMovies.length,
+          data: user?.bookmarkedMovies,
+          totalLength: user?.bookmarkedMovies.length,
         },
         { status: 200 }
       );

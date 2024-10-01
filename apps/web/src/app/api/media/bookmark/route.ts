@@ -15,7 +15,7 @@ export const PATCH = withErrorHandler(async (req: NextRequest) => {
   const { movieId } = body;
 
   await dbConnect();
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email: email as string });
 
   if (!user || !movieId) {
     return NextResponse.json({ message: "Invalid request" }, { status: 400 });

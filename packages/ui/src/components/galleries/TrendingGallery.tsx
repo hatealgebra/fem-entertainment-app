@@ -8,7 +8,7 @@ interface TrendingGalleryProps {
   isLoading: boolean;
   error: Error;
   bookmarkedMovies: string[];
-  handleBookmark: (movieId: string) => Promise<void>;
+  handleBookmark: (movieId: string) => Promise<Response>;
 }
 
 const TrendingGallery = ({

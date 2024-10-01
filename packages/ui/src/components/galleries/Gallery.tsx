@@ -12,7 +12,7 @@ export interface GalleryProps extends Pick<SectionProps, "headingText"> {
   error: Error;
   searchString: string | null;
   bookmarkedMovies: string[];
-  handleBookmark: (movieId: string) => Promise<void>;
+  handleBookmark: (movieId: string) => Promise<Response>;
 }
 
 const Gallery = ({

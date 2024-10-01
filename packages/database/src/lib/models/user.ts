@@ -1,10 +1,10 @@
-import mongoose, { Model, Schema } from "mongoose";
+import mongoose, { CallbackError, Model, Schema } from "mongoose";
 import { IUser } from "@repo/misc/types/user.d.ts";
 import { IMongooseGeneric } from "@repo/misc/types/index.d.ts";
 import bcrypt from "bcrypt";
 
 export interface IUserMethods {
-  comparePassword: () => boolean;
+  comparePassword: (pwd: string) => boolean;
 }
 
 type TUser = IUser<mongoose.Schema.Types.ObjectId>;
@@ -57,7 +57,7 @@ UserSchema.pre("save", async function (next) {
       this.password = hashedPwd;
       return next();
     } catch (e) {
-      return next(e);
+      return next(e as CallbackError);
     }
   }
   next();
