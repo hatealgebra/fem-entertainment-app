@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const dbConnect = async () => {
   try {
     const connection = await mongoose.connect(
-      "mongodb://127.0.0.1:27017/web-app"
+      process.env.MONGO_DB_URI as string
     );
     return connection;
   } catch (e) {

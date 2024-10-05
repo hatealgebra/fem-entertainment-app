@@ -27,5 +27,11 @@ export const POST = withErrorHandler(async (req: NextRequest) => {
         }
       );
     }
+    return NextResponse.json(
+      { error: e, success: false },
+      {
+        status: 502,
+      }
+    );
   }
 });

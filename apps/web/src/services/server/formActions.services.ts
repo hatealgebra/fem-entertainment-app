@@ -12,12 +12,12 @@ export const loginAction = async (email: string, password: string) => {
       throw new Error("Authentication failed. Please check your credentials.");
     }
     const pwdsAreMatching = userDoc.comparePassword(password);
-
     if (!pwdsAreMatching) {
       throw new Error("Authentication failed. Please check your credentials.");
     }
     await generateToken(userDoc.email, "refresh");
   } catch (e) {
+    console.log(e);
     throw new Error(e as string);
   }
 };
