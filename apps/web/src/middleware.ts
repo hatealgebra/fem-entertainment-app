@@ -7,6 +7,8 @@ const publicPaths = ["login", "signup"];
 
 export const middleware = async (request: NextRequest) => {
   const { pathname } = request.nextUrl;
+
+  console.log("middleware", pathname);
   const isPublic = publicPaths.some((path) => pathname.includes(path));
 
   const accessToken = request.cookies.get("accessToken");
@@ -14,6 +16,7 @@ export const middleware = async (request: NextRequest) => {
   const authResponse = (await authentication(accessToken, refreshToken)) as any;
 
   const notAuth = authResponse instanceof Error;
+  console.log({ isPublic, notAuth });
 
   if (isPublic && !notAuth) {
     return NextResponse.redirect(new URL("/", request.url));
