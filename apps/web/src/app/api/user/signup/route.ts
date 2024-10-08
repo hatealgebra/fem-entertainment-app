@@ -28,7 +28,7 @@ export const POST = withErrorHandler(async (req: NextRequest) => {
       );
     }
     return NextResponse.json(
-      { error: e, success: false },
+      { error: e, success: false, message: "Error creating user" },
       {
         status: 502,
       }
