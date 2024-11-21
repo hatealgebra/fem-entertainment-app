@@ -37,9 +37,9 @@ export const middleware = async (request: NextRequest) => {
   const response = NextResponse.next();
   const accessTokenValue = authResponse.headers
     .getSetCookie()
-    .toString()
-    .split("=")[1]
-    .split(";")[0];
+    ?.toString()
+    ?.split("=")[1]
+    ?.split(";")[0];
 
   response.cookies.set({
     name: "accessToken",
