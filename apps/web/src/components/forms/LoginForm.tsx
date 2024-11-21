@@ -6,9 +6,10 @@ import { useForm } from "react-hook-form";
 import { APP_PATHS } from "@repo/misc/constants";
 import { useRouter } from "next/navigation";
 import { ServerError } from "../../helpers/client/asyncError.helper";
-import { loginAction } from "../../services/server/formActions.services";
+import useSWRMutation from "swr/mutation";
+import { signInUser } from "../../services/client/user.services";
 
-interface LoginFormValues {
+export interface LoginFormValues {
   email: string;
   pwd: string;
 }
@@ -23,10 +24,11 @@ const LoginForm = () => {
   } = useForm<LoginFormValues>();
 
   const router = useRouter();
+  const { trigger, isMutating } = useSWRMutation("/api/user/login", signInUser);
 
   const onSubmit = async (data: LoginFormValues) => {
     try {
-      await loginAction(data.email, data.pwd);
+      await trigger(data);
       router.push(APP_PATHS.HOME);
     } catch (e) {
       console.log({ e });
@@ -76,7 +78,11 @@ const LoginForm = () => {
             {formErrors.root?.message}
           </span>
         </div>
-        <Button type="submit" isLoading={isSubmitting} loadingText="Logging in">
+        <Button
+          type="submit"
+          isLoading={isSubmitting || isMutating}
+          loadingText="Logging in"
+        >
           Login to your account
         </Button>
       </form>
