@@ -40,12 +40,14 @@ export const middleware = async (request: NextRequest) => {
     ?.toString()
     ?.split("=")[1]
     ?.split(";")[0];
-
+  console.log(accessTokenValue);
   response.cookies.set({
     name: "accessToken",
     value: accessTokenValue,
     httpOnly: true,
   });
+
+  console.log(response);
 
   return response;
 };
