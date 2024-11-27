@@ -9,7 +9,6 @@ import {
 
 export const POST = withErrorHandler(async (req: NextRequest) => {
   const { refreshToken } = await req.json();
-
   if (!refreshToken) {
     return NextResponse.json(
       {
@@ -21,6 +20,7 @@ export const POST = withErrorHandler(async (req: NextRequest) => {
   }
 
   const validRefreshToken = await verifyToken("refresh", refreshToken);
+  console.log({ validRefreshToken });
   if (!validRefreshToken) {
     return NextResponse.json(
       {
@@ -30,7 +30,6 @@ export const POST = withErrorHandler(async (req: NextRequest) => {
       { status: 401 }
     );
   }
-
   const { id } = decodeJwt(refreshToken);
 
   if (!id) {

@@ -7,6 +7,7 @@ import {
   initialContextValue,
 } from "./AppContext";
 import appReducer from "./appReducer";
+import { SWRConfig } from "swr";
 
 interface ContextProviderProps {
   children: ReactNode;
@@ -18,7 +19,13 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
   return (
     <AppContext.Provider value={state}>
       <AppDispatchContext.Provider value={dispatch}>
-        {children}
+        <SWRConfig
+          value={{
+            refreshInterval: 600000,
+          }}
+        >
+          {children}
+        </SWRConfig>
       </AppDispatchContext.Provider>
     </AppContext.Provider>
   );
