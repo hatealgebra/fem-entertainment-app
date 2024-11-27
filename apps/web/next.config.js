@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   transpilePackages: ["@repo/ui", "@repo/misc"],
+  output: "standalone",
   env: {
     BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
     ACESS_TOKEN_SECRET: process.env.ACESS_TOKEN_SECRET,

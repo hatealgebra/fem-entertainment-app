@@ -2,6 +2,7 @@ import { mutate } from "swr";
 import { SignUpFormValues } from "../../components/forms/SignUpForm";
 
 import { handleResponse } from "../../helpers/client/services.helper";
+import { LoginFormValues } from "../../components/forms/LoginForm";
 
 export const createUser = async (
   url: string,
@@ -12,21 +13,21 @@ export const createUser = async (
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, password: pwd }),
+    body: JSON.stringify({ email: email.toLowerCase(), password: pwd }),
   });
   return handleResponse(response);
 };
 
 export const signInUser = async (
   url: string,
-  { arg: { email, pwd } }: { arg: SignUpFormValues }
+  { arg: { email, pwd } }: { arg: LoginFormValues }
 ) => {
   const response = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, password: pwd }),
+    body: JSON.stringify({ email: email.toLowerCase(), password: pwd }),
   });
   return handleResponse(response);
 };

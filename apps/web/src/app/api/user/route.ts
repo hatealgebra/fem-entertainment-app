@@ -7,10 +7,9 @@ import User from "@repo/db/models/user.ts";
 export const GET = withErrorHandler(async (req: NextRequest) => {
   await dbConnect();
   const accessToken = req.cookies.get("accessToken");
-
   if (!accessToken?.value) {
     return NextResponse.json(
-      { message: "User data could not be fetched." },
+      { message: "Access token is invalid." },
       { status: 400 }
     );
   }

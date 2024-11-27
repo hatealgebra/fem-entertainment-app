@@ -7,49 +7,49 @@ const publicPaths = ["login", "signup"];
 
 export const middleware = async (request: NextRequest) => {
   const { pathname } = request.nextUrl;
+
   const isPublic = publicPaths.some((path) => pathname.includes(path));
-
-  const accessToken = request.cookies.get("accessToken");
-  const refreshToken = request.cookies.get("refreshToken");
-  const authResponse = (await authentication(accessToken, refreshToken)) as any;
-
-  const notAuth = authResponse instanceof Error;
-
-  if (isPublic && !notAuth) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
-
-  if (isPublic) {
+  const isApi = pathname.includes("/api");
+  console.log({ isPublic, isApi, pathname });
+  if (isApi && isPublic) {
     return NextResponse.next();
   }
 
-  if (notAuth && pathname.includes("/api") && !pathname.includes("/api/user")) {
-    return NextResponse.json(
-      { message: "Unauthorized call to the api." },
-      { status: 401 }
-    );
+  const accessToken = request.cookies.get("accessToken");
+  const refreshToken = request.cookies.get("refreshToken");
+  const responseNext = NextResponse.next();
+  const authResponse = (await authentication(accessToken, refreshToken)) as any;
+  const isAuth = !(
+    (await authResponse) instanceof Error || authResponse.status !== 200
+  );
+
+  if (isAuth) {
+    const accessTokenValue = authResponse.headers
+      .getSetCookie()
+      ?.toString()
+      ?.split("=")[1]
+      ?.split(";")[0];
+    responseNext.cookies.set({
+      name: "accessToken",
+      value: accessTokenValue,
+      httpOnly: true,
+    });
   }
 
-  if (notAuth) {
+  if (isApi) {
+    return responseNext;
+  }
+
+  if (!isAuth && !isPublic) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  const response = NextResponse.next();
-  const accessTokenValue = authResponse.headers
-    .getSetCookie()
-    .toString()
-    .split("=")[1]
-    .split(";")[0];
-
-  response.cookies.set({
-    name: "accessToken",
-    value: accessTokenValue,
-    httpOnly: true,
-  });
-
-  return response;
+  if (isAuth && isPublic) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+  return responseNext;
 };
 
 export const config = {
-  matcher: ["/api/:path*", "/", "/login", "/signup"],
+  matcher: ["/api/:path*", "/login", "/signup", "/bookmarked"],
 };
