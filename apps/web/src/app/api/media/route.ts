@@ -42,8 +42,9 @@ export const GET = withErrorHandler(async (req: NextRequest) => {
           $regex: regex,
           $options: "i",
         },
-      });
-
+      })
+      .limit(10)
+      .exec();
     return NextResponse.json(
       { data: media, totalLength: media.length },
       { status: 200 }

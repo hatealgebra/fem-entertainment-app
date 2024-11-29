@@ -16,6 +16,18 @@ module.exports = {
     esmExternals: "loose", // <-- add this
     serverComponentsExternalPackages: ["mongoose"],
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "image.tmdb.org",
+      },
+      {
+        protocol: "https",
+        hostname: "flasapi.com",
+      },
+    ],
+  },
   webpack: (config) => {
     config.experiments = {
       layers: true,

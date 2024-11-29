@@ -7,7 +7,25 @@ import {
   initialContextValue,
 } from "./AppContext";
 import appReducer from "./appReducer";
-import { SWRConfig } from "swr";
+import { Middleware, SWRConfig, SWRHook } from "swr";
+import { snakeCaseToCamelCase } from "../utils";
+
+const swrMiddleware: Middleware =
+  (useSWRNext: SWRHook) => (key, fetcher, config) => {
+    const swr = useSWRNext(key, fetcher, config);
+
+    if (!swr.data?.data) {
+      return swr;
+    }
+
+    const dataArray = swr.data.data;
+    const transformedKeys = Object.values(dataArray).map((data) =>
+      snakeCaseToCamelCase(data)
+    );
+
+    const updatedSWR = { ...swr, data: { ...swr.data, data: transformedKeys } };
+    return updatedSWR;
+  };
 
 interface ContextProviderProps {
   children: ReactNode;
@@ -21,7 +39,8 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
       <AppDispatchContext.Provider value={dispatch}>
         <SWRConfig
           value={{
-            refreshInterval: 600000,
+            use: [swrMiddleware],
+            errorRetryInterval: 600000,
           }}
         >
           {children}

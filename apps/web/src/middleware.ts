@@ -10,8 +10,8 @@ export const middleware = async (request: NextRequest) => {
 
   const isPublic = publicPaths.some((path) => pathname.includes(path));
   const isApi = pathname.includes("/api");
-  console.log({ isPublic, isApi, pathname });
-  if (isApi && isPublic) {
+
+  if (isPublic) {
     return NextResponse.next();
   }
 
@@ -41,6 +41,7 @@ export const middleware = async (request: NextRequest) => {
   }
 
   if (!isAuth && !isPublic) {
+    console.log("should be prompted");
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
@@ -51,5 +52,5 @@ export const middleware = async (request: NextRequest) => {
 };
 
 export const config = {
-  matcher: ["/api/:path*", "/login", "/signup", "/bookmarked"],
+  matcher: ["/api/:path*", "/", "/login", "/signup", "/bookmarked"],
 };
