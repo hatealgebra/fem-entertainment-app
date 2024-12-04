@@ -41,7 +41,6 @@ export const middleware = async (request: NextRequest) => {
   }
 
   if (!isAuth && !isPublic) {
-    console.log("should be prompted");
     return NextResponse.redirect(new URL("/login", request.url));
   }
 

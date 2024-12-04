@@ -15,7 +15,6 @@ const GalleryWrapper = ({ headingText }: GalleryWrapperProps) => {
   const { userData } = useFetchUser();
   const { searchString } = useContext(AppContext);
 
-  console.log("movies", movies);
   return (
     <Gallery
       headingText={headingText}

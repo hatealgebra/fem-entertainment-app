@@ -43,7 +43,7 @@ export const GET = withErrorHandler(async (req: NextRequest) => {
           $options: "i",
         },
       })
-      .limit(10)
+      .limit(20)
       .exec();
     return NextResponse.json(
       { data: media, totalLength: media.length },
