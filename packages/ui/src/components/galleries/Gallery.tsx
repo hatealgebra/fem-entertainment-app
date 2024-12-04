@@ -43,12 +43,13 @@ const Gallery = ({
         {error && <p>Error: {error.message}</p>}
         {!isLoading &&
           !error &&
+          moviesData.length &&
           moviesData.map((movie) => (
             <Thumbnail
               key={movie.title}
               handleBookmark={handleBookmark}
               {...movie}
-              isTrending={false}
+              // isTrending={false}
               isBookmarked={bookmarkedMovies?.includes(movie._id)}
             />
           ))}
