@@ -60,7 +60,6 @@ const ThumbnailCard = ({
       <div
         className={`
           peer relative overflow-hidden duration-300 ease-in-out rounded-lg aspect-[2/3]  
-          ${isTrending ? "w-[240px] h-[140px] md:w-[470px] " : "w-[full] h-auto max-w-[150px] sm:w-[174px] sm:max-w-[initial] lg:w-[190px]"}
         `}
       >
         <Image
@@ -138,7 +137,7 @@ const Thumbnail = ({
   return (
     <div
       ref={cardRef}
-      className={`relative group w-fit rounded-lg sm:max-w-auto grow h-fit sm:w-fit sm:max-w-fit`}
+      className={`relative group rounded-lg sm:max-w-auto w-[90%] max-w-[260px] xs:w-full xs:max-w-[40vw] sm:max-w-[initial] sm:w-[25vw] sm:basis-[initial] md:w-[20vw] lg:w-[190px]`}
     >
       <ThumbnailCard {...props} onClick={openDetail} hidden={inDetail} />
       {inDetail && (
