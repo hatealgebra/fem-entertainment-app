@@ -58,7 +58,10 @@ const ThumbnailCard = ({
       onMouseLeave={() => !isTouch && setHover(false)}
     >
       <div
-        className={`peer relative w-full overflow-hidden duration-300 ease-in-out rounded-lg aspect-[2/3]  ${isTrending ? "w-[240px] h-[140px] md:w-[470px] " : "w-full h-auto sm:w-[164px] md:w-[220px] lg:w-[280px]"}`}
+        className={`
+          peer relative overflow-hidden duration-300 ease-in-out rounded-lg aspect-[2/3]  
+          ${isTrending ? "w-[240px] h-[140px] md:w-[470px] " : "w-[full] h-auto max-w-[150px] sm:w-[174px] sm:max-w-[initial] lg:w-[190px]"}
+        `}
       >
         <Image
           onClick={handleClick}
@@ -91,7 +94,7 @@ const ThumbnailCard = ({
         onClick={handleClick}
         // className={`flex flex-col ${isTrending ? "absolute bottom-4 left-4" : "mt-2"}`}
       >
-        <div className="flex items-center text-sm gap-x-2.5 text-white text-opacity-75 pt-2">
+        <div className="flex items-center text-sm gap-x-2.5 text-white text-opacity-75 pt-2 max-w-full text-wrap">
           <span>{getYearFromUTC(releaseDate)}</span>
           {/* <Image
             // src={category === "Movie" ? movieIcon : tvIcon}
@@ -135,7 +138,7 @@ const Thumbnail = ({
   return (
     <div
       ref={cardRef}
-      className={`relative group w-full rounded-lg sm:max-w-auto grow h-fit sm:w-fit sm:max-w-fit`}
+      className={`relative group w-fit rounded-lg sm:max-w-auto grow h-fit sm:w-fit sm:max-w-fit`}
     >
       <ThumbnailCard {...props} onClick={openDetail} hidden={inDetail} />
       {inDetail && (

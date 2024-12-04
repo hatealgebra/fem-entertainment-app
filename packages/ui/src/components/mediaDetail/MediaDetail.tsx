@@ -139,7 +139,9 @@ const MediaDetail = forwardRef(
               />
             )}
             <div className="flex flex-col items-center col-span-2 md:col-span-[initial] col-start-2 row-start-1">
-              <h1 className="row-start-1 font-black text-5xl">{title}</h1>
+              <h1 className="row-start-1 font-black text-5xl text-center">
+                {title}
+              </h1>
               <ul className="text-xs mx-auto pt-2 flex gap-2">
                 {genres.split(",").map((genre) => (
                   <li
