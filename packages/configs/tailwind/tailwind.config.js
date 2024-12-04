@@ -1,3 +1,5 @@
+const plugin = require("tailwindcss/plugin");
+
 module.exports = {
   content: [
     "../../packages/ui/**/*.{js,ts,jsx,tsx}",
@@ -23,12 +25,14 @@ module.exports = {
       primary: ["Outfit Variable", "sans-serif"],
     },
     fontSize: {
+      xs: "0.75rem",
       sm: "0.8125rem",
       base: "0.9375rem",
       xl: "1.125rem",
       "2xl": "1.5rem",
       "3xl": "1.5rem",
       "4xl": "2rem",
+      "5xl": "2.5rem",
     },
     extend: {
       keyframes: {
@@ -47,4 +51,17 @@ module.exports = {
       },
     },
   },
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        ".remove-scrollbar": {
+          "-ms-overflow-style": "none",
+          "scrollbar-width": "none",
+        },
+        ".remove-scrollbar::-webkit-scrollbar": {
+          display: "none",
+        },
+      });
+    }),
+  ],
 };
