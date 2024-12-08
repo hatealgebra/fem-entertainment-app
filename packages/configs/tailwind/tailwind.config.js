@@ -18,9 +18,12 @@ module.exports = {
       red: "#FC4747",
       black: "#10141E",
       blue: "#5A698F",
+      mediumBlue: "rgba(74, 77, 109, .9)",
       darkBlue: "#161D2F",
       dark: "#10141E",
       white: "#FFFFFF",
+      grayText: "#8A8C93",
+      darkShadow: "#1F1F1F",
     },
     fontFamily: {
       primary: ["Outfit Variable", "sans-serif"],
