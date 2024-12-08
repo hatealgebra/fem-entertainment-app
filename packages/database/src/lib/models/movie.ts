@@ -45,7 +45,7 @@ const MovieSchema = new Schema<IMovieBackend>({
   },
   release_date: {
     id: Number,
-    name: String,
+    name: Date,
   },
   revenue: {
     type: Number,
