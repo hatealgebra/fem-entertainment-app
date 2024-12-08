@@ -5,7 +5,15 @@ const Page = () => {
   return (
     <>
       <TrendingGalleryWrapper />
-      <GalleryWrapper headingText="Recommended for you" />
+      <GalleryWrapper
+        headingText="Best rated"
+        queryParams="queryType=bestRated"
+      />
+      <GalleryWrapper
+        headingText="Populare this year"
+        queryParams="queryType=thisYear"
+      />
+      <GalleryWrapper headingText="Planned" queryParams="queryType=planned" />
     </>
   );
 };
