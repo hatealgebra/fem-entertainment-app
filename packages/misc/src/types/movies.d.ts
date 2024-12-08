@@ -18,6 +18,7 @@ export interface IMovie
   imdbId: string;
   originalLanguage: string;
   originalTitle: string;
+  backdropPath: string;
   posterPath: string;
   productionCompanies: IProductionCompany[];
   productionCountries: IProductionCountry[];
