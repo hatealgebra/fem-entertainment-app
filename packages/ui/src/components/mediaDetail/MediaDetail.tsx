@@ -187,6 +187,7 @@ const MediaDetail = forwardRef(
             <h2 className="font-medium pl-[5%]">Cast</h2>
             <div className="flex gap-x-2 overflow-x-scroll py-3 px-[5%] remove-scrollbar snap-center">
               {!isLoading &&
+                creditData?.cast?.length &&
                 creditData.cast.map((actor) => {
                   return (
                     <div className="flex-none text-center" key={actor.id}>

@@ -41,10 +41,10 @@ const Carousel = ({ children }: CarouselProps) => {
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative max-w-fit">
       <div
         ref={carouselContentRef}
-        className="flex w-full overflow-x-scroll gap-x-4 remove-scrollbar"
+        className="flex w-full overflow-x-scroll gap-x-4 remove-scrollbar  max-w-[1200px]"
       >
         {children}
       </div>

@@ -40,7 +40,10 @@ const TrendingCard = ({
         <div>
           <div className="flex gap-x-2 pt-2">
             {genresArray.map((genre) => (
-              <span className="min-w-20 text-center px-4 py-2 bg-mediumBlue font-semibold text-xs rounded-xl">
+              <span
+                key={`trending${genre}`}
+                className="min-w-20 text-center px-4 py-2 bg-mediumBlue font-semibold text-xs rounded-xl"
+              >
                 {genre}
               </span>
             ))}
@@ -73,6 +76,7 @@ const TrendingCard = ({
         className="absolute object-cover object-left"
         src={getImdbImage(backdropPath)}
         fill
+        alt={title}
       />
     </TrendingCardWrapper>
   );
