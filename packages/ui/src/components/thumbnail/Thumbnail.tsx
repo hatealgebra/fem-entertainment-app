@@ -12,7 +12,6 @@ import {
 import Image from "next/image";
 import { IMediaDetailUI } from "@repo/misc/types/components.d.ts";
 
-import playIcon from "@icons/assets/icons/icon-play.svg";
 import starIcon from "@icons/assets/icons/star.svg";
 import { getScreenTime, getYearFromUTC } from "@repo/misc/utils/date.utils.ts";
 import { roundTwoDecimals } from "@repo/misc/utils/math.utils.ts";
@@ -20,6 +19,7 @@ import BookmarkIcon from "../icons/BookmarkIcon";
 import MediaDetail from "../mediaDetail/MediaDetail";
 import { getImdbImage } from "../../helpers/image.helpers";
 import { BareFetcher, SWRConfiguration } from "swr";
+import PlayButton from "../button/PlayButton";
 
 interface ThumbnailProps extends IMediaDetailUI {
   onClick: () => void;
@@ -53,13 +53,13 @@ const ThumbnailCard = ({
 
   return (
     <div
-      className={`h-full w-full`}
+      className="h-full w-full"
       onMouseEnter={() => !isTouch && setHover(true)}
       onMouseLeave={() => !isTouch && setHover(false)}
     >
       <div
         className={`
-          peer relative overflow-hidden duration-300 ease-in-out rounded-lg aspect-[2/3]  
+          peer relative overflow-hidden duration-300 ease-in-out rounded-lg aspect-[2/3] shadow-md shadow-darkShadow
         `}
       >
         <Image
@@ -68,17 +68,12 @@ const ThumbnailCard = ({
           src={getImdbImage(posterPath)}
           alt={`Poster of ${title}`}
           fill
+          sizes="350"
         />
         {!isTouch && hover && (
-          <button className="opacity-100 absolute inset-0 m-auto inline-flex gap-x-[19px] rounded-full bg-[rgba(255,255,255,.5)] pl-[9px] pr-8 py-[9px] w-fit h-fit peer-hover:opacity-100">
-            <Image
-              onClick={handleClick}
-              className="w-[30px] aspect-square"
-              src={playIcon}
-              alt="Play thumbnail icon"
-            />
-            <span className="text-xl text-white">Play</span>
-          </button>
+          <div className="absolute peer-hover:opacity-100 h-fit w-fit inset-0 m-auto">
+            <PlayButton themeKey="default" onClick={handleClick} text="Play" />
+          </div>
         )}
         <button
           className={`absolute right-2 top-2 group w-8 aspect-square bg-[#979797] rounded-full flex justify-center items-center hover:scale-125}`}
