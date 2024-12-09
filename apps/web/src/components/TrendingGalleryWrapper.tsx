@@ -1,7 +1,6 @@
 "use client";
 import Carousel from "@repo/ui/components/carousel/Carousel.tsx";
 import TrendingCard from "@repo/ui/components/trendingCard/TrendingCard.tsx";
-import { useEffect } from "react";
 import useSWR from "swr";
 
 const fetcher = async (url: string) => {
@@ -10,17 +9,13 @@ const fetcher = async (url: string) => {
 };
 
 const TrendingGalleryWrapper = () => {
-  const { data: moviesData, mutate } = useSWR(
+  const { data: moviesData, isLoading } = useSWR(
     "/api/media?isTrending=true",
     fetcher
   );
 
-  useEffect(() => {
-    setTimeout(() => mutate(), 1000);
-  }, []);
-
   return (
-    <Carousel>
+    <Carousel showControls={!isLoading}>
       {moviesData?.data?.map((movieData) => (
         <TrendingCard key={movieData.id} {...movieData} />
       ))}

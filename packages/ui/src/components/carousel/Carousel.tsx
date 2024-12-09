@@ -3,9 +3,10 @@ import ArrowButton from "../button/ArrowButton";
 
 interface CarouselProps {
   children: ReactNode;
+  showControls?: boolean;
 }
 
-const Carousel = ({ children }: CarouselProps) => {
+const Carousel = ({ children, showControls }: CarouselProps) => {
   const carouselContentRef = useRef(null);
   const [position, setPosition] = useState<number>(0);
   const childNodes = carouselContentRef?.current?.childNodes;
@@ -49,12 +50,16 @@ const Carousel = ({ children }: CarouselProps) => {
         {children}
       </div>
       <div className="absolute bottom-10 right-10 flex gap-x-2 z-10">
-        <ArrowButton onClick={scrollLeft} active={position !== 0} />
-        <ArrowButton
-          onClick={scrollRight}
-          direction="right"
-          active={position !== carouselLength}
-        />
+        {showControls && (
+          <>
+            <ArrowButton onClick={scrollLeft} active={position !== 0} />
+            <ArrowButton
+              onClick={scrollRight}
+              direction="right"
+              active={position !== carouselLength}
+            />
+          </>
+        )}
       </div>
     </div>
   );
