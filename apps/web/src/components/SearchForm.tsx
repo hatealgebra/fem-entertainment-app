@@ -39,11 +39,6 @@ const SearchForm = () => {
     dispatch({ type: EActions.SET_SEARCH_STRING, payload: data.search });
   }, [formState, data, isValidating]);
 
-  // useEffect(() => {
-  //   const searchString = data.search;
-  //   dispatch({ type: EActions.SET_SEARCH_STRING, payload: searchString });
-  // }, [data]);
-
   useLayoutEffect(() => {
     dispatch({ type: EActions.SET_SEARCH_STRING, payload: "" });
     reset();

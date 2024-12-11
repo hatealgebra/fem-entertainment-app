@@ -21,7 +21,6 @@ const PageContent = ({ children }: IPageContext) => {
     fetch(url).then((res) => res.json())
   );
   useEffect(() => {
-    console.log(searchString?.length);
     if (!searchString || debounce) {
       return;
     }
