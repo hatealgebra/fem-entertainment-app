@@ -20,6 +20,8 @@ const SearchGallery = ({
     width: windowWidth > 400 ? 180 : 220,
     height: windowWidth > 400 ? 270 : 300,
   };
+
+  console.log(searchResults);
   return (
     <div>
       <h3 className="py-5">
@@ -47,7 +49,9 @@ const SearchGallery = ({
               height={posterSize.height}
             />
           ))}
-        {!isLoading && searchResults?.length === 0 && <h2>No movies found</h2>}
+        {!isLoading && !searchResults?.length && (
+          <h2 className="pt-5 w-full text-center">No movies found</h2>
+        )}
       </div>
     </div>
   );
