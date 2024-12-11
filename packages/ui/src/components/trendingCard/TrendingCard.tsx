@@ -29,8 +29,6 @@ const TrendingCard = ({
 }: TrendingCardProps) => {
   const { width: windowWidth } = useWindowSize();
 
-  const genresArray = genres.split(",").slice(0, 2);
-
   return (
     <TrendingCardWrapper windowWidth={!!windowWidth}>
       <div className="relative z-10 h-full w-full flex  flex-col justify-between p-[2.5%] bg-[linear-gradient(90deg,_rgba(2,0,36,.7)_0%,_rgba(2,0,36,0.4676664086687307)_46%,_rgba(0,212,255,0)_100%)]">
@@ -39,7 +37,7 @@ const TrendingCard = ({
         </span>
         <div>
           <div className="flex gap-x-2 pt-2">
-            {genresArray.map((genre) => (
+            {genres.slice(0, 2).map((genre) => (
               <span
                 key={`trending${genre}`}
                 className="min-w-20 text-center px-4 py-2 bg-mediumBlue font-semibold text-xs rounded-xl"

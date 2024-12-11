@@ -143,7 +143,7 @@ const MediaDetail = forwardRef(
                 {title}
               </h1>
               <ul className="text-xs mx-auto pt-2 flex gap-2">
-                {genres.split(",").map((genre) => (
+                {genres.map((genre) => (
                   <li
                     className="bg-blue bg-opacity-90 px-4 py-1 rounded-full"
                     key={genre}

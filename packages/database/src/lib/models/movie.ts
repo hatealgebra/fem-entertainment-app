@@ -1,80 +1,32 @@
 import mongoose, { Schema, model } from "mongoose";
 import { IMovieBackend } from "@repo/misc/types/movies.d.ts";
 const MovieSchema = new Schema<IMovieBackend>({
-  _id: {
-    type: String,
-  },
-  adult: {
-    type: Boolean,
-  },
-  budget: {
-    type: Number,
-  },
-  genres: {
-    id: Number,
-    name: String,
-  },
-  id: {
-    type: Number,
-  },
-  imdb_id: {
-    type: String,
-  },
-  original_language: {
-    type: String,
-  },
-  original_title: {
-    type: String,
-  },
-  overview: {
-    type: String,
-  },
-  popularity: {
-    type: Number,
-  },
-  poster_path: {
-    type: String,
-  },
-  production_companies: {
-    id: Number,
-    name: String,
-  },
-  production_countries: {
-    id: Number,
-    name: String,
-  },
-  release_date: {
-    id: Number,
-    name: Date,
-  },
-  revenue: {
-    type: Number,
-  },
-  runtime: {
-    type: Number,
-  },
+  _id: String,
+  adult: Boolean,
+  budget: Number,
+  genres: Array,
+  id: Number,
+  imdb_id: String,
+  original_language: String,
+  original_title: String,
+  overview: String,
+  popularity: Number,
+  poster_path: String,
+  production_companies: String,
+  production_countries: String,
+  release_date: Date,
+  revenue: Number,
+  runtime: Number,
   spoken_languages: {
     iso_639_1: String,
     name: String,
   },
-  status: {
-    type: String,
-  },
-  tagline: {
-    type: String,
-  },
-  title: {
-    type: String,
-  },
-  video: {
-    type: Boolean,
-  },
-  vote_average: {
-    type: Number,
-  },
-  vote_count: {
-    type: Number,
-  },
+  status: String,
+  tagline: String,
+  title: String,
+  video: Boolean,
+  vote_average: Number,
+  vote_count: Number,
 });
 
 const Movie =

@@ -21,7 +21,6 @@ const SearchGallery = ({
     height: windowWidth > 400 ? 270 : 300,
   };
 
-  console.log(searchResults);
   return (
     <div>
       <h3 className="py-5">

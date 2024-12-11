@@ -32,7 +32,7 @@ export interface IMovieBackend {
   _id: string;
   adult: boolean;
   budget: number;
-  genres: string;
+  genres: string[];
   id: number;
   imdb_id: string;
   original_language: string;
@@ -52,6 +52,7 @@ export interface IMovieBackend {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  keywords: string[];
 }
 
 export interface IProductionCompany {
