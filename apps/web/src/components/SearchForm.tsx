@@ -1,7 +1,7 @@
 "use client";
 
 import SearchInput from "@repo/ui/components/inputs/SearchInput.tsx";
-import React, { useContext, useLayoutEffect } from "react";
+import React, { useContext, useEffect, useLayoutEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import { AppDispatchContext } from "../state/AppContext";
@@ -9,18 +9,40 @@ import { EActions } from "../state/appReducer";
 import { usePathname } from "next/navigation";
 
 const SearchForm = () => {
-  const { register, watch, reset } = useForm();
+  const {
+    register,
+    watch,
+    reset,
+    handleSubmit,
+    formState,
+    formState: { isValidating },
+  } = useForm();
   const pathname = usePathname();
   const dispatch = useContext(AppDispatchContext) as React.Dispatch<{
     type: EActions;
     payload: string;
   }>;
 
-  const searchMovie = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTimeout(() => {
-      dispatch({ type: EActions.SET_SEARCH_STRING, payload: e.target.value });
-    }, 400);
+  const data = watch();
+  const onSubmit = (e) => {
+    e.preventDefault();
   };
+
+  useEffect(() => {
+    if (!formState.isValid && isValidating) {
+      return;
+    }
+
+    if (!data.search) {
+      dispatch({ type: EActions.SET_SEARCH_STRING, payload: "" });
+    }
+    dispatch({ type: EActions.SET_SEARCH_STRING, payload: data.search });
+  }, [formState, data, isValidating]);
+
+  // useEffect(() => {
+  //   const searchString = data.search;
+  //   dispatch({ type: EActions.SET_SEARCH_STRING, payload: searchString });
+  // }, [data]);
 
   useLayoutEffect(() => {
     dispatch({ type: EActions.SET_SEARCH_STRING, payload: "" });
@@ -28,13 +50,11 @@ const SearchForm = () => {
   }, [pathname]);
 
   return (
-    <form onSubmit={(e) => e.preventDefault()} className="h-fit z-0">
+    <form onSubmit={handleSubmit(onSubmit)} className="h-fit z-0">
       <SearchInput
-        placeholder="Search for movies or TV series"
+        placeholder="Search for movies"
         textContent={watch("search")}
-        {...register("search", {
-          onChange: searchMovie,
-        })}
+        {...register("search", { required: true })}
       />
     </form>
   );

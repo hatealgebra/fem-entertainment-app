@@ -55,3 +55,17 @@ export const getPlanned = async () => {
 
   return plannedMovies;
 };
+
+export const searchMovie = async (searchString: string) => {
+  const movies = await Movie.find()
+    .find({
+      title: {
+        $regex: searchString,
+        $options: "i",
+      },
+    })
+    .limit(40)
+    .exec();
+
+  return movies;
+};

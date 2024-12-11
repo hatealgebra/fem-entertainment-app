@@ -2,7 +2,6 @@
 import Gallery, {
   GalleryProps,
 } from "@repo/ui/components/galleries/Gallery.tsx";
-import useFetchMovies from "../hooks/useFetchMovies";
 import { useContext } from "react";
 import { AppContext } from "../state/AppContext";
 import { bookmarkMovie } from "../services/client/user.services";

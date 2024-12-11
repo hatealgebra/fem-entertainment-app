@@ -22,8 +22,6 @@ export const GET = withErrorHandler(async (req: NextRequest) => {
   const isTrending = getSearchParam(req, "isTrending");
   const queryType = getSearchParam(req, "queryType");
   const category = getSearchParam(req, "category");
-  const searchParam = getSearchParam(req, "search")?.trim();
-  const regex = new RegExp(searchParam || "");
 
   try {
     await dbConnection();
@@ -60,16 +58,9 @@ export const GET = withErrorHandler(async (req: NextRequest) => {
       );
     }
 
-    const media = await Movie.find(isTrending ? { isTrending } : {})
-      .find(category ? { category } : {})
-      .find({
-        title: {
-          $regex: regex,
-          $options: "i",
-        },
-      })
-      .limit(20)
-      .exec();
+    const media = await Movie.find().find().limit(20).exec();
+
+    console.log({ media });
 
     return NextResponse.json(
       { data: media, totalLength: media.length },
