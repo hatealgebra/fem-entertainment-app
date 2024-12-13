@@ -6,7 +6,7 @@ import { searchMovie } from "@repo/db/queries/movies.ts";
 
 export const GET = withErrorHandler(async (req: NextRequest) => {
   const searchParam = getSearchParam(req, "queryString")?.trim();
-  console.log({ searchParam });
+
   if (!searchParam) {
     return NextResponse.json({}, { status: 400 });
   }
