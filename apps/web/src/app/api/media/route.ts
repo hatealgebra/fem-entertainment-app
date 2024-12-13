@@ -7,6 +7,7 @@ import { decryptToken } from "../../../helpers/server/handlingTokens";
 import User from "@repo/db/models/user.ts";
 import {
   getBestRated,
+  getByGenre,
   getPlanned,
   getThisYear,
   getTrending,
@@ -22,6 +23,7 @@ export const GET = withErrorHandler(async (req: NextRequest) => {
   const isTrending = getSearchParam(req, "isTrending");
   const queryType = getSearchParam(req, "queryType");
   const category = getSearchParam(req, "category");
+  const genreParam = getSearchParam(req, "genre");
 
   try {
     await dbConnection();
@@ -50,20 +52,20 @@ export const GET = withErrorHandler(async (req: NextRequest) => {
       );
     }
 
-    if (queryType) {
-      const data = await queryTypes[queryType];
+    if (!queryType) {
+      const media = await Movie.find(genreParam ? { genres: genreParam } : {})
+        .limit(20)
+        .exec();
+
       return NextResponse.json(
-        { data, totalLength: data.length },
+        { data: media, totalLength: media.length },
         { status: 200 }
       );
     }
 
-    const media = await Movie.find().find().limit(20).exec();
-
-    console.log({ media });
-
+    const data = await queryTypes[queryType];
     return NextResponse.json(
-      { data: media, totalLength: media.length },
+      { data, totalLength: data.length },
       { status: 200 }
     );
   } catch (e) {

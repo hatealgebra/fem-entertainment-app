@@ -56,6 +56,15 @@ export const getPlanned = async () => {
   return plannedMovies;
 };
 
+export const getByGenre = async (genre: string) => {
+  const movies = await Movie.find({ genres: genre })
+    .sort({ popularity: -1 })
+    .limit(30)
+    .lean();
+
+  return movies;
+};
+
 export const searchMovie = async (searchString: string) => {
   const movies = await Movie.find()
     .find({
