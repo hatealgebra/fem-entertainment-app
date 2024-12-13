@@ -49,7 +49,7 @@ const Carousel = ({ children, showControls }: CarouselProps) => {
       >
         {children}
       </div>
-      <div className="absolute bottom-10 right-10 flex gap-x-2 z-10">
+      <div className="absolute flex gap-x-1 z-10 top-3 h-fit right-5 md:top-[unset] md:bottom-10 md:right-10 md:gap-x-2">
         {showControls && (
           <>
             <ArrowButton onClick={scrollLeft} active={position !== 0} />

@@ -73,6 +73,7 @@ const TrendingCard = ({
       <Image
         className="absolute object-cover object-left"
         src={getImdbImage(backdropPath)}
+        objectPosition="center"
         fill
         alt={title}
       />
