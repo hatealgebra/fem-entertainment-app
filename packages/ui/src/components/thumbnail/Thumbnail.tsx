@@ -98,7 +98,7 @@ const ThumbnailCard = ({
           /> */}
           {/* <span >{category}</span> */}
           <span className="lowercase">{getScreenTime(runtime)}</span>
-          <span>{genres[0]}</span>
+          <span>{genres?.length && genres[0]}</span>
         </div>
         <span className="text-capitalize text-base font-medium inline-flex gap-1 align-center text-white">
           <Image className="w-4" src={starIcon} alt="Star icon" />
