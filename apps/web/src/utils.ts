@@ -19,3 +19,32 @@ export const getTokenSecret = async (
 
   return encodedTokenSecret;
 };
+
+export const snakeCaseToCamelCase = (value: string) => {
+  const splittedValue = value.split("_");
+
+  if (splittedValue.length === 1) {
+    return value;
+  }
+
+  const transformedValue = splittedValue
+    .map((word, index) =>
+      index !== 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word
+    )
+    .join("");
+
+  return transformedValue;
+};
+
+export const transformObjectArray = (objectArray: Object[]) => {
+  const entries = Object.entries(objectArray);
+  const transformedObject = entries.reduce((acc, [key, value]) => {
+    if (key === "_id") {
+      return { ...acc, [key]: value };
+    }
+
+    const transformedKey = snakeCaseToCamelCase(key);
+    return { ...acc, [transformedKey]: value };
+  }, {});
+  return transformedObject;
+};

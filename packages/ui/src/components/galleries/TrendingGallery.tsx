@@ -25,12 +25,13 @@ const TrendingGallery = ({
           {isLoading && <GalleryLoading isTrending />}
           {!isLoading &&
             !error &&
-            moviesData?.data?.map((movie) => (
+            moviesData.data.length &&
+            moviesData.data.map((movie) => (
               <Thumbnail
                 key={movie.title}
                 {...movie}
                 handleBookmark={handleBookmark}
-                isTrending={true}
+                // isTrending={true}
                 isBookmarked={bookmarkedMovies?.includes(movie._id)}
               />
             ))}

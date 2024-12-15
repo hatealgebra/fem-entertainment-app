@@ -8,7 +8,8 @@
   },
   "exports": {
     "./models/*": "./src/lib/models/*",
-    "./dbConnection.ts": "./src/lib/dbConnection.ts"
+    "./dbConnection.ts": "./src/lib/dbConnection.ts",
+    "./queries/*": "./src/lib/queries/*"
   },
   "dependencies": {
     "mongodb": "^6.5.0",

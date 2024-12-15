@@ -1,37 +1,36 @@
 import mongoose, { Schema, model } from "mongoose";
-import { ERating, IMovie, ECategory } from "@repo/misc/types/movies.d.ts";
-
-const MovieSchema = new Schema<IMovie>({
-  title: {
-    type: String,
+import { IMovieBackend } from "@repo/misc/types/movies.d.ts";
+const MovieSchema = new Schema<IMovieBackend>({
+  _id: String,
+  adult: Boolean,
+  budget: Number,
+  genres: Array,
+  id: Number,
+  imdb_id: String,
+  original_language: String,
+  original_title: String,
+  overview: String,
+  popularity: Number,
+  poster_path: String,
+  production_companies: String,
+  production_countries: String,
+  release_date: Date,
+  revenue: Number,
+  runtime: Number,
+  spoken_languages: {
+    iso_639_1: String,
+    name: String,
   },
-  thumbnail: {
-    trending: {
-      small: String,
-      large: String,
-    },
-    regular: {
-      small: String,
-      medium: String,
-      large: String,
-    },
-  },
-  year: {
-    type: Number,
-  },
-  category: {
-    type: String,
-    enum: ECategory,
-  },
-  rating: {
-    type: String,
-    enum: ERating,
-  },
-  isTrending: { type: Boolean, default: false },
+  status: String,
+  tagline: String,
+  title: String,
+  video: Boolean,
+  vote_average: Number,
+  vote_count: Number,
 });
 
 const Movie =
-  (mongoose.models?.Movie as mongoose.Model<IMovie>) ||
+  (mongoose.models?.Movie as mongoose.Model<IMovieBackend>) ||
   model("Movie", MovieSchema);
 
 export default Movie;

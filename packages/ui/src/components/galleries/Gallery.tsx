@@ -33,7 +33,7 @@ const Gallery = ({
           : headingText
       }
     >
-      <div className="flex max-w-[100%] flex-wrap gap-x-[29px] gap-y-6">
+      <div className="flex max-w-[100%] flex-wrap justify-between gap-y-6 xs:justify-start xs:gap-x-[20px] sm:gap-x-[29px]">
         {isLoading && <GalleryLoading isSearch={!!searchString?.length} />}
         {!isLoading && !totalLength && (
           <h3 className="my-[10vh] w-full text-center">
@@ -43,12 +43,13 @@ const Gallery = ({
         {error && <p>Error: {error.message}</p>}
         {!isLoading &&
           !error &&
+          moviesData.length &&
           moviesData.map((movie) => (
             <Thumbnail
               key={movie.title}
               handleBookmark={handleBookmark}
               {...movie}
-              isTrending={false}
+              // isTrending={false}
               isBookmarked={bookmarkedMovies?.includes(movie._id)}
             />
           ))}

@@ -2,16 +2,29 @@
 import Gallery, {
   GalleryProps,
 } from "@repo/ui/components/galleries/Gallery.tsx";
-import useFetchMovies from "../hooks/useFetchMovies";
 import { useContext } from "react";
 import { AppContext } from "../state/AppContext";
 import { bookmarkMovie } from "../services/client/user.services";
 import useFetchUser from "../hooks/useFetchUser";
+import useSWR from "swr";
 
-interface GalleryWrapperProps extends Pick<GalleryProps, "headingText"> {}
+interface GalleryWrapperProps extends Pick<GalleryProps, "headingText"> {
+  queryParams: string;
+}
 
-const GalleryWrapper = ({ headingText }: GalleryWrapperProps) => {
-  const { data: movies, isLoading, error } = useFetchMovies();
+const fetcher = (url: string) => fetch(url).then((r) => r.json());
+
+const GalleryWrapper = ({
+  headingText,
+  queryParams = "",
+}: GalleryWrapperProps) => {
+  const queryParamsFinal = queryParams ? `?${queryParams}` : "";
+
+  const {
+    data: movies,
+    isLoading,
+    error,
+  } = useSWR(`api/media${queryParamsFinal}`, fetcher);
   const { userData } = useFetchUser();
   const { searchString } = useContext(AppContext);
 

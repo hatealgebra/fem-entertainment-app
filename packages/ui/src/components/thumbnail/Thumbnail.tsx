@@ -12,33 +12,40 @@ import {
 import Image from "next/image";
 import { IMediaDetailUI } from "@repo/misc/types/components.d.ts";
 
-import playIcon from "@icons/assets/icons/icon-play.svg";
-import movieIcon from "@icons/assets/icons/icon-category-movie.svg";
-import tvIcon from "@icons/assets/icons/icon-category-tv.svg";
+import starIcon from "@icons/assets/icons/star.svg";
+import { getScreenTime, getYearFromUTC } from "@repo/misc/utils/date.utils.ts";
+import { roundTwoDecimals } from "@repo/misc/utils/math.utils.ts";
 import BookmarkIcon from "../icons/BookmarkIcon";
 import MediaDetail from "../mediaDetail/MediaDetail";
+import { getImdbImage } from "../../helpers/image.helpers";
+import { BareFetcher, SWRConfiguration } from "swr";
+import PlayButton from "../button/PlayButton";
 
 interface ThumbnailProps extends IMediaDetailUI {
   onClick: () => void;
   hidden?: boolean;
+  fetchService?: SWRConfiguration<any, any, BareFetcher<any>>;
 }
 
 const ThumbnailCard = ({
   _id: movieId,
-  thumbnail,
-  isTrending = false,
+  releaseDate,
+  // isTrending = false,
   title,
-  year,
-  category,
+  backdropPath,
+  posterPath,
+  runtime,
+  originalLanguage,
+  genres,
+  voteAverage,
+  isTrending = false,
   isTouch,
-  rating,
   isBookmarked = false,
   handleBookmark,
   onClick,
 }: ThumbnailProps) => {
   const [hover, setHover] = useState(false);
-
-  const imageParentFolder = isTrending ? "trending" : "regular";
+  // const imageParentFolder = isTrending ? "trending" : "regular";
 
   const handleClick = () => {
     onClick();
@@ -46,38 +53,27 @@ const ThumbnailCard = ({
 
   return (
     <div
-      className={`h-full w-full`}
+      className="h-full w-full"
       onMouseEnter={() => !isTouch && setHover(true)}
       onMouseLeave={() => !isTouch && setHover(false)}
     >
       <div
-        className={`peer relative w-full overflow-hidden duration-300 ease-in-out rounded-lg aspect-[1.7073170731707317]  ${isTrending ? "w-[240px] h-[140px] md:w-[470px] md:h-[230px]" : "w-full h-auto sm:w-[164px] md:w-[220px] md:h-[140px] lg:w-[280px] lg:h-[226px]"}`}
+        className={`
+          peer relative overflow-hidden duration-300 ease-in-out rounded-lg aspect-[2/3] shadow-md shadow-darkShadow
+        `}
       >
         <Image
           onClick={handleClick}
-          className="object-cover w-full h-full group-hover:brightness-[0.8] hover:cursor-pointer aspect-[1.7073170731707317] "
-          src={
-            thumbnail?.[imageParentFolder]?.large ||
-            thumbnail?.[imageParentFolder]?.small ||
-            ""
-          }
-          alt={`${title} thumbnail`}
+          className="object-cover w-full h-full group-hover:brightness-[0.8] hover:cursor-pointer aspect-[2/3]"
+          src={getImdbImage(posterPath)}
+          alt={`Poster of ${title}`}
           fill
-          sizes={
-            isTrending
-              ? "(min-width: 768px) 470px, 240px"
-              : "(min0-w),(min-width: 768px) 220px, (min-width:1440px), 100%"
-          }
+          sizes="350"
         />
         {!isTouch && hover && (
-          <button className="opacity-100 absolute inset-0 m-auto inline-flex gap-x-[19px] rounded-full bg-[rgba(255,255,255,.5)] pl-[9px] pr-8 py-[9px] w-fit h-fit peer-hover:opacity-100">
-            <Image
-              className="w-[30px] aspect-square"
-              src={playIcon}
-              alt="Play thumbnail icon"
-            />
-            <span className="text-xl text-white">Play</span>
-          </button>
+          <div className="absolute peer-hover:opacity-100 h-fit w-fit inset-0 m-auto">
+            <PlayButton themeKey="default" onClick={handleClick} text="Play" />
+          </div>
         )}
         <button
           className={`absolute right-2 top-2 group w-8 aspect-square bg-[#979797] rounded-full flex justify-center items-center hover:scale-125}`}
@@ -90,25 +86,33 @@ const ThumbnailCard = ({
       </div>
       <div
         onClick={handleClick}
-        className={`flex flex-col ${isTrending ? "absolute bottom-4 left-4" : "mt-2"}`}
+        // className={`flex flex-col ${isTrending ? "absolute bottom-4 left-4" : "mt-2"}`}
       >
-        <div className="flex items-center gap-x-1.5 text-white text-opacity-75">
-          <span className="text-sm">{year}</span>
-          <Image
+        <div className="flex items-center text-sm gap-x-2.5 text-white text-opacity-75 pt-2 max-w-full text-wrap">
+          <span>{getYearFromUTC(releaseDate)}</span>
+          {/* <Image
+            // src={category === "Movie" ? movieIcon : tvIcon}
+            src={movieIcon}
             className="w-3 aspect-square"
-            src={category === "Movie" ? movieIcon : tvIcon}
-            alt={`${category} icon`}
-          />
-          <span className="text-sm">{category}</span>
-          <span className="text-sm uppercase">{rating}</span>
+            // alt={`${category} icon`}
+          /> */}
+          {/* <span >{category}</span> */}
+          <span className="lowercase">{getScreenTime(runtime)}</span>
+          <span>{genres?.length && genres[0]}</span>
         </div>
-        <span className="text-capitalize text-base font-medium">{title}</span>
+        <span className="text-capitalize text-base font-medium inline-flex gap-1 align-center text-white">
+          <Image className="w-4" src={starIcon} alt="Star icon" />
+          {roundTwoDecimals(voteAverage)}
+        </span>
       </div>
     </div>
   );
 };
 
-const Thumbnail = ({ ...props }: Omit<ThumbnailProps, "onClick">) => {
+const Thumbnail = ({
+  fetchService,
+  ...props
+}: Omit<ThumbnailProps, "onClick">) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [inDetail, setInDetail] = useState(false);
 
@@ -128,7 +132,7 @@ const Thumbnail = ({ ...props }: Omit<ThumbnailProps, "onClick">) => {
   return (
     <div
       ref={cardRef}
-      className={`relative group w-full rounded-lg sm:max-w-auto grow h-fit sm:w-fit sm:max-w-fit`}
+      className={`relative group rounded-lg sm:max-w-auto w-[90%] max-w-[260px] xs:w-full xs:max-w-[40vw] sm:max-w-[initial] sm:w-[25vw] sm:basis-[initial] md:w-[20vw] lg:w-[190px]`}
     >
       <ThumbnailCard {...props} onClick={openDetail} hidden={inDetail} />
       {inDetail && (

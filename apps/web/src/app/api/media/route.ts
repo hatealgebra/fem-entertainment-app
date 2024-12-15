@@ -5,16 +5,33 @@ import { getSearchParam } from "../../../utils";
 import withErrorHandler from "../../../helpers/server/errorHandler";
 import { decryptToken } from "../../../helpers/server/handlingTokens";
 import User from "@repo/db/models/user.ts";
+import {
+  getBestRated,
+  getByGenre,
+  getPlanned,
+  getThisYear,
+  getTrending,
+} from "@repo/db/queries/movies.ts";
+
+const queryTypes = {
+  bestRated: getBestRated(),
+  thisYear: getThisYear(),
+  planned: getPlanned(),
+};
 
 export const GET = withErrorHandler(async (req: NextRequest) => {
   const isTrending = getSearchParam(req, "isTrending");
+  const queryType = getSearchParam(req, "queryType");
   const category = getSearchParam(req, "category");
-  const searchParam = getSearchParam(req, "search")?.trim();
-  const regex = new RegExp(searchParam || "");
+  const genreParam = getSearchParam(req, "genre");
 
   try {
     await dbConnection();
 
+    if (isTrending) {
+      const queryResult = await getTrending();
+      return NextResponse.json({ data: queryResult }, { status: 200 });
+    }
     const accessToken = req.cookies.get("accessToken")?.value;
 
     if (category === "Bookmarked" && accessToken) {
@@ -35,17 +52,20 @@ export const GET = withErrorHandler(async (req: NextRequest) => {
       );
     }
 
-    const media = await Movie.findOne(isTrending ? { isTrending } : {})
-      .find(category ? { category } : {})
-      .find({
-        title: {
-          $regex: regex,
-          $options: "i",
-        },
-      });
+    if (!queryType) {
+      const media = await Movie.find(genreParam ? { genres: genreParam } : {})
+        .limit(20)
+        .exec();
 
+      return NextResponse.json(
+        { data: media, totalLength: media.length },
+        { status: 200 }
+      );
+    }
+
+    const data = await queryTypes[queryType];
     return NextResponse.json(
-      { data: media, totalLength: media.length },
+      { data, totalLength: data.length },
       { status: 200 }
     );
   } catch (e) {

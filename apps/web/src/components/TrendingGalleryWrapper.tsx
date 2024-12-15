@@ -1,34 +1,25 @@
 "use client";
-import { useContext } from "react";
-import { AppContext } from "../state/AppContext";
+import Carousel from "@repo/ui/components/carousel/Carousel.tsx";
+import TrendingCard from "@repo/ui/components/trendingCard/TrendingCard.tsx";
 import useSWR from "swr";
-import TrendingGallery from "@repo/ui/components/galleries/TrendingGallery.tsx";
-import { bookmarkMovie } from "../services/client/user.services";
-import useFetchUser from "../hooks/useFetchUser";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  return res.json();
+};
 
 const TrendingGalleryWrapper = () => {
-  const {
-    data: moviesData,
-    isLoading,
-    error,
-  } = useSWR("/api/media?isTrending=true", fetcher);
-  const { searchString } = useContext(AppContext);
-  const { userData } = useFetchUser();
-
-  if (searchString) {
-    return null;
-  }
+  const { data: moviesData, isLoading } = useSWR(
+    "/api/media?isTrending=true",
+    fetcher
+  );
 
   return (
-    <TrendingGallery
-      moviesData={moviesData}
-      isLoading={isLoading}
-      error={error}
-      handleBookmark={bookmarkMovie}
-      bookmarkedMovies={userData?.bookmarkedMovies}
-    />
+    <Carousel showControls={!isLoading}>
+      {moviesData?.data?.map((movieData) => (
+        <TrendingCard key={movieData.id} {...movieData} />
+      ))}
+    </Carousel>
   );
 };
 

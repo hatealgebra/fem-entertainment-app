@@ -13,6 +13,7 @@
     "@types/mongodb": "^4.0.7",
     "autoprefixer": "^10.4.19",
     "mongoose": "^8.3.1",
+    "msw": "^2.6.6",
     "prettier": "^3.2.5",
     "tailwindcss": "^3.4.3",
     "turbo": "latest"
@@ -26,6 +27,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "react-toastify": "^10.0.5"
+    "react-toastify": "^10.0.5",
+    "swr": "^2.2.5"
   }
 }

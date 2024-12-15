@@ -1,3 +1,5 @@
+const plugin = require("tailwindcss/plugin");
+
 module.exports = {
   content: [
     "../../packages/ui/**/*.{js,ts,jsx,tsx}",
@@ -6,6 +8,7 @@ module.exports = {
   ],
   theme: {
     screens: {
+      xs: "380px",
       sm: "480px",
       md: "768px",
       lg: "976px",
@@ -15,20 +18,25 @@ module.exports = {
       red: "#FC4747",
       black: "#10141E",
       blue: "#5A698F",
+      mediumBlue: "rgba(74, 77, 109, .9)",
       darkBlue: "#161D2F",
       dark: "#10141E",
       white: "#FFFFFF",
+      grayText: "#8A8C93",
+      darkShadow: "#1F1F1F",
     },
     fontFamily: {
       primary: ["Outfit Variable", "sans-serif"],
     },
     fontSize: {
+      xs: "0.75rem",
       sm: "0.8125rem",
       base: "0.9375rem",
       xl: "1.125rem",
       "2xl": "1.5rem",
       "3xl": "1.5rem",
       "4xl": "2rem",
+      "5xl": "2.5rem",
     },
     extend: {
       keyframes: {
@@ -47,4 +55,17 @@ module.exports = {
       },
     },
   },
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        ".remove-scrollbar": {
+          "-ms-overflow-style": "none",
+          "scrollbar-width": "none",
+        },
+        ".remove-scrollbar::-webkit-scrollbar": {
+          display: "none",
+        },
+      });
+    }),
+  ],
 };

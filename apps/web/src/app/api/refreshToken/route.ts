@@ -20,7 +20,7 @@ export const POST = withErrorHandler(async (req: NextRequest) => {
   }
 
   const validRefreshToken = await verifyToken("refresh", refreshToken);
-  console.log({ validRefreshToken });
+
   if (!validRefreshToken) {
     return NextResponse.json(
       {
