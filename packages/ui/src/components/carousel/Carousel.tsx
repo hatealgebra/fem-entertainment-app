@@ -27,25 +27,11 @@ const Carousel = ({ children, showControls }: CarouselProps) => {
     });
   }
 
-  useEffect(() => {
-    const carouselElement = carouselContentRef.current! as HTMLDivElement;
-
-    if (!carouselElement) {
-      return;
-    }
-
-    carouselElement.addEventListener("wheel", (e) => e.preventDefault());
-
-    return () => {
-      carouselElement.removeEventListener("wheel", () => {});
-    };
-  }, []);
-
   return (
     <div className="relative max-w-fit">
       <div
         ref={carouselContentRef}
-        className="flex w-full overflow-x-scroll gap-x-4 remove-scrollbar  max-w-[1200px]"
+        className="flex w-full overflow-hidden gap-x-4 remove-scrollbar  max-w-[1200px]"
       >
         {children}
       </div>
