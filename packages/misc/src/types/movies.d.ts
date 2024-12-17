@@ -1,7 +1,6 @@
 export interface IMovie
   extends Pick<
     IMovieBackend,
-    | "_id"
     | "adult"
     | "budget"
     | "genres"
@@ -15,6 +14,7 @@ export interface IMovie
     | "title"
     | "video"
   > {
+  Id: string;
   imdbId: string;
   originalLanguage: string;
   originalTitle: string;

@@ -49,8 +49,7 @@ const Gallery = ({
               key={movie.title}
               handleBookmark={handleBookmark}
               {...movie}
-              // isTrending={false}
-              isBookmarked={bookmarkedMovies?.includes(movie._id)}
+              isBookmarked={bookmarkedMovies?.includes(movie.Id)}
             />
           ))}
       </div>
