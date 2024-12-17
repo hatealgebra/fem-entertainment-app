@@ -30,15 +30,20 @@ const SearchGallery = ({
         {isLoading &&
           new Array(14)
             .fill("")
-            .map((_) => (
+            .map((_, index) => (
               <div
+                key={`${index} image poster loading`}
                 className={`bg-slate-200 h-[${posterSize.height}px] w-[${posterSize.width}px] animate-pulse`}
               />
             ))}
         {!isLoading &&
           searchResults?.length &&
           searchResults.map((movie) => (
-            <ThumbnailPoster posterSize={posterSize} {...movie} />
+            <ThumbnailPoster
+              key={`${movie.title} poster path`}
+              posterSize={posterSize}
+              {...movie}
+            />
           ))}
         {!isLoading && !searchResults?.length && (
           <h2 className="pt-5 w-full text-center">No movies found</h2>

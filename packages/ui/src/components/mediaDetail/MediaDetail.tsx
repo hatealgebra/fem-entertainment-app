@@ -113,12 +113,13 @@ const MediaDetail = forwardRef(
             <MdClose />
           </button>
           <div
-            className={`relative w-full ${fullscreen && "h-[40%] max-h-[400px]"}`}
+            className={`relative w-full ${fullscreen ? "h-[40%] max-h-[400px]" : "h-auto"}`}
           >
             <Image
               src={getImdbImage(backdropPath)}
-              className={`${fullscreen ? "object-cover" : "object-contain"}`}
+              className={`h-auto ${fullscreen ? "object-cover" : "object-contain"}`}
               alt={`${title} thumbnail`}
+              sizes="(max-width: 500px) 100vw, 1000px"
               fill
               priority
             />

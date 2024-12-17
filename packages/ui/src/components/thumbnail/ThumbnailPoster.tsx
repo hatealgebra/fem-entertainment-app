@@ -38,12 +38,14 @@ const ThumbnailPoster = ({ posterSize, ...props }: ThumbnailPosterProps) => {
           height={posterSize.height}
         />
       </button>
-      <MediaDetail
-        ref={cardRef}
-        isOpen={inDetail}
-        closeDialog={closeDetail}
-        {...props}
-      />
+      {inDetail && (
+        <MediaDetail
+          ref={cardRef}
+          isOpen={inDetail}
+          closeDialog={closeDetail}
+          {...props}
+        />
+      )}
     </>
   );
 };
