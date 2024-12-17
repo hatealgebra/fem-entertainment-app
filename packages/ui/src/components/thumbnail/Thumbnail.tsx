@@ -20,7 +20,7 @@ interface ThumbnailProps extends IMediaDetailUI {
 }
 
 const ThumbnailCard = ({
-  Id: movieId,
+  id: movieId,
   releaseDate,
   title,
   backdropPath,
@@ -34,7 +34,6 @@ const ThumbnailCard = ({
   handleBookmark,
   onClick,
 }: ThumbnailProps) => {
-  console.log({ isBookmarked, movieId });
   const [hover, setHover] = useState(false);
 
   const handleClick = () => {

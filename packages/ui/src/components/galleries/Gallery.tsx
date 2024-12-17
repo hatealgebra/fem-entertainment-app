@@ -12,7 +12,7 @@ export interface GalleryProps extends Pick<SectionProps, "headingText"> {
   error: Error;
   searchString: string | null;
   bookmarkedMovies: string[];
-  handleBookmark: (movieId: string) => Promise<Response>;
+  handleBookmark: () => Promise<Response>;
 }
 
 const Gallery = ({
@@ -49,7 +49,7 @@ const Gallery = ({
               key={movie.title}
               handleBookmark={handleBookmark}
               {...movie}
-              isBookmarked={bookmarkedMovies?.includes(movie.Id)}
+              isBookmarked={bookmarkedMovies?.includes(movie._id)}
             />
           ))}
       </div>
