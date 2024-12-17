@@ -22,7 +22,7 @@ export const POST = withErrorHandler(async (req: NextRequest) => {
       }
     );
   }
-  const pwdsAreMatching = userDoc.comparePassword(password);
+  const pwdsAreMatching = await userDoc.comparePassword(password);
   if (!pwdsAreMatching) {
     return NextResponse.json(
       {

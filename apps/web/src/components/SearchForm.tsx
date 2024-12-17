@@ -22,13 +22,12 @@ const SearchForm = () => {
     type: EActions;
     payload: string;
   }>;
-
   const data = watch();
   const onSubmit = (e: any) => {
     e.preventDefault();
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!formState.isValid && isValidating) {
       return;
     }
