@@ -33,7 +33,7 @@ export const signInUser = async (
 };
 
 export const bookmarkMovie = async (movieId: string) => {
-  const url = "/api/media/bookmark/";
+  const url = "/api/media/bookmark";
 
   const response = await fetch(url, {
     method: "PATCH",
@@ -45,6 +45,7 @@ export const bookmarkMovie = async (movieId: string) => {
     }),
   });
   mutate("/api/user");
+  mutate("api/media?category=bookmarked");
   return response;
 };
 

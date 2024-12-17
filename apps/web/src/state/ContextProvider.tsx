@@ -15,7 +15,7 @@ const transformKeysInObject = (
   data: Record<string, any>
 ): Record<string, any> => {
   const transformedData = Object.entries(data).reduce((acc, [key, value]) => {
-    const newKey = snakeCaseToCamelCase(key);
+    const newKey = key === "_id" ? key : snakeCaseToCamelCase(key);
 
     if (Array.isArray(value)) {
       if (value.length && typeof value[0] === "object") {
@@ -34,6 +34,7 @@ const transformKeysInObject = (
 
     return { ...acc, [newKey]: value };
   }, {});
+
   return transformedData;
 };
 
