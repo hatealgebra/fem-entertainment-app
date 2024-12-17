@@ -18,10 +18,8 @@ const Carousel = ({ children, showControls }: CarouselProps) => {
     setPosition((oldPos) => (oldPos === carouselLength ? oldPos : oldPos + 1));
   };
 
-  if (!carouselContentRef.current) {
-    return null;
-  }
-  const { childNodes } = carouselContentRef.current as HTMLDivElement;
+  const childNodes = (carouselContentRef?.current! as HTMLDivElement)
+    ?.childNodes;
   const carouselLength = childNodes?.length - 1;
 
   if (childNodes) {
@@ -31,10 +29,9 @@ const Carousel = ({ children, showControls }: CarouselProps) => {
       block: "center",
     });
   }
-
   return (
     <div
-      className={`relative min-h-[300px] w-full ${showControls && "max-w-fit"}`}
+      className={`relative min-h-[300px] w-full ${showControls ? "max-w-fit" : "animate-pulse w-full bg-darkBlue rounded-[20px] min-h-[300px] max-w-[1000px] aspect-[.7] xs:aspect-[1.1] sm:aspect-[1.4] sm:max-h-[450px] md:max-h-[500px]"}`}
     >
       <div
         ref={carouselContentRef}
