@@ -15,9 +15,12 @@ const SearchGallery = ({
 }: SearchGalleryProps) => {
   const { width: windowWidth } = useWindowSize();
 
+  const widthPoster = windowWidth < 400 ? windowWidth / 2.5 : 180;
+  const heightPoster = windowWidth < 400 ? windowWidth / 1.5 : 250;
+
   const posterSize = {
-    width: windowWidth > 400 ? 180 : 220,
-    height: windowWidth > 400 ? 270 : 300,
+    width: windowWidth > 350 ? widthPoster : 220,
+    height: windowWidth > 350 ? heightPoster : 300,
   };
 
   return (
@@ -30,9 +33,8 @@ const SearchGallery = ({
         {isLoading &&
           new Array(14)
             .fill("")
-            .map((_, index) => (
+            .map((_) => (
               <div
-                key={`${index} image poster loading`}
                 className={`bg-slate-200 h-[${posterSize.height}px] w-[${posterSize.width}px] animate-pulse`}
               />
             ))}
