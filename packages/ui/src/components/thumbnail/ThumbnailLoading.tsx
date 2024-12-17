@@ -6,7 +6,7 @@ const ThumbnailLoading = ({ isTrending }: ThumbnailLoadingProps) => {
   return (
     <div className="flex flex-col gap-2 [&>*]:animate-pulse [&>*]:bg-darkBlue">
       <div
-        className={`animate-pulse ${isTrending ? "w-[240px] h-[140px] md:w-[470px] md:h-[230px]" : "w-[100%] h-[110px] sm:w-[164px] md:w-[220px] md:h-[140px] lg:w-[280px] lg:h-[226px]"}`}
+        className={`animate-pulse aspect-[2/3] rounded-lg sm:max-w-auto w-[90%] max-w-[260px] xs:w-full xs:max-w-[40vw] sm:max-w-[initial] sm:w-[25vw] sm:basis-[initial] md:w-[20vw] lg:w-[190px]`}
       />
       {!isTrending && (
         <>

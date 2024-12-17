@@ -1,7 +1,6 @@
 import { IMovie } from "@repo/misc/types/movies.js";
-import Image from "next/image";
-import { getImdbImage } from "../../helpers/image.helpers";
 import useWindowSize from "../../hooks/useWindowSize";
+import ThumbnailPoster from "../thumbnail/ThumbnailPoster";
 
 interface SearchGalleryProps {
   isLoading: boolean;
@@ -38,15 +37,8 @@ const SearchGallery = ({
             ))}
         {!isLoading &&
           searchResults?.length &&
-          searchResults.map(({ posterPath, originalTitle }) => (
-            <Image
-              key={posterPath}
-              src={getImdbImage(posterPath)}
-              sizes={`${posterSize.width}px`}
-              alt={`${originalTitle} poster path`}
-              width={posterSize.width}
-              height={posterSize.height}
-            />
+          searchResults.map((movie) => (
+            <ThumbnailPoster posterSize={posterSize} {...movie} />
           ))}
         {!isLoading && !searchResults?.length && (
           <h2 className="pt-5 w-full text-center">No movies found</h2>

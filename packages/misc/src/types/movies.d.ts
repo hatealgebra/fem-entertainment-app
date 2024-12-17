@@ -29,7 +29,7 @@ export interface IMovie
 }
 
 export interface IMovieBackend {
-  _id: string;
+  _id: any;
   adult: boolean;
   budget: number;
   genres: string[];

@@ -5,14 +5,12 @@ import Link from "next/link";
 
 import iconNavHome from "@icons/assets/icons/icon-nav-home.svg";
 import iconNavMovies from "@icons/assets/icons/icon-nav-movies.svg";
-import iconNavTv from "@icons/assets/icons/icon-nav-tv-series.svg";
 import iconNavBookmark from "@icons/assets/icons/icon-nav-bookmark.svg";
 import { NAV_PATHS } from "@repo/misc/constants";
 
 const navigationIcons: Record<keyof typeof NAV_PATHS, string> = {
   HOME: iconNavHome,
   MOVIES: iconNavMovies,
-  TV_SERIES: iconNavTv,
   BOOKMARKED: iconNavBookmark,
 };
 

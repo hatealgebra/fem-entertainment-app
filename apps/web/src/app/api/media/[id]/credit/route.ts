@@ -45,11 +45,10 @@ export const POST = withErrorHandler(
       _id,
       cast,
       crew,
-      ...rest,
     };
 
     await new Credit(docObject).save();
-    console.log("prompted");
+
     return NextResponse.json({ data: docObject }, { status: 200 });
   }
 );

@@ -3,9 +3,10 @@
 import Image from "next/image";
 import PlayButton from "../button/PlayButton";
 import useWindowSize from "../../hooks/useWindowSize";
-import { ReactNode } from "react";
+import { ReactNode, RefObject, useRef, useState } from "react";
 import { IMovie } from "@repo/misc/types/movies.js";
 import { getImdbImage } from "../../helpers/image.helpers";
+import MediaDetail from "../mediaDetail/MediaDetail";
 
 const TrendingCardWrapper = ({
   children,
@@ -19,15 +20,29 @@ const TrendingCardWrapper = ({
   </div>
 );
 
-interface TrendingCardProps extends IMovie {}
+interface TrendingCardProps extends IMovie {
+  isLoading: boolean;
+}
 
 const TrendingCard = ({
   title,
   genres,
   backdropPath,
   tagline,
+  ...props
 }: TrendingCardProps) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [inDetail, setInDetail] = useState(false);
   const { width: windowWidth } = useWindowSize();
+
+  const closeDetail = (ref: RefObject<HTMLDialogElement>) => {
+    if (!ref.current) {
+      return;
+    }
+
+    ref.current.close();
+    setInDetail(false);
+  };
 
   return (
     <TrendingCardWrapper windowWidth={!!windowWidth}>
@@ -62,7 +77,7 @@ const TrendingCard = ({
             />
             <PlayButton
               className="pl-5 pr-6 sm:pl-8 sm:pr-9"
-              onClick={() => {}}
+              onClick={() => setInDetail(true)}
               text="Trailer"
               isSmall
               themeKey="outline"
@@ -71,12 +86,24 @@ const TrendingCard = ({
         </div>
       </div>
       <Image
-        className="absolute object-cover object-left"
+        className="absolute object-cover object-left-center"
         src={getImdbImage(backdropPath)}
-        objectPosition="center"
+        priority
         fill
         alt={title}
       />
+      {inDetail && (
+        <MediaDetail
+          ref={cardRef}
+          isOpen={inDetail}
+          closeDialog={closeDetail}
+          title={title}
+          genres={genres}
+          backdropPath={backdropPath}
+          tagline={tagline}
+          {...props}
+        />
+      )}
     </TrendingCardWrapper>
   );
 };

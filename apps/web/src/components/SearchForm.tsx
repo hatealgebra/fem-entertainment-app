@@ -44,6 +44,10 @@ const SearchForm = () => {
     reset();
   }, [pathname]);
 
+  if (pathname.includes("bookmarked")) {
+    return null;
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="h-fit z-0">
       <SearchInput

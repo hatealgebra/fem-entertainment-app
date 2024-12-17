@@ -13,12 +13,19 @@ const TrendingGalleryWrapper = () => {
     "/api/media?isTrending=true",
     fetcher
   );
-
   return (
     <Carousel showControls={!isLoading}>
-      {moviesData?.data?.map((movieData) => (
-        <TrendingCard key={movieData.id} {...movieData} />
-      ))}
+      {isLoading && (
+        <div className="animate-pulse w-full bg-darkBlue rounded-[20px] min-h-[300px] max-w-[1000px] aspect-[.7] xs:aspect-[1.1] sm:aspect-[1.4] sm:max-h-[450px] md:max-h-[500px]"></div>
+      )}
+      {!isLoading &&
+        moviesData?.data?.map((movieData) => (
+          <TrendingCard
+            key={movieData.id}
+            isLoading={isLoading}
+            {...movieData}
+          />
+        ))}
     </Carousel>
   );
 };

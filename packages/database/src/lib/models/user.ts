@@ -30,10 +30,12 @@ export const UserSchema = new Schema<TUser & IMongooseGeneric>(
       default: Date.now,
       immutable: true,
     },
-    bookmarkedMovies: {
-      type: Array<mongoose.Schema.Types.ObjectId>,
-      ref: "Movie",
-    },
+    bookmarkedMovies: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Movie",
+      },
+    ],
     updatedAt: {
       type: Date,
       default: Date.now,

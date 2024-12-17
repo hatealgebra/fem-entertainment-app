@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  DialogHTMLAttributes,
-  MouseEvent,
-  MouseEventHandler,
-  Ref,
-  RefObject,
-  useRef,
-  useState,
-} from "react";
+import { RefObject, useRef, useState } from "react";
 import Image from "next/image";
 import { IMediaDetailUI } from "@repo/misc/types/components.d.ts";
 
@@ -28,9 +20,8 @@ interface ThumbnailProps extends IMediaDetailUI {
 }
 
 const ThumbnailCard = ({
-  _id: movieId,
+  id: movieId,
   releaseDate,
-  // isTrending = false,
   title,
   backdropPath,
   posterPath,
@@ -38,19 +29,16 @@ const ThumbnailCard = ({
   originalLanguage,
   genres,
   voteAverage,
-  isTrending = false,
   isTouch,
   isBookmarked = false,
   handleBookmark,
   onClick,
 }: ThumbnailProps) => {
   const [hover, setHover] = useState(false);
-  // const imageParentFolder = isTrending ? "trending" : "regular";
 
   const handleClick = () => {
     onClick();
   };
-
   return (
     <div
       className="h-full w-full"
@@ -84,19 +72,9 @@ const ThumbnailCard = ({
           />
         </button>
       </div>
-      <div
-        onClick={handleClick}
-        // className={`flex flex-col ${isTrending ? "absolute bottom-4 left-4" : "mt-2"}`}
-      >
+      <div onClick={handleClick}>
         <div className="flex items-center text-sm gap-x-2.5 text-white text-opacity-75 pt-2 max-w-full text-wrap">
           <span>{getYearFromUTC(releaseDate)}</span>
-          {/* <Image
-            // src={category === "Movie" ? movieIcon : tvIcon}
-            src={movieIcon}
-            className="w-3 aspect-square"
-            // alt={`${category} icon`}
-          /> */}
-          {/* <span >{category}</span> */}
           <span className="lowercase">{getScreenTime(runtime)}</span>
           <span>{genres?.length && genres[0]}</span>
         </div>
@@ -115,7 +93,6 @@ const Thumbnail = ({
 }: Omit<ThumbnailProps, "onClick">) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [inDetail, setInDetail] = useState(false);
-
   const openDetail = () => {
     setInDetail(true);
   };

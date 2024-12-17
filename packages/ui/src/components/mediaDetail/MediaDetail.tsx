@@ -13,7 +13,7 @@ import { getImdbImage } from "../../helpers/image.helpers";
 import { getScreenTime, getYearFromUTC } from "@repo/misc/utils/date.utils.ts";
 import useWindowSize from "../../hooks/useWindowSize";
 import { roundTwoDecimals } from "@repo/misc/utils/math.utils.ts";
-import useSWR, { BareFetcher, SWRConfiguration } from "swr";
+import useSWR from "swr";
 
 interface MediaDetailProps extends Omit<IMediaDetailUI, "isTrending"> {
   isOpen: boolean;
@@ -46,13 +46,11 @@ const MediaDetail = forwardRef(
   ) => {
     const dialogRef = useRef<HTMLDialogElement>(null);
     const [fullscreen, setFullscreen] = useState(false);
-    const [creditData, setCreditData] = useState({ cast: [], crew: [] });
     const { width: windowWidth } = useWindowSize();
-    const fetchCreditUrl = `/api/media/${imdbId}/credit/`;
+    const fetchCreditUrl = `/api/media/${imdbId}/credit`;
 
-    const { isLoading } = useSWR(fetchCreditUrl, fetcher, {
-      onSuccess: (dataResponse) => setCreditData(dataResponse),
-    });
+    const { isLoading, data: creditData } = useSWR(fetchCreditUrl, fetcher);
+
     const closeDialogHandler = () => {
       dialogRef.current?.close();
       setFullscreen(false);
@@ -107,14 +105,21 @@ const MediaDetail = forwardRef(
           className={`fixed rounded-lg translate-x-[-50%] translate-y-[-50%] overflow-y-hidden transition-all duration-700 bg-opacity-0 overflow-hidden  bg-darkBlue text-white max-w-[560px] max-h-[800px] mx-auto ${fullscreen && "bg-opacity-100 m-auto shadow-sm shadow-[black] overflow-y-scroll"}`}
           style={stylesConfig}
         >
+          <button
+            className="bg-white text-black p-2 rounded-full absolute top-5 right-5 z-20"
+            onClick={closeDialogHandler}
+          >
+            <MdClose />
+          </button>
           <div
             className={`relative w-full ${fullscreen && "h-[40%] max-h-[400px]"}`}
           >
             <Image
               src={getImdbImage(backdropPath)}
+              className={`${fullscreen ? "object-cover" : "object-contain"}`}
               alt={`${title} thumbnail`}
               fill
-              objectFit={fullscreen ? "cover" : "contain"}
+              priority
             />
           </div>
           <div
@@ -124,12 +129,6 @@ const MediaDetail = forwardRef(
              ${fullscreen && "opacity-100"}
               `}
           >
-            <button
-              className="bg-white text-black p-2 rounded-full absolute top-5 right-5 z-20"
-              onClick={closeDialogHandler}
-            >
-              <MdClose />
-            </button>
             {windowWidth > 450 && (
               <Image
                 src={getImdbImage(posterPath)}
@@ -143,7 +142,7 @@ const MediaDetail = forwardRef(
                 {title}
               </h1>
               <ul className="text-xs mx-auto pt-2 flex gap-2">
-                {genres.map((genre) => (
+                {genres.slice(0, 3).map((genre) => (
                   <li
                     className="bg-blue bg-opacity-90 px-4 py-1 rounded-full"
                     key={genre}
@@ -185,18 +184,24 @@ const MediaDetail = forwardRef(
           </div>
           <div className="overflow-x-auto  relative">
             <h2 className="font-medium pl-[5%]">Cast</h2>
-            <div className="flex gap-x-2 overflow-x-scroll py-3 px-[5%] remove-scrollbar snap-center">
+            <div className="flex gap-x-2 overflow-x-scroll  py-3 px-[5%] remove-scrollbar snap-center">
               {!isLoading &&
-                creditData?.cast?.length &&
-                creditData.cast.map((actor) => {
+                creditData?.data?.cast?.map((actor) => {
                   return (
-                    <div className="flex-none text-center" key={actor.id}>
+                    <div
+                      className="flex-none w-[170px] text-center"
+                      key={actor.id}
+                    >
                       <Image
-                        className="!relative h-[200px] object-cover brightness-90"
-                        src={getImdbImage(actor.profile_path)}
+                        className="!relative object-cover brightness-90"
+                        src={getImdbImage(actor.profilePath)}
+                        placeholder="blur"
+                        blurDataURL={
+                          "https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_3840,h_2160/c_fill,w_1080,ar_16:9,f_auto,q_auto,g_auto/images%2FvoltaxMediaLibrary%2Fmmsport%2Fmentalfloss%2F01gw0bst2k1bt9nz1g6k.jpg"
+                        }
                         alt={actor.name}
-                        width={200}
-                        height={300}
+                        width={170}
+                        height={255}
                       />
                       <p className="text-md pt-2">{actor.name}</p>
                       <p className="text-sm text-[gainsboro]">
@@ -205,9 +210,6 @@ const MediaDetail = forwardRef(
                     </div>
                   );
                 })}
-            </div>
-            <div>
-              <div></div>
             </div>
           </div>
         </div>

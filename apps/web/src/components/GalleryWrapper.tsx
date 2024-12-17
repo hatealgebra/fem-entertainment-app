@@ -9,7 +9,7 @@ import useFetchUser from "../hooks/useFetchUser";
 import useSWR from "swr";
 
 interface GalleryWrapperProps extends Pick<GalleryProps, "headingText"> {
-  queryParams: string;
+  queryParams?: string;
 }
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
