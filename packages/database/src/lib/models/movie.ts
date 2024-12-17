@@ -1,7 +1,7 @@
 import mongoose, { Schema, model } from "mongoose";
 import { IMovieBackend } from "@repo/misc/types/movies.d.ts";
 const MovieSchema = new Schema<IMovieBackend>({
-  _id: String,
+  _id: { name: String, type: mongoose.Schema.Types.ObjectId },
   adult: Boolean,
   budget: Number,
   genres: Array,
