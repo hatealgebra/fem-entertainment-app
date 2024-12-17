@@ -13,7 +13,7 @@ import { getImdbImage } from "../../helpers/image.helpers";
 import { getScreenTime, getYearFromUTC } from "@repo/misc/utils/date.utils.ts";
 import useWindowSize from "../../hooks/useWindowSize";
 import { roundTwoDecimals } from "@repo/misc/utils/math.utils.ts";
-import useSWR, { BareFetcher, SWRConfiguration } from "swr";
+import useSWR from "swr";
 
 interface MediaDetailProps extends Omit<IMediaDetailUI, "isTrending"> {
   isOpen: boolean;
@@ -46,13 +46,11 @@ const MediaDetail = forwardRef(
   ) => {
     const dialogRef = useRef<HTMLDialogElement>(null);
     const [fullscreen, setFullscreen] = useState(false);
-    const [creditData, setCreditData] = useState({ cast: [], crew: [] });
     const { width: windowWidth } = useWindowSize();
-    const fetchCreditUrl = `/api/media/${imdbId}/credit/`;
+    const fetchCreditUrl = `/api/media/${imdbId}/credit`;
 
-    const { isLoading } = useSWR(fetchCreditUrl, fetcher, {
-      onSuccess: (dataResponse) => setCreditData(dataResponse),
-    });
+    const { isLoading, data: creditData } = useSWR(fetchCreditUrl, fetcher);
+
     const closeDialogHandler = () => {
       dialogRef.current?.close();
       setFullscreen(false);
@@ -143,7 +141,7 @@ const MediaDetail = forwardRef(
                 {title}
               </h1>
               <ul className="text-xs mx-auto pt-2 flex gap-2">
-                {genres.map((genre) => (
+                {genres.slice(0, 3).map((genre) => (
                   <li
                     className="bg-blue bg-opacity-90 px-4 py-1 rounded-full"
                     key={genre}
@@ -185,18 +183,24 @@ const MediaDetail = forwardRef(
           </div>
           <div className="overflow-x-auto  relative">
             <h2 className="font-medium pl-[5%]">Cast</h2>
-            <div className="flex gap-x-2 overflow-x-scroll py-3 px-[5%] remove-scrollbar snap-center">
+            <div className="flex gap-x-2 overflow-x-scroll  py-3 px-[5%] remove-scrollbar snap-center">
               {!isLoading &&
-                creditData?.cast?.length &&
-                creditData.cast.map((actor) => {
+                creditData?.data?.cast?.map((actor) => {
                   return (
-                    <div className="flex-none text-center" key={actor.id}>
+                    <div
+                      className="flex-none w-[170px] text-center"
+                      key={actor.id}
+                    >
                       <Image
-                        className="!relative h-[200px] object-cover brightness-90"
-                        src={getImdbImage(actor.profile_path)}
+                        className="!relative object-cover brightness-90"
+                        src={getImdbImage(actor.profilePath)}
+                        placeholder="blur"
+                        blurDataURL={
+                          "https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_3840,h_2160/c_fill,w_1080,ar_16:9,f_auto,q_auto,g_auto/images%2FvoltaxMediaLibrary%2Fmmsport%2Fmentalfloss%2F01gw0bst2k1bt9nz1g6k.jpg"
+                        }
                         alt={actor.name}
-                        width={200}
-                        height={300}
+                        width={170}
+                        height={255}
                       />
                       <p className="text-md pt-2">{actor.name}</p>
                       <p className="text-sm text-[gainsboro]">
