@@ -28,7 +28,9 @@ const Carousel = ({ children, showControls }: CarouselProps) => {
   }
 
   return (
-    <div className="relative max-w-fit">
+    <div
+      className={`relative min-h-[300px] w-full ${showControls && "max-w-fit"}`}
+    >
       <div
         ref={carouselContentRef}
         className="flex w-full overflow-hidden gap-x-4 remove-scrollbar  max-w-[1200px]"

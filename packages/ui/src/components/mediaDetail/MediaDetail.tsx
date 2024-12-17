@@ -105,6 +105,12 @@ const MediaDetail = forwardRef(
           className={`fixed rounded-lg translate-x-[-50%] translate-y-[-50%] overflow-y-hidden transition-all duration-700 bg-opacity-0 overflow-hidden  bg-darkBlue text-white max-w-[560px] max-h-[800px] mx-auto ${fullscreen && "bg-opacity-100 m-auto shadow-sm shadow-[black] overflow-y-scroll"}`}
           style={stylesConfig}
         >
+          <button
+            className="bg-white text-black p-2 rounded-full absolute top-5 right-5 z-20"
+            onClick={closeDialogHandler}
+          >
+            <MdClose />
+          </button>
           <div
             className={`relative w-full ${fullscreen && "h-[40%] max-h-[400px]"}`}
           >
@@ -123,12 +129,6 @@ const MediaDetail = forwardRef(
              ${fullscreen && "opacity-100"}
               `}
           >
-            <button
-              className="bg-white text-black p-2 rounded-full absolute top-5 right-5 z-20"
-              onClick={closeDialogHandler}
-            >
-              <MdClose />
-            </button>
             {windowWidth > 450 && (
               <Image
                 src={getImdbImage(posterPath)}
@@ -210,9 +210,6 @@ const MediaDetail = forwardRef(
                     </div>
                   );
                 })}
-            </div>
-            <div>
-              <div></div>
             </div>
           </div>
         </div>

@@ -20,7 +20,9 @@ const TrendingCardWrapper = ({
   </div>
 );
 
-interface TrendingCardProps extends IMovie {}
+interface TrendingCardProps extends IMovie {
+  isLoading: boolean;
+}
 
 const TrendingCard = ({
   title,
