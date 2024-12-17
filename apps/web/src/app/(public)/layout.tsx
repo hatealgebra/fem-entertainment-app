@@ -3,6 +3,7 @@ import ContextProvider from "../../state/ContextProvider";
 import LogoIcon from "@icons/assets/icons/logo.svg";
 import Image from "next/image";
 import ToastComponent from "../../components/ToastComponent";
+import CookiesConsent from "@repo/ui/components/cookiesConsent/CookiesConsent.tsx";
 
 export default function RootLayout({
   children,
@@ -28,6 +29,7 @@ export default function RootLayout({
             </div>
           </main>
           <ToastComponent />
+          <CookiesConsent />
         </body>
       </ContextProvider>
     </html>
