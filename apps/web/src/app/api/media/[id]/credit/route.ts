@@ -45,7 +45,6 @@ export const POST = withErrorHandler(
       _id,
       cast,
       crew,
-      ...rest,
     };
 
     await new Credit(docObject).save();
