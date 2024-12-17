@@ -7,7 +7,6 @@ import { decryptToken } from "../../../helpers/server/handlingTokens";
 import User from "@repo/db/models/user.ts";
 import {
   getBestRated,
-  getByGenre,
   getPlanned,
   getThisYear,
   getTrending,
@@ -34,7 +33,7 @@ export const GET = withErrorHandler(async (req: NextRequest) => {
     }
     const accessToken = req.cookies.get("accessToken")?.value;
 
-    if (category === "Bookmarked" && accessToken) {
+    if (category === "bookmarked" && accessToken) {
       const accessToken = req.cookies.get("accessToken")?.value;
       const tokenPayload = await decryptToken(accessToken!);
       const { id: email } = tokenPayload;
