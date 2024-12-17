@@ -82,7 +82,6 @@ const MediaDetail = forwardRef(
       ? {
           width: "90vw",
           height: "90vh",
-          aspectRatio: "16/9",
           left: "50%",
           top: "50%",
         }

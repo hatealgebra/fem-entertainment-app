@@ -13,7 +13,7 @@ const ArrowButton = ({
 }: ArrowButtonProps) => {
   return (
     <button
-      className={`${direction === "right" && "rotate-180"} aspect-square ${active ? "bg-mediumBlue" : "bg-grayText"} inline-flex justify-center items-center items w-10 p-2 md:w-14 md:p-3 rounded-full hover:cursor-pointer`}
+      className={`${direction === "right" && "rotate-180"} aspect-square ${active ? "bg-mediumBlue" : "bg-grayText"} aspect-square inline-flex justify-center items-center items w-10 h-10 p-2 md:w-14 md:h-14 md:p-3 rounded-full hover:cursor-pointer`}
       onClick={onClick}
     >
       <MdOutlineArrowBackIosNew size="75%" />
