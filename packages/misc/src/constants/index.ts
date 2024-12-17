@@ -3,7 +3,6 @@ export enum APP_PATHS {
   LOGIN = "/login",
   REGISTER = "/register",
   MOVIES = "/movies",
-  TV_SERIES = "/tv-series",
   BOOKMARKED = "/bookmarked",
 }
 
