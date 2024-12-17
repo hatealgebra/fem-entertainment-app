@@ -20,7 +20,7 @@ const queryTypes = {
 
 export const GET = withErrorHandler(async (req: NextRequest) => {
   const isTrending = getSearchParam(req, "isTrending");
-  const queryType = getSearchParam(req, "queryType");
+  const queryType = getSearchParam(req, "queryType") as keyof typeof queryTypes;
   const category = getSearchParam(req, "category");
   const genreParam = getSearchParam(req, "genre");
 

@@ -2,7 +2,7 @@ import { MdOutlineArrowBackIosNew } from "react-icons/md";
 
 interface ArrowButtonProps {
   onClick: () => void;
-  direction: "left" | "right";
+  direction?: "left" | "right";
   active?: boolean;
 }
 

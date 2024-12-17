@@ -9,6 +9,7 @@ import {
   ForwardedRef,
   RefObject,
 } from "react";
+import { ICast } from "@repo/misc/types/credit.d.ts";
 import { getImdbImage } from "../../helpers/image.helpers";
 import { getScreenTime, getYearFromUTC } from "@repo/misc/utils/date.utils.ts";
 import useWindowSize from "../../hooks/useWindowSize";
@@ -186,7 +187,7 @@ const MediaDetail = forwardRef(
             <h2 className="font-medium pl-[5%]">Cast</h2>
             <div className="flex gap-x-2 overflow-x-scroll  py-3 px-[5%] remove-scrollbar snap-center">
               {!isLoading &&
-                creditData?.data?.cast?.map((actor) => {
+                creditData?.data?.cast?.map((actor: ICast) => {
                   return (
                     <div
                       className="flex-none w-[170px] text-center"

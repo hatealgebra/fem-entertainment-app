@@ -9,8 +9,6 @@ interface CarouselProps {
 const Carousel = ({ children, showControls }: CarouselProps) => {
   const carouselContentRef = useRef(null);
   const [position, setPosition] = useState<number>(0);
-  const childNodes = carouselContentRef?.current?.childNodes;
-  const carouselLength = childNodes?.length - 1;
 
   const scrollLeft = () => {
     setPosition((oldPos) => (!oldPos ? 0 : oldPos - 1));
@@ -20,8 +18,15 @@ const Carousel = ({ children, showControls }: CarouselProps) => {
     setPosition((oldPos) => (oldPos === carouselLength ? oldPos : oldPos + 1));
   };
 
+  if (!carouselContentRef.current) {
+    return null;
+  }
+  const { childNodes } = carouselContentRef.current as HTMLDivElement;
+  const carouselLength = childNodes?.length - 1;
+
   if (childNodes) {
-    childNodes[position]?.scrollIntoView({
+    const cardElement = childNodes[position] as HTMLDivElement;
+    cardElement?.scrollIntoView({
       behavior: "smooth",
       block: "center",
     });

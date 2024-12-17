@@ -13,20 +13,19 @@ import { getImdbImage } from "../../helpers/image.helpers";
 import { BareFetcher, SWRConfiguration } from "swr";
 import PlayButton from "../button/PlayButton";
 
-interface ThumbnailProps extends IMediaDetailUI {
+interface ThumbnailProps extends Omit<IMediaDetailUI, "handleBookmark"> {
   onClick: () => void;
   hidden?: boolean;
   fetchService?: SWRConfiguration<any, any, BareFetcher<any>>;
+  handleBookmark: (movieId: number) => Promise<Response>;
 }
 
 const ThumbnailCard = ({
   id: movieId,
   releaseDate,
   title,
-  backdropPath,
   posterPath,
   runtime,
-  originalLanguage,
   genres,
   voteAverage,
   isTouch,
@@ -65,7 +64,7 @@ const ThumbnailCard = ({
         )}
         <button
           className={`absolute right-2 top-2 group w-8 aspect-square bg-[#979797] rounded-full flex justify-center items-center hover:scale-125}`}
-          onClick={() => handleBookmark(movieId, isBookmarked)}
+          onClick={() => handleBookmark(movieId)}
         >
           <BookmarkIcon
             className={`${!isBookmarked && "fill-none stroke-white"} ${isBookmarked && "stroke-white fill-white"}`}
@@ -87,10 +86,7 @@ const ThumbnailCard = ({
   );
 };
 
-const Thumbnail = ({
-  fetchService,
-  ...props
-}: Omit<ThumbnailProps, "onClick">) => {
+const Thumbnail = ({ ...props }: Omit<ThumbnailProps, "onClick">) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [inDetail, setInDetail] = useState(false);
   const openDetail = () => {

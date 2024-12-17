@@ -3,7 +3,7 @@
 import Section from "@repo/ui/components/sections/Section.tsx";
 import GalleryWrapper from "../../../components/GalleryWrapper";
 import { possibleGenres } from "../../../helpers/client/filterParams.helper";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, MouseEvent, SetStateAction, useState } from "react";
 
 interface SelectGenresProps {
   selectValue: string | null;
@@ -23,8 +23,8 @@ const SelectGenres = ({
     setOpen((prev) => !prev);
   };
 
-  const choseOption = (e) => {
-    const value = e.target.value;
+  const choseOption = (e: MouseEvent<HTMLButtonElement>) => {
+    const { value } = e.target as HTMLButtonElement;
 
     if (!value) {
       return;
