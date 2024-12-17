@@ -42,7 +42,7 @@ export interface IMovieBackend {
   poster_path: string;
   production_companies: IProductionCompany[];
   production_countries: IProductionCountry[];
-  release_date: string;
+  release_date: Date;
   revenue: number;
   runtime: number;
   spoken_languages: ISpokenLanguage[];

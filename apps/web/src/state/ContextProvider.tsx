@@ -9,7 +9,6 @@ import {
 import appReducer from "./appReducer";
 import { Middleware, SWRConfig, SWRHook } from "swr";
 import { snakeCaseToCamelCase } from "../utils";
-// Rewrite
 
 const transformKeysInObject = (
   data: Record<string, any>
@@ -45,6 +44,7 @@ const swrMiddleware: Middleware =
       return swr;
     }
 
+    // @ts-ignore
     const data = swr.data.data || swr.data;
     if (data.length && typeof data[0] === "object") {
       const transformedKeys = transformKeysInObject(data);

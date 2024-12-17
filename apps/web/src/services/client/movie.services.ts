@@ -5,7 +5,7 @@ export const getMovieCredit = async (url: string) => {
   return response;
 };
 
-export const bookmarkMovie = async (movieId: string) => {
+export const bookmarkMovie = async (movieId: number) => {
   const url = "/api/media/bookmark/";
 
   const response = await fetch(url, {

@@ -1,4 +1,5 @@
 "use client";
+import { IMovie } from "@repo/misc/types/movies.js";
 import Carousel from "@repo/ui/components/carousel/Carousel.tsx";
 import TrendingCard from "@repo/ui/components/trendingCard/TrendingCard.tsx";
 import useSWR from "swr";
@@ -19,7 +20,7 @@ const TrendingGalleryWrapper = () => {
         <div className="animate-pulse w-full bg-darkBlue rounded-[20px] min-h-[300px] max-w-[1000px] aspect-[.7] xs:aspect-[1.1] sm:aspect-[1.4] sm:max-h-[450px] md:max-h-[500px]"></div>
       )}
       {!isLoading &&
-        moviesData?.data?.map((movieData) => (
+        moviesData?.data?.map((movieData: IMovie) => (
           <TrendingCard
             key={movieData.id}
             isLoading={isLoading}

@@ -24,7 +24,7 @@ const SearchForm = () => {
   }>;
 
   const data = watch();
-  const onSubmit = (e) => {
+  const onSubmit = (e: any) => {
     e.preventDefault();
   };
 
