@@ -110,9 +110,10 @@ const MediaDetail = forwardRef(
           >
             <Image
               src={getImdbImage(backdropPath)}
+              className={`${fullscreen ? "object-cover" : "object-contain"}`}
               alt={`${title} thumbnail`}
               fill
-              objectFit={fullscreen ? "cover" : "contain"}
+              priority
             />
           </div>
           <div
