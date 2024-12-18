@@ -17,6 +17,7 @@ const TrendingGalleryWrapper = () => {
   return (
     <Carousel showControls={!isLoading}>
       {!isLoading &&
+        moviesData?.data?.length &&
         moviesData?.data?.map((movieData: IMovie) => (
           <TrendingCard
             key={movieData.id}

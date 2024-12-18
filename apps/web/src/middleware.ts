@@ -8,12 +8,9 @@ const publicPaths = ["login", "signup"];
 export const middleware = async (request: NextRequest) => {
   const { pathname } = request.nextUrl;
 
-  const isPublic = publicPaths.some((path) => pathname.includes(path));
   const isApi = pathname.includes("/api");
-
-  if (isPublic) {
-    return NextResponse.next();
-  }
+  const isPublic =
+    !isApi && publicPaths.some((path) => pathname.includes(path));
 
   const accessToken = request.cookies.get("accessToken");
   const refreshToken = request.cookies.get("refreshToken");
@@ -36,6 +33,11 @@ export const middleware = async (request: NextRequest) => {
     });
   }
 
+  !isApi && console.log(isAuth, pathname);
+  if (!isPublic && !isApi && !isAuth) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
   if (
     isApi &&
     !pathname.includes("refreshToken") &&
@@ -47,6 +49,7 @@ export const middleware = async (request: NextRequest) => {
   }
 
   if (isAuth && isPublic) {
+    console.log("prompted");
     return NextResponse.redirect(new URL("/", request.url));
   }
   return responseNext;
