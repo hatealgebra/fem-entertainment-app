@@ -38,15 +38,12 @@ export const middleware = async (request: NextRequest) => {
 
   if (
     isApi &&
+    !pathname.includes("refreshToken") &&
     !pathname.includes(publicPaths[0]!) &&
     !pathname.includes(publicPaths[1]!) &&
     !isAuth
   ) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-  }
-
-  if (!isAuth && !isPublic) {
-    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   if (isAuth && isPublic) {
