@@ -36,8 +36,13 @@ export const middleware = async (request: NextRequest) => {
     });
   }
 
-  if (isApi) {
-    return responseNext;
+  if (
+    isApi &&
+    !pathname.includes(publicPaths[0]!) &&
+    !pathname.includes(publicPaths[1]!) &&
+    !isAuth
+  ) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
   if (!isAuth && !isPublic) {
