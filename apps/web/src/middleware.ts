@@ -20,6 +20,7 @@ export const middleware = async (request: NextRequest) => {
     (await authResponse) instanceof Error || authResponse.status !== 200
   );
 
+  console.log({ pathname, isPublic, isApi, isAuth });
   if (isAuth) {
     const accessTokenValue = authResponse.headers
       .getSetCookie()
@@ -33,18 +34,11 @@ export const middleware = async (request: NextRequest) => {
     });
   }
 
-  !isApi && console.log(isAuth, pathname);
   if (!isPublic && !isApi && !isAuth) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (
-    isApi &&
-    !pathname.includes("refreshToken") &&
-    !pathname.includes(publicPaths[0]!) &&
-    !pathname.includes(publicPaths[1]!) &&
-    !isAuth
-  ) {
+  if (isApi && !isAuth) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
@@ -56,5 +50,12 @@ export const middleware = async (request: NextRequest) => {
 };
 
 export const config = {
-  matcher: ["/api/:path*", "/", "/login", "/signup", "/bookmarked"],
+  matcher: [
+    "/api/user",
+    "/api/media/:path*",
+    "/",
+    "/login",
+    "/signup",
+    "/bookmarked",
+  ],
 };
